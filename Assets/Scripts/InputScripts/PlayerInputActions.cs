@@ -30,9 +30,36 @@ namespace InputScripts
             ""id"": ""24034119-96d2-49e7-9a95-a8d654e060b4"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
+                    ""name"": ""ThrottleAct"",
                     ""type"": ""Button"",
                     ""id"": ""61ee47d0-7a85-4101-8b0d-7b85a2faa9b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightAct"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ccd9063-aa18-4704-ab7a-7bb102ffa1fe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftAct"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b2b60b7-96e4-4666-ba94-8dc48db1230f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BrakeAct"",
+                    ""type"": ""Button"",
+                    ""id"": ""27656699-eed7-4e76-a48b-b14bcfe86e96"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -44,10 +71,43 @@ namespace InputScripts
                     ""name"": """",
                     ""id"": ""6df1c95e-f0c3-4538-85ee-228a337b7bd5"",
                     ""path"": ""<Keyboard>/w"",
-                    ""interactions"": ""Hold(duration=1)"",
+                    ""interactions"": ""Hold(duration=0.7)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""ThrottleAct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c60dd46-49af-4c05-82d0-54a1fbe258d1"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": ""Hold(duration=0.2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftAct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a7d8e75-139d-4413-8eb6-07b2a59ad229"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": ""Hold(duration=0.2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightAct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d5fe298-0a57-40d9-b38c-d91e22f15b73"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BrakeAct"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -58,7 +118,10 @@ namespace InputScripts
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+            m_Player_ThrottleAct = m_Player.FindAction("ThrottleAct", throwIfNotFound: true);
+            m_Player_RightAct = m_Player.FindAction("RightAct", throwIfNotFound: true);
+            m_Player_LeftAct = m_Player.FindAction("LeftAct", throwIfNotFound: true);
+            m_Player_BrakeAct = m_Player.FindAction("BrakeAct", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -118,12 +181,18 @@ namespace InputScripts
         // Player
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
-        private readonly InputAction m_Player_Movement;
+        private readonly InputAction m_Player_ThrottleAct;
+        private readonly InputAction m_Player_RightAct;
+        private readonly InputAction m_Player_LeftAct;
+        private readonly InputAction m_Player_BrakeAct;
         public struct PlayerActions
         {
             private @PlayerInputActions m_Wrapper;
             public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Movement => m_Wrapper.m_Player_Movement;
+            public InputAction @ThrottleAct => m_Wrapper.m_Player_ThrottleAct;
+            public InputAction @RightAct => m_Wrapper.m_Player_RightAct;
+            public InputAction @LeftAct => m_Wrapper.m_Player_LeftAct;
+            public InputAction @BrakeAct => m_Wrapper.m_Player_BrakeAct;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -133,23 +202,44 @@ namespace InputScripts
             {
                 if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
                 {
-                    @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                    @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                    @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                    @ThrottleAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrottleAct;
+                    @ThrottleAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrottleAct;
+                    @ThrottleAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrottleAct;
+                    @RightAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightAct;
+                    @RightAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightAct;
+                    @RightAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightAct;
+                    @LeftAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftAct;
+                    @LeftAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftAct;
+                    @LeftAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftAct;
+                    @BrakeAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrakeAct;
+                    @BrakeAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrakeAct;
+                    @BrakeAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrakeAct;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Movement.started += instance.OnMovement;
-                    @Movement.performed += instance.OnMovement;
-                    @Movement.canceled += instance.OnMovement;
+                    @ThrottleAct.started += instance.OnThrottleAct;
+                    @ThrottleAct.performed += instance.OnThrottleAct;
+                    @ThrottleAct.canceled += instance.OnThrottleAct;
+                    @RightAct.started += instance.OnRightAct;
+                    @RightAct.performed += instance.OnRightAct;
+                    @RightAct.canceled += instance.OnRightAct;
+                    @LeftAct.started += instance.OnLeftAct;
+                    @LeftAct.performed += instance.OnLeftAct;
+                    @LeftAct.canceled += instance.OnLeftAct;
+                    @BrakeAct.started += instance.OnBrakeAct;
+                    @BrakeAct.performed += instance.OnBrakeAct;
+                    @BrakeAct.canceled += instance.OnBrakeAct;
                 }
             }
         }
         public PlayerActions @Player => new PlayerActions(this);
         public interface IPlayerActions
         {
-            void OnMovement(InputAction.CallbackContext context);
+            void OnThrottleAct(InputAction.CallbackContext context);
+            void OnRightAct(InputAction.CallbackContext context);
+            void OnLeftAct(InputAction.CallbackContext context);
+            void OnBrakeAct(InputAction.CallbackContext context);
         }
     }
 }
