@@ -1,4 +1,7 @@
+using AutoInfo;
+using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace Movement
 {
@@ -11,6 +14,8 @@ namespace Movement
         public bool _brake;
         public bool _left;
         public bool _right;
+        
+        public Car Car { get; set; }
 
         public enum Gears
         {
@@ -43,5 +48,17 @@ namespace Movement
         [field: SerializeField] public bool Gear8 { get; set; }
         [field: SerializeField] public bool GearReverse { get; set; }
         [field: SerializeField] public bool GearNeutral { get; set; }
+
+        private void Awake()
+        {
+            FetchCarInfoFromJson();
+        }
+        private void FetchCarInfoFromJson()
+        {
+            var fs = new FileStream("./Assets/AutoInfo/PurpleFirst.json", FileMode.Open, FileAccess.Read, FileShare.Read);
+            using var sr = new StreamReader(fs);
+            
+            Car = JsonConvert.DeserializeObject<Car>(sr.ReadToEnd());
+        }
     }
 }

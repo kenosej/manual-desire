@@ -1,8 +1,6 @@
 using System;
 using AutoInfo;
-using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace Movement
 {
@@ -10,7 +8,6 @@ namespace Movement
     {
         private ParentControl _pC;
         private Rigidbody _rB;
-        private Car _car;
 
         [field: SerializeField] private float MotorTorque { get; set; }
 
@@ -18,16 +15,6 @@ namespace Movement
         {
             _pC = GetComponent<ParentControl>();
             _rB = GetComponent<Rigidbody>();
-
-            FetchCarInfoFromJson();
-        }
-
-        private void FetchCarInfoFromJson()
-        {
-            var fs = new FileStream("./Assets/AutoInfo/PurpleFirst.json", FileMode.Open, FileAccess.Read, FileShare.Read);
-            using var sr = new StreamReader(fs);
-            
-            _car = JsonConvert.DeserializeObject<Car>(sr.ReadToEnd());
         }
 
         private void FixedUpdate()
@@ -40,7 +27,7 @@ namespace Movement
         {
             float speed = _rB.velocity.magnitude;
 
-            Gear gear = _car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
+            Gear gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
             AdjustThrottleToGearInfo(speed, gear.LowestTorque, gear.HighestTorque, gear.Numerator, gear.Denominator, gear.MaxSpeed);
             
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
