@@ -111,12 +111,57 @@ namespace InputScripts
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Gear6Act"",
+                    ""type"": ""Button"",
+                    ""id"": ""956e6795-6479-4688-899f-48f9e0363f25"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Gear7Act"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d6e8a76-c6c8-4508-a302-5239f9923c5d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Gear8Act"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ba71f0e-fd86-4dff-95eb-15d40a2cc2b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GearReverseAct"",
+                    ""type"": ""Button"",
+                    ""id"": ""32376031-b7f6-411f-ae17-e4c91ff0da5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GearNeutralAct"",
+                    ""type"": ""Button"",
+                    ""id"": ""e9e3f54f-5fae-4873-a910-f983c9fa95a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ClutchAct"",
                     ""type"": ""Button"",
                     ""id"": ""7e42bf07-76fa-4927-8ca9-142941227111"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.4)"",
+                    ""interactions"": ""Hold(duration=0.2)"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -166,178 +211,123 @@ namespace InputScripts
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""4211adb0-6ff1-47a0-a9b5-97e760788a1d"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
+                    ""name"": """",
+                    ""id"": ""a7734308-00de-42cc-9c83-76c6b8295024"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": ""Hold(duration=0.5)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Gear1Act"",
-                    ""isComposite"": true,
+                    ""action"": ""ClutchAct"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""dea671fa-0899-4779-bab9-ea8ed7570854"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear1Act"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""4e4f61c5-75a4-4b1f-99ef-2f259bf606ab"",
+                    ""name"": """",
+                    ""id"": ""3429641e-72ea-4e47-830d-ad44d6378bfe"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Gear1Act"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""53e29e1e-4b48-4b7a-b1dd-d58f79dab12f"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear2Act"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""d477c9ac-1d4a-47b8-af73-94807ffb9fe3"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear2Act"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""c47284ff-2f66-4e97-9d9d-7b74b391cfab"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear2Act"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""06531695-2165-4509-b6fc-7a1040a2e65b"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear3Act"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""b0e30957-245c-418b-83dc-46b6f82fcae3"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear3Act"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""edb6bd5e-2189-471f-b780-5c196763e75e"",
+                    ""name"": """",
+                    ""id"": ""b6e5990f-c821-4573-9a6d-44b782a1142e"",
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Gear3Act"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""0eda60b9-8cd9-4356-84ca-b2be2193de36"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear4Act"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""dec3b927-bcb9-485f-8454-815fdb49cbd0"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear4Act"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""d590406a-4e75-451c-b520-3fb91ea66386"",
+                    ""name"": """",
+                    ""id"": ""d442be24-e701-4e6f-823c-dc4ac12b5205"",
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Gear4Act"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""b9ecd5e4-43b9-4116-869e-fd0242e4fa20"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear5Act"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""c37c142c-40d8-413b-a035-c13e7aafcd2f"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gear5Act"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""2d738f5b-c582-4059-9575-f019d96d2ae1"",
+                    ""name"": """",
+                    ""id"": ""e6bed043-3182-41af-98be-b937f69f34b9"",
                     ""path"": ""<Keyboard>/5"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Gear5Act"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a7734308-00de-42cc-9c83-76c6b8295024"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""id"": ""9431f8b7-9a21-457a-aed0-4144e2846616"",
+                    ""path"": ""<Keyboard>/6"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ClutchAct"",
+                    ""action"": ""Gear6Act"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59a4079f-7787-48f5-b8b6-733afcc312bf"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gear7Act"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1c3c075-8239-4fa0-b3d8-b6b6384fb6e4"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gear8Act"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db86ebe6-4625-4ebf-b2b6-4507a9001ed0"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearReverseAct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf312440-0062-4f0a-a1f7-3d11fd29471b"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearNeutralAct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2eec4814-6c39-4ae8-ade5-3e6a75002f1b"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gear2Act"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -357,6 +347,11 @@ namespace InputScripts
             m_Player_Gear3Act = m_Player.FindAction("Gear3Act", throwIfNotFound: true);
             m_Player_Gear4Act = m_Player.FindAction("Gear4Act", throwIfNotFound: true);
             m_Player_Gear5Act = m_Player.FindAction("Gear5Act", throwIfNotFound: true);
+            m_Player_Gear6Act = m_Player.FindAction("Gear6Act", throwIfNotFound: true);
+            m_Player_Gear7Act = m_Player.FindAction("Gear7Act", throwIfNotFound: true);
+            m_Player_Gear8Act = m_Player.FindAction("Gear8Act", throwIfNotFound: true);
+            m_Player_GearReverseAct = m_Player.FindAction("GearReverseAct", throwIfNotFound: true);
+            m_Player_GearNeutralAct = m_Player.FindAction("GearNeutralAct", throwIfNotFound: true);
             m_Player_ClutchAct = m_Player.FindAction("ClutchAct", throwIfNotFound: true);
         }
 
@@ -426,6 +421,11 @@ namespace InputScripts
         private readonly InputAction m_Player_Gear3Act;
         private readonly InputAction m_Player_Gear4Act;
         private readonly InputAction m_Player_Gear5Act;
+        private readonly InputAction m_Player_Gear6Act;
+        private readonly InputAction m_Player_Gear7Act;
+        private readonly InputAction m_Player_Gear8Act;
+        private readonly InputAction m_Player_GearReverseAct;
+        private readonly InputAction m_Player_GearNeutralAct;
         private readonly InputAction m_Player_ClutchAct;
         public struct PlayerActions
         {
@@ -440,6 +440,11 @@ namespace InputScripts
             public InputAction @Gear3Act => m_Wrapper.m_Player_Gear3Act;
             public InputAction @Gear4Act => m_Wrapper.m_Player_Gear4Act;
             public InputAction @Gear5Act => m_Wrapper.m_Player_Gear5Act;
+            public InputAction @Gear6Act => m_Wrapper.m_Player_Gear6Act;
+            public InputAction @Gear7Act => m_Wrapper.m_Player_Gear7Act;
+            public InputAction @Gear8Act => m_Wrapper.m_Player_Gear8Act;
+            public InputAction @GearReverseAct => m_Wrapper.m_Player_GearReverseAct;
+            public InputAction @GearNeutralAct => m_Wrapper.m_Player_GearNeutralAct;
             public InputAction @ClutchAct => m_Wrapper.m_Player_ClutchAct;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
@@ -477,6 +482,21 @@ namespace InputScripts
                     @Gear5Act.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear5Act;
                     @Gear5Act.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear5Act;
                     @Gear5Act.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear5Act;
+                    @Gear6Act.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear6Act;
+                    @Gear6Act.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear6Act;
+                    @Gear6Act.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear6Act;
+                    @Gear7Act.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear7Act;
+                    @Gear7Act.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear7Act;
+                    @Gear7Act.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear7Act;
+                    @Gear8Act.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear8Act;
+                    @Gear8Act.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear8Act;
+                    @Gear8Act.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGear8Act;
+                    @GearReverseAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGearReverseAct;
+                    @GearReverseAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGearReverseAct;
+                    @GearReverseAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGearReverseAct;
+                    @GearNeutralAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGearNeutralAct;
+                    @GearNeutralAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGearNeutralAct;
+                    @GearNeutralAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGearNeutralAct;
                     @ClutchAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
                     @ClutchAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
                     @ClutchAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
@@ -511,6 +531,21 @@ namespace InputScripts
                     @Gear5Act.started += instance.OnGear5Act;
                     @Gear5Act.performed += instance.OnGear5Act;
                     @Gear5Act.canceled += instance.OnGear5Act;
+                    @Gear6Act.started += instance.OnGear6Act;
+                    @Gear6Act.performed += instance.OnGear6Act;
+                    @Gear6Act.canceled += instance.OnGear6Act;
+                    @Gear7Act.started += instance.OnGear7Act;
+                    @Gear7Act.performed += instance.OnGear7Act;
+                    @Gear7Act.canceled += instance.OnGear7Act;
+                    @Gear8Act.started += instance.OnGear8Act;
+                    @Gear8Act.performed += instance.OnGear8Act;
+                    @Gear8Act.canceled += instance.OnGear8Act;
+                    @GearReverseAct.started += instance.OnGearReverseAct;
+                    @GearReverseAct.performed += instance.OnGearReverseAct;
+                    @GearReverseAct.canceled += instance.OnGearReverseAct;
+                    @GearNeutralAct.started += instance.OnGearNeutralAct;
+                    @GearNeutralAct.performed += instance.OnGearNeutralAct;
+                    @GearNeutralAct.canceled += instance.OnGearNeutralAct;
                     @ClutchAct.started += instance.OnClutchAct;
                     @ClutchAct.performed += instance.OnClutchAct;
                     @ClutchAct.canceled += instance.OnClutchAct;
@@ -529,6 +564,11 @@ namespace InputScripts
             void OnGear3Act(InputAction.CallbackContext context);
             void OnGear4Act(InputAction.CallbackContext context);
             void OnGear5Act(InputAction.CallbackContext context);
+            void OnGear6Act(InputAction.CallbackContext context);
+            void OnGear7Act(InputAction.CallbackContext context);
+            void OnGear8Act(InputAction.CallbackContext context);
+            void OnGearReverseAct(InputAction.CallbackContext context);
+            void OnGearNeutralAct(InputAction.CallbackContext context);
             void OnClutchAct(InputAction.CallbackContext context);
         }
     }
