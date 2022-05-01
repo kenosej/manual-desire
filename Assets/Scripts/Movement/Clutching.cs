@@ -92,23 +92,23 @@ namespace Movement
             {
                 float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.6f;
 
-                _pC.DeltaRadianScalar = nextMaxDeltaScalarOneUpTransferMod * _pC.DeltaRadianScalar / currMaxDeltaScalar;
+                _pC.Radian = nextMaxDeltaScalarOneUpTransferMod * _pC.Radian / currMaxDeltaScalar;
             }
             else if ((int)switchingToGear == (int)_pC.CurrentGear + 2)
             {
                 float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.4f;
 
-                _pC.DeltaRadianScalar = nextMaxDeltaScalarOneUpTransferMod * _pC.DeltaRadianScalar / currMaxDeltaScalar;
+                _pC.Radian = nextMaxDeltaScalarOneUpTransferMod * _pC.Radian / currMaxDeltaScalar;
             }
             else if ((int)switchingToGear == (int)_pC.CurrentGear + 3)
             {
                 float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.1f;
 
-                _pC.DeltaRadianScalar = nextMaxDeltaScalarOneUpTransferMod * _pC.DeltaRadianScalar / currMaxDeltaScalar;
+                _pC.Radian = nextMaxDeltaScalarOneUpTransferMod * _pC.Radian / currMaxDeltaScalar;
             }
             else
             {
-                _pC.DeltaRadianScalar = 0f;
+                _pC.Radian = 0f;
             }
         }
 
@@ -118,44 +118,44 @@ namespace Movement
             {
                 float maxCheckpointForNextGear = currMaxDeltaScalar * 0.6f;
                 
-                if (_pC.DeltaRadianScalar >= maxCheckpointForNextGear)
+                if (_pC.Radian >= maxCheckpointForNextGear)
                 {
-                    _pC.DeltaRadianScalar = nextMaxDeltaScalar;
+                    _pC.Radian = nextMaxDeltaScalar;
                 }
                 else
                 {
-                    _pC.DeltaRadianScalar = nextMaxDeltaScalar * _pC.DeltaRadianScalar / maxCheckpointForNextGear;
+                    _pC.Radian = nextMaxDeltaScalar * _pC.Radian / maxCheckpointForNextGear;
                 }
             }
             else if ((int)switchingToGear == (int)_pC.CurrentGear - 2)
             {
                 float maxCheckpointForNextGear = currMaxDeltaScalar * 0.4f;
                 
-                if (_pC.DeltaRadianScalar >= maxCheckpointForNextGear)
+                if (_pC.Radian >= maxCheckpointForNextGear)
                 {
-                    _pC.DeltaRadianScalar = nextMaxDeltaScalar;
+                    _pC.Radian = nextMaxDeltaScalar;
                 }
                 else
                 {
-                    _pC.DeltaRadianScalar = nextMaxDeltaScalar * _pC.DeltaRadianScalar / maxCheckpointForNextGear;
+                    _pC.Radian = nextMaxDeltaScalar * _pC.Radian / maxCheckpointForNextGear;
                 }
             }
             else if ((int)switchingToGear == (int)_pC.CurrentGear - 3)
             {
                 float maxCheckpointForNextGear = currMaxDeltaScalar * 0.1f;
                 
-                if (_pC.DeltaRadianScalar >= maxCheckpointForNextGear)
+                if (_pC.Radian >= maxCheckpointForNextGear)
                 {
-                    _pC.DeltaRadianScalar = nextMaxDeltaScalar;
+                    _pC.Radian = nextMaxDeltaScalar;
                 }
                 else
                 {
-                    _pC.DeltaRadianScalar = nextMaxDeltaScalar * _pC.DeltaRadianScalar / maxCheckpointForNextGear;
+                    _pC.Radian = nextMaxDeltaScalar * _pC.Radian / maxCheckpointForNextGear;
                 }
             }
             else
             {
-                _pC.DeltaRadianScalar = nextMaxDeltaScalar;
+                _pC.Radian = nextMaxDeltaScalar;
             }
         }
 

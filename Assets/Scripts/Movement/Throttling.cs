@@ -49,7 +49,7 @@ namespace Movement
             float invRadianScalar = denominator / numerator;
 
             float peakDeltaRadianScaledVal = Mathf.PI * invRadianScalar * 0.5f;
-            bool isBeforePeak = _pC.DeltaRadianScalar < peakDeltaRadianScaledVal;
+            bool isBeforePeak = _pC.Radian < peakDeltaRadianScaledVal;
 
             if (speed >= maxSpeed)
             {
@@ -57,14 +57,14 @@ namespace Movement
                 //Debug.Log($"Max speed is reached!");
             }
             
-            if (_pC.DeltaRadianScalar < Mathf.PI * invRadianScalar)
+            if (_pC.Radian < Mathf.PI * invRadianScalar)
             {
                 const float thousandthOfRadian = Mathf.PI / 1000;
 
-                _pC.DeltaRadianScalar += thousandthOfRadian;
+                _pC.Radian += thousandthOfRadian;
             }
             
-            MotorTorque = lowestTorque + deltaTorque * (float)Math.Sin(_pC.DeltaRadianScalar * radianScalar);
+            MotorTorque = lowestTorque + deltaTorque * (float)Math.Sin(_pC.Radian * radianScalar);
         }
 
 
@@ -74,9 +74,9 @@ namespace Movement
             {
                 MotorTorque = 0f;
 
-                if (_pC.DeltaRadianScalar > 0) // smooth scaling down the 0-1 value to which the DELTA_TORQUE is scaled
+                if (_pC.Radian > 0) // smooth scaling down the 0-1 value to which the DELTA_TORQUE is scaled
                 {
-                    _pC.DeltaRadianScalar -= Mathf.PI / 15000;
+                    _pC.Radian -= Mathf.PI / 15000;
                 }
 
                 if (i < 2)
