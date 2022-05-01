@@ -70,93 +70,72 @@ namespace Movement
             Gear currGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
             Gear nextGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)switchingToGear);
             
-            float currInvRadianScalar = currGearMeta.Denominator / currGearMeta.Numerator;
-            float nextInvRadianScalar = nextGearMeta.Denominator / nextGearMeta.Numerator;
-
-            float currMaxDeltaScalar = Mathf.PI * currInvRadianScalar;
-            float nextMaxDeltaScalar = Mathf.PI * nextInvRadianScalar;
-
             if ((int)switchingToGear > (int)_pC.CurrentGear)
             {
-                ShiftingUp(switchingToGear, in currMaxDeltaScalar, in nextMaxDeltaScalar);
+                ShiftingUp(switchingToGear, currGearMeta.ScaledRadianEndpoint, nextGearMeta.ScaledRadianEndpoint);
             }
             else if ((int)switchingToGear < (int)_pC.CurrentGear)
             {
-                ShiftingDown(switchingToGear, in currMaxDeltaScalar, in nextMaxDeltaScalar);
+                ShiftingDown(switchingToGear, currGearMeta.ScaledRadianEndpoint, nextGearMeta.ScaledRadianEndpoint);
             }
         }
 
-        private void ShiftingUp(ParentControl.GearsEnum switchingToGear, in float currMaxDeltaScalar, in float nextMaxDeltaScalar)
+        private void ShiftingUp(ParentControl.GearsEnum nextGear, float currGearScaledRadianEndpoint, float nextGearScaledRadianEndpoint)
         {
-            if ((int)switchingToGear == (int)_pC.CurrentGear + 1)
+            float exchangePoint;
+            
+            if ((int)nextGear == (int)_pC.CurrentGear + 1)
             {
-                float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.6f;
-
-                _pC.Radian = nextMaxDeltaScalarOneUpTransferMod * _pC.Radian / currMaxDeltaScalar;
+                exchangePoint = 0.6f;
             }
-            else if ((int)switchingToGear == (int)_pC.CurrentGear + 2)
+            else if ((int)nextGear == (int)_pC.CurrentGear + 2)
             {
-                float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.4f;
-
-                _pC.Radian = nextMaxDeltaScalarOneUpTransferMod * _pC.Radian / currMaxDeltaScalar;
+                exchangePoint = 0.4f;
             }
-            else if ((int)switchingToGear == (int)_pC.CurrentGear + 3)
+            else if ((int)nextGear == (int)_pC.CurrentGear + 3)
             {
-                float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.1f;
-
-                _pC.Radian = nextMaxDeltaScalarOneUpTransferMod * _pC.Radian / currMaxDeltaScalar;
+                exchangePoint = 0.1f;
             }
             else
             {
-                _pC.Radian = 0f;
+                exchangePoint = 0f;
             }
+
+            float nextGearMaximumRadianEndpoint = nextGearScaledRadianEndpoint * exchangePoint;
+            _pC.Radian = nextGearMaximumRadianEndpoint * _pC.Radian / currGearScaledRadianEndpoint;
         }
 
-        private void ShiftingDown(ParentControl.GearsEnum switchingToGear, in float currMaxDeltaScalar, in float nextMaxDeltaScalar)
+        private void ShiftingDown(ParentControl.GearsEnum nextGear, float currGearScaledRadianEndpoint, float nextGearScaledRadianEndpoint)
         {
-            if ((int)switchingToGear == (int)_pC.CurrentGear - 1)
+            float exchangePoint;
+            
+            if ((int)nextGear == (int)_pC.CurrentGear - 1)
             {
-                float maxCheckpointForNextGear = currMaxDeltaScalar * 0.6f;
-                
-                if (_pC.Radian >= maxCheckpointForNextGear)
-                {
-                    _pC.Radian = nextMaxDeltaScalar;
-                }
-                else
-                {
-                    _pC.Radian = nextMaxDeltaScalar * _pC.Radian / maxCheckpointForNextGear;
-                }
+                exchangePoint = 0.6f;
             }
-            else if ((int)switchingToGear == (int)_pC.CurrentGear - 2)
+            else if ((int)nextGear == (int)_pC.CurrentGear - 2)
             {
-                float maxCheckpointForNextGear = currMaxDeltaScalar * 0.4f;
-                
-                if (_pC.Radian >= maxCheckpointForNextGear)
-                {
-                    _pC.Radian = nextMaxDeltaScalar;
-                }
-                else
-                {
-                    _pC.Radian = nextMaxDeltaScalar * _pC.Radian / maxCheckpointForNextGear;
-                }
+                exchangePoint = 0.4f;
             }
-            else if ((int)switchingToGear == (int)_pC.CurrentGear - 3)
+            else if ((int)nextGear == (int)_pC.CurrentGear - 3)
             {
-                float maxCheckpointForNextGear = currMaxDeltaScalar * 0.1f;
-                
-                if (_pC.Radian >= maxCheckpointForNextGear)
-                {
-                    _pC.Radian = nextMaxDeltaScalar;
-                }
-                else
-                {
-                    _pC.Radian = nextMaxDeltaScalar * _pC.Radian / maxCheckpointForNextGear;
-                }
+                exchangePoint = 0.1f;
             }
             else
             {
-                _pC.Radian = nextMaxDeltaScalar;
+                _pC.Radian = nextGearScaledRadianEndpoint;
+                return;
             }
+            
+            float currGearPointOfMaximumExchange = currGearScaledRadianEndpoint * exchangePoint;
+
+            if (_pC.Radian >= currGearPointOfMaximumExchange)
+            {
+                _pC.Radian = nextGearScaledRadianEndpoint;
+                return;
+            }
+            
+            _pC.Radian = nextGearScaledRadianEndpoint * _pC.Radian / currGearPointOfMaximumExchange;
         }
 
         
