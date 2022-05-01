@@ -96,9 +96,9 @@ public class Steering : MonoBehaviour
         {
             CurrSteerAngle /= SteerMult;
 
-            if (Math.Abs(CurrSteerAngle) < 0.1)
+            if (Mathf.Abs(CurrSteerAngle) < 0.1f)
             {
-                CurrSteerAngle = 0;
+                CurrSteerAngle = 0f;
             }
             
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
