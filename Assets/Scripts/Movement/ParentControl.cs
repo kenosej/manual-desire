@@ -7,7 +7,7 @@ namespace Movement
 {
     public class ParentControl : MonoBehaviour
     {
-        public enum Gears { NEUTRAL, FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, REVERSE };
+        public enum GearsEnum { NEUTRAL, FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, REVERSE };
         
         public GameObject[] _wheelsMesh;
         public WheelCollider[] _wheelsColliders;
@@ -21,7 +21,7 @@ namespace Movement
         [field: SerializeField] public bool Clutch { get; set; }
         [field: SerializeField] public bool ShiftingReady { get; set; }
         
-        [field: SerializeField] public Gears CurrentGear { get; set; } = Gears.NEUTRAL;
+        [field: SerializeField] public GearsEnum CurrentGear { get; set; } = GearsEnum.NEUTRAL;
         [field: SerializeField] public bool[] GearsReceiver { get; set; } = new bool[10]; // NEUTRAL, 1-8, REVERSE
         
         // without additional scaling, max value is PI, which corresponds to the positive half of sin wave

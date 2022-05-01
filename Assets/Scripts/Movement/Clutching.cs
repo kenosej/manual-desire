@@ -31,7 +31,7 @@ namespace Movement
             {
                 if (_pC.GearsReceiver[i])
                 {
-                    ParentControl.Gears nextGear = (ParentControl.Gears) i;
+                    ParentControl.GearsEnum nextGear = (ParentControl.GearsEnum) i;
 
                     if (!IsNextGearValid(nextGear))
                         return;
@@ -45,18 +45,18 @@ namespace Movement
             }
         }
 
-        private bool ShouldSmoothShift(ParentControl.Gears nextGear)
+        private bool ShouldSmoothShift(ParentControl.GearsEnum nextGear)
         {
-            return _pC.CurrentGear != ParentControl.Gears.NEUTRAL &&
-                   _pC.CurrentGear != ParentControl.Gears.REVERSE &&
-                   nextGear != ParentControl.Gears.NEUTRAL &&
-                   nextGear != ParentControl.Gears.REVERSE;
+            return _pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL &&
+                   _pC.CurrentGear != ParentControl.GearsEnum.REVERSE &&
+                   nextGear != ParentControl.GearsEnum.NEUTRAL &&
+                   nextGear != ParentControl.GearsEnum.REVERSE;
         }
 
-        private bool IsNextGearValid(ParentControl.Gears nextGear)
+        private bool IsNextGearValid(ParentControl.GearsEnum nextGear)
         {
-            if (nextGear == ParentControl.Gears.REVERSE ||
-                nextGear == ParentControl.Gears.NEUTRAL)
+            if (nextGear == ParentControl.GearsEnum.REVERSE ||
+                nextGear == ParentControl.GearsEnum.NEUTRAL)
                 return true;
             
             if ((int)nextGear > _pC.Car.NumberOfGears)
@@ -65,7 +65,7 @@ namespace Movement
             return _pC.Car.Gears.Any(g => g?.Level == (int)nextGear);
         }
 
-        private void SmoothShifting(ParentControl.Gears switchingToGear)
+        private void SmoothShifting(ParentControl.GearsEnum switchingToGear)
         {
             Gear currGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
             Gear nextGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)switchingToGear);
@@ -86,7 +86,7 @@ namespace Movement
             }
         }
 
-        private void ShiftingUp(ParentControl.Gears switchingToGear, in float currMaxDeltaScalar, in float nextMaxDeltaScalar)
+        private void ShiftingUp(ParentControl.GearsEnum switchingToGear, in float currMaxDeltaScalar, in float nextMaxDeltaScalar)
         {
             if ((int)switchingToGear == (int)_pC.CurrentGear + 1)
             {
@@ -112,7 +112,7 @@ namespace Movement
             }
         }
 
-        private void ShiftingDown(ParentControl.Gears switchingToGear, in float currMaxDeltaScalar, in float nextMaxDeltaScalar)
+        private void ShiftingDown(ParentControl.GearsEnum switchingToGear, in float currMaxDeltaScalar, in float nextMaxDeltaScalar)
         {
             if ((int)switchingToGear == (int)_pC.CurrentGear - 1)
             {
