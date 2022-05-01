@@ -76,7 +76,7 @@ namespace Movement
 
                 if (_pC.DeltaRadianScalar > 0) // smooth scaling down the 0-1 value to which the DELTA_TORQUE is scaled
                 {
-                    _pC.DeltaRadianScalar -= Mathf.PI / 1000;
+                    _pC.DeltaRadianScalar -= Mathf.PI / 15000;
                 }
 
                 if (i < 2)
