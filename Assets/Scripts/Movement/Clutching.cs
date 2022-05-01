@@ -1,3 +1,5 @@
+using AutoInfo;
+using System.Linq;
 using UnityEngine;
 
 namespace Movement
@@ -18,75 +20,131 @@ namespace Movement
         
         private bool ShouldChangeGears()
         {
-            return _pC.ShiftingReady && (
-                _pC.Gear1 ||
-                _pC.Gear2 ||
-                _pC.Gear3 ||
-                _pC.Gear4 ||
-                _pC.Gear5 ||
-                _pC.Gear6 ||
-                _pC.Gear7 ||
-                _pC.Gear8 ||
-                _pC.GearReverse ||
-                _pC.GearNeutral
-            );
+            if (!_pC.ShiftingReady) return false;
+
+            return _pC.GearsReceiver.Any(g => g);
         }
         
-        // 3 up
-        // 60%, 40%, 10%
-        // 10%, 40%, 60%
-        // 3 down
-        // from 1 to 8
-
-        private void SwitchingDown(ParentControl.Gears switchingToGear)
-        {
-            
-        }
-
         private void ShiftIntoNewGear()
         {
-            if (_pC.Gear1)
+            for (int i = 0; i < _pC.GearsReceiver.Length; i++)
             {
-                _pC.CurrentGear = ParentControl.Gears.FIRST;
+                if (_pC.GearsReceiver[i])
+                {
+                    ParentControl.Gears nextGear = (ParentControl.Gears) i;
+                    
+                    SmoothShifting(nextGear);
+                    _pC.CurrentGear = nextGear;
+                }
             }
-            else if (_pC.Gear2)
+        }
+        
+        private void SmoothShifting(ParentControl.Gears switchingToGear)
+        {
+            if (switchingToGear == ParentControl.Gears.NEUTRAL ||
+                switchingToGear == ParentControl.Gears.REVERSE ||
+                _pC.CurrentGear == ParentControl.Gears.NEUTRAL ||
+                _pC.CurrentGear == ParentControl.Gears.REVERSE)
+                return;
+
+            if ((int)switchingToGear > _pC.Car.NumberOfGears) // this shouldn't ever happen here
+                return;
+            
+            Gear currGearMeta = _pC.Car.Gears.Find(g => g != null && g.Level == (int)_pC.CurrentGear);
+            Gear nextGearMeta = _pC.Car.Gears.Find(g => g != null && g.Level == (int)switchingToGear);
+            
+            if (currGearMeta == null || nextGearMeta == null)
+                return;
+            
+            float currInvRadianScalar = currGearMeta.Denominator / currGearMeta.Numerator;
+            float nextInvRadianScalar = nextGearMeta.Denominator / nextGearMeta.Numerator;
+
+            float currMaxDeltaScalar = Mathf.PI * currInvRadianScalar;
+            float nextMaxDeltaScalar = Mathf.PI * nextInvRadianScalar;
+
+            if ((int)switchingToGear > (int)_pC.CurrentGear)
             {
-                _pC.CurrentGear = ParentControl.Gears.SECOND;
+                ShiftingUp(switchingToGear, in currMaxDeltaScalar, in nextMaxDeltaScalar);
             }
-            else if (_pC.Gear3)
+            else if ((int)switchingToGear < (int)_pC.CurrentGear)
             {
-                _pC.CurrentGear = ParentControl.Gears.THIRD;
+                ShiftingDown(switchingToGear, in currMaxDeltaScalar, in nextMaxDeltaScalar);
             }
-            else if (_pC.Gear4)
+        }
+
+        private void ShiftingUp(ParentControl.Gears switchingToGear, in float currMaxDeltaScalar, in float nextMaxDeltaScalar)
+        {
+            if ((int)switchingToGear == (int)_pC.CurrentGear + 1)
             {
-                _pC.CurrentGear = ParentControl.Gears.FOURTH;
+                float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.6f;
+
+                _pC.DeltaRadianScalar = nextMaxDeltaScalarOneUpTransferMod * _pC.DeltaRadianScalar / currMaxDeltaScalar;
             }
-            else if (_pC.Gear5)
+            else if ((int)switchingToGear == (int)_pC.CurrentGear + 2)
             {
-                _pC.CurrentGear = ParentControl.Gears.FIFTH;
+                float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.4f;
+
+                _pC.DeltaRadianScalar = nextMaxDeltaScalarOneUpTransferMod * _pC.DeltaRadianScalar / currMaxDeltaScalar;
             }
-            else if (_pC.Gear6)
+            else if ((int)switchingToGear == (int)_pC.CurrentGear + 3)
             {
-                _pC.CurrentGear = ParentControl.Gears.SIXTH;
-            }
-            else if (_pC.Gear7)
-            {
-                _pC.CurrentGear = ParentControl.Gears.SEVENTH;
-            }
-            else if (_pC.Gear8)
-            {
-                _pC.CurrentGear = ParentControl.Gears.EIGHTH;
-            }
-            else if (_pC.GearReverse)
-            {
-                _pC.CurrentGear = ParentControl.Gears.REVERSE;
+                float nextMaxDeltaScalarOneUpTransferMod = nextMaxDeltaScalar * 0.1f;
+
+                _pC.DeltaRadianScalar = nextMaxDeltaScalarOneUpTransferMod * _pC.DeltaRadianScalar / currMaxDeltaScalar;
             }
             else
             {
-                _pC.CurrentGear = ParentControl.Gears.NEUTRAL;
+                _pC.DeltaRadianScalar = 0f;
             }
-            
         }
+
+        private void ShiftingDown(ParentControl.Gears switchingToGear, in float currMaxDeltaScalar, in float nextMaxDeltaScalar)
+        {
+            if ((int)switchingToGear == (int)_pC.CurrentGear - 1)
+            {
+                float maxCheckpointForNextGear = currMaxDeltaScalar * 0.6f;
+                
+                if (_pC.DeltaRadianScalar >= maxCheckpointForNextGear)
+                {
+                    _pC.DeltaRadianScalar = nextMaxDeltaScalar;
+                }
+                else
+                {
+                    _pC.DeltaRadianScalar = nextMaxDeltaScalar * _pC.DeltaRadianScalar / maxCheckpointForNextGear;
+                }
+            }
+            else if ((int)switchingToGear == (int)_pC.CurrentGear - 2)
+            {
+                float maxCheckpointForNextGear = currMaxDeltaScalar * 0.4f;
+                
+                if (_pC.DeltaRadianScalar >= maxCheckpointForNextGear)
+                {
+                    _pC.DeltaRadianScalar = nextMaxDeltaScalar;
+                }
+                else
+                {
+                    _pC.DeltaRadianScalar = nextMaxDeltaScalar * _pC.DeltaRadianScalar / maxCheckpointForNextGear;
+                }
+            }
+            else if ((int)switchingToGear == (int)_pC.CurrentGear - 3)
+            {
+                float maxCheckpointForNextGear = currMaxDeltaScalar * 0.1f;
+                
+                if (_pC.DeltaRadianScalar >= maxCheckpointForNextGear)
+                {
+                    _pC.DeltaRadianScalar = nextMaxDeltaScalar;
+                }
+                else
+                {
+                    _pC.DeltaRadianScalar = nextMaxDeltaScalar * _pC.DeltaRadianScalar / maxCheckpointForNextGear;
+                }
+            }
+            else
+            {
+                _pC.DeltaRadianScalar = nextMaxDeltaScalar;
+            }
+        }
+
         
     }
 }
