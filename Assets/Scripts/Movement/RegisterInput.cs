@@ -86,102 +86,102 @@ namespace Movement
 
         private void ShiftInto1(InputAction.CallbackContext obj)
         {
-            _pC.Gear1 = true;
+            _pC.GearsReceiver[1] = true;
         }
 
         private void UndoShiftInto1(InputAction.CallbackContext obj)
         {
-            _pC.Gear1 = false;
+            _pC.GearsReceiver[1] = false;
         }
         
         private void ShiftInto2(InputAction.CallbackContext obj)
         {
-            _pC.Gear2 = true;
+            _pC.GearsReceiver[2] = true;
         }
 
         private void UndoShiftInto2(InputAction.CallbackContext obj)
         {
-            _pC.Gear2 = false;
+            _pC.GearsReceiver[2] = false;
         }
         
         private void ShiftInto3(InputAction.CallbackContext obj)
         {
-            _pC.Gear3 = true;
+            _pC.GearsReceiver[3] = true;
         }
         
         private void UndoShiftInto3(InputAction.CallbackContext obj)
         {
-            _pC.Gear3 = false;
+            _pC.GearsReceiver[3] = false;
         }
 
         private void ShiftInto4(InputAction.CallbackContext obj)
         {
-            _pC.Gear4 = true;
+            _pC.GearsReceiver[4] = true;
         }
 
         private void UndoShiftInto4(InputAction.CallbackContext obj)
         {
-            _pC.Gear4 = false;
+            _pC.GearsReceiver[4] = false;
         }
         
         private void ShiftInto5(InputAction.CallbackContext obj)
         {
-            _pC.Gear5 = true;
+            _pC.GearsReceiver[5] = true;
         }
         
         private void UndoShiftInto5(InputAction.CallbackContext obj)
         {
-            _pC.Gear5 = false;
+            _pC.GearsReceiver[5] = false;
         }
         
         private void ShiftInto6(InputAction.CallbackContext obj)
         {
-            _pC.Gear6 = true;
+            _pC.GearsReceiver[6] = true;
         }
         
         private void UndoShiftInto6(InputAction.CallbackContext obj)
         {
-            _pC.Gear6 = false;
+            _pC.GearsReceiver[6] = false;
         }
         
         private void ShiftInto7(InputAction.CallbackContext obj)
         {
-            _pC.Gear7 = true;
+            _pC.GearsReceiver[7] = true;
         }
         
         private void UndoShiftInto7(InputAction.CallbackContext obj)
         {
-            _pC.Gear7 = false;
+            _pC.GearsReceiver[7] = false;
         }
         
         private void ShiftInto8(InputAction.CallbackContext obj)
         {
-            _pC.Gear8 = true;
+            _pC.GearsReceiver[8] = true;
         }
         
         private void UndoShiftInto8(InputAction.CallbackContext obj)
         {
-            _pC.Gear8 = false;
+            _pC.GearsReceiver[8] = false;
         }
         
         private void ShiftIntoReverse(InputAction.CallbackContext obj)
         {
-            _pC.GearReverse = true;
+            _pC.GearsReceiver[9] = true;
         }
         
         private void UndoShiftIntoReverse(InputAction.CallbackContext obj)
         {
-            _pC.GearReverse = false;
+            _pC.GearsReceiver[9] = false;
         }
         
         private void ShiftIntoNeutral(InputAction.CallbackContext obj)
         {
-            _pC.GearNeutral = true;
+            _pC.GearsReceiver[0] = true;
         }
         
         private void UndoShiftIntoNeutral(InputAction.CallbackContext obj)
         {
-            _pC.GearNeutral = false;
+            _pC.GearsReceiver[0] = false;
         }
 
         private void TurnLeft(InputAction.CallbackContext obj)

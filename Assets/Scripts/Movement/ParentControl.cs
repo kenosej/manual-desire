@@ -19,7 +19,8 @@ namespace Movement
 
         public enum Gears
         {
-            FIRST = 1,
+            NEUTRAL,
+            FIRST,
             SECOND,
             THIRD,
             FOURTH,
@@ -27,8 +28,7 @@ namespace Movement
             SIXTH,
             SEVENTH,
             EIGHTH,
-            REVERSE,
-            NEUTRAL
+            REVERSE
         };
 
         [field: SerializeField] public Gears CurrentGear { get; set; } = Gears.NEUTRAL;
@@ -38,16 +38,7 @@ namespace Movement
         // without additional scaling, max value is PI, which corresponds to positive half of sin wave
         [field: SerializeField] public float DeltaRadianScalar;
 
-        [field: SerializeField] public bool Gear1 { get; set; }
-        [field: SerializeField] public bool Gear2 { get; set; }
-        [field: SerializeField] public bool Gear3 { get; set; }
-        [field: SerializeField] public bool Gear4 { get; set; }
-        [field: SerializeField] public bool Gear5 { get; set; }
-        [field: SerializeField] public bool Gear6 { get; set; }
-        [field: SerializeField] public bool Gear7 { get; set; }
-        [field: SerializeField] public bool Gear8 { get; set; }
-        [field: SerializeField] public bool GearReverse { get; set; }
-        [field: SerializeField] public bool GearNeutral { get; set; }
+        [field: SerializeField] public bool[] GearsReceiver { get; set; } = new bool[10]; // 0th index val is empty
 
         private void Awake()
         {
@@ -59,6 +50,16 @@ namespace Movement
             using var sr = new StreamReader(fs);
             
             Car = JsonConvert.DeserializeObject<Car>(sr.ReadToEnd());
+            
+            LogDeltaMaxScalarPerGears();
+        }
+
+        private void LogDeltaMaxScalarPerGears()
+        {
+            foreach (Gear gear in Car.Gears)
+            {
+                 Debug.Log($"Gear {gear.Level}, Max DeltaRadianScalar: {Mathf.PI * (gear.Denominator / gear.Numerator)}");
+            }
         }
     }
 }
