@@ -32,29 +32,43 @@ namespace Movement
                 if (_pC.GearsReceiver[i])
                 {
                     ParentControl.Gears nextGear = (ParentControl.Gears) i;
+
+                    if (!IsNextGearValid(nextGear))
+                        return;
                     
-                    SmoothShifting(nextGear);
+                    if (ShouldSmoothShift(nextGear))
+                        SmoothShifting(nextGear);
+                    
                     _pC.CurrentGear = nextGear;
+                    return;
                 }
             }
         }
-        
+
+        private bool ShouldSmoothShift(ParentControl.Gears nextGear)
+        {
+            return _pC.CurrentGear != ParentControl.Gears.NEUTRAL &&
+                   _pC.CurrentGear != ParentControl.Gears.REVERSE &&
+                   nextGear != ParentControl.Gears.NEUTRAL &&
+                   nextGear != ParentControl.Gears.REVERSE;
+        }
+
+        private bool IsNextGearValid(ParentControl.Gears nextGear)
+        {
+            if (nextGear == ParentControl.Gears.REVERSE ||
+                nextGear == ParentControl.Gears.NEUTRAL)
+                return true;
+            
+            if ((int)nextGear > _pC.Car.NumberOfGears)
+                return false;
+
+            return _pC.Car.Gears.Any(g => g?.Level == (int)nextGear);
+        }
+
         private void SmoothShifting(ParentControl.Gears switchingToGear)
         {
-            if (switchingToGear == ParentControl.Gears.NEUTRAL ||
-                switchingToGear == ParentControl.Gears.REVERSE ||
-                _pC.CurrentGear == ParentControl.Gears.NEUTRAL ||
-                _pC.CurrentGear == ParentControl.Gears.REVERSE)
-                return;
-
-            if ((int)switchingToGear > _pC.Car.NumberOfGears) // this shouldn't ever happen here
-                return;
-            
-            Gear currGearMeta = _pC.Car.Gears.Find(g => g != null && g.Level == (int)_pC.CurrentGear);
-            Gear nextGearMeta = _pC.Car.Gears.Find(g => g != null && g.Level == (int)switchingToGear);
-            
-            if (currGearMeta == null || nextGearMeta == null)
-                return;
+            Gear currGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
+            Gear nextGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)switchingToGear);
             
             float currInvRadianScalar = currGearMeta.Denominator / currGearMeta.Numerator;
             float nextInvRadianScalar = nextGearMeta.Denominator / nextGearMeta.Numerator;
