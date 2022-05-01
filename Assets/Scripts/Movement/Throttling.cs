@@ -25,10 +25,22 @@ namespace Movement
 
         private void PressThrottle()
         {
-            float speed = _rB.velocity.magnitude;
+            if (_pC.CurrentGear == ParentControl.GearsEnum.NEUTRAL)
+            {
+                return;
+            }
+            if (_pC.CurrentGear == ParentControl.GearsEnum.REVERSE)
+            {
+                Gear firstGear = _pC.Car.Gears.Find(g => g.Level == 1);
+                AdjustForReverse(firstGear);
+            }
+            else
+            {
+                float speed = _rB.velocity.magnitude;
 
-            Gear gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
-            AdjustThrottleToGear(speed, gear);
+                Gear gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
+                AdjustThrottleToGear(speed, gear);
+            }
             
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
             {
@@ -37,6 +49,18 @@ namespace Movement
                     _pC._wheelsColliders[i].motorTorque = MotorTorque;
                 }
             }
+        }
+
+        private void AdjustForReverse(Gear firstGear)
+        {
+            if (_pC.Radian < firstGear.ScaledRadianEndpoint)
+            {
+                const float thousandthOfRadian = Mathf.PI / 1000;
+
+                _pC.Radian += thousandthOfRadian;
+            }
+
+            MotorTorque = (firstGear.LowestTorque + firstGear.DeltaTorque * Mathf.Sin(_pC.Radian * firstGear.RadianScalar)) * -1;
         }
 
         private void AdjustThrottleToGear(in float speed, Gear gear)
