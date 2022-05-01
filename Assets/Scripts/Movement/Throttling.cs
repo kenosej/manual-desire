@@ -65,12 +65,24 @@ namespace Movement
 
         private void AdjustThrottleToGear(in float speed, Gear gear)
         {
-            if (speed >= gear.MaxSpeed)
-            {
-                MotorTorque = 0f;
-                //Debug.Log($"Max speed is reached!");
-            }
+            //if (speed >= gear.MaxSpeed)
+            //{
+            //    MotorTorque = 0f;
+            //    Debug.Log($"Max speed is reached! {speed} m/s; {speed * 3.6f} km/h");
+            //}
 
+            float scaledRadian = _pC.Radian * gear.RadianScalar;
+
+            if (scaledRadian > gear.ScaledRadianPeak && Mathf.Sin(scaledRadian) < 0.0001f)
+            {
+                Debug.Log($"({gear.Level}. gear) {speed} m/s; {speed * 3.6f} km/h | Wave returned to 0");
+            }
+            
+            if (Mathf.Sin(scaledRadian) > 0.9999f)
+            {
+                Debug.Log($"({gear.Level}. gear) {speed} m/s; {speed * 3.6f} km/h | PEAK");
+            }
+            
             if (_pC.Radian < gear.ScaledRadianEndpoint)
             {
                 const float thousandthOfRadian = Mathf.PI / 1000;
@@ -78,7 +90,7 @@ namespace Movement
                 _pC.Radian += thousandthOfRadian;
             }
 
-            MotorTorque = gear.LowestTorque + gear.DeltaTorque * Mathf.Sin(_pC.Radian * gear.RadianScalar);
+            MotorTorque = gear.LowestTorque + gear.DeltaTorque * Mathf.Sin(scaledRadian);
         }
 
         private void ReleaseThrottle()
