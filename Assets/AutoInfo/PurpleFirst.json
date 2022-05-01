@@ -47,7 +47,7 @@
       "MaxSpeedKmh": 180,
       "LowestTorque": 150,
       "HighestTorque": 305,
-      "Numerator": 13,
+      "Numerator": 11,
       "Denominator": 10
     }
   ]
