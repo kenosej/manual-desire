@@ -28,7 +28,7 @@ namespace Movement
             float speed = _rB.velocity.magnitude;
 
             Gear gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
-            AdjustThrottleToGearInfo(speed, gear.LowestTorque, gear.HighestTorque, gear.Numerator, gear.Denominator, gear.MaxSpeed);
+            AdjustThrottleToGear(speed, gear);
             
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
             {
@@ -39,34 +39,23 @@ namespace Movement
             }
         }
 
-        private void AdjustThrottleToGearInfo(
-            in float speed, in float lowestTorque,
-            in float highestTorque, in float numerator,
-            in float denominator, in float maxSpeed)
+        private void AdjustThrottleToGear(in float speed, Gear gear)
         {
-            float deltaTorque = highestTorque - lowestTorque;
-            float radianScalar = numerator / denominator;
-            float invRadianScalar = denominator / numerator;
-
-            float peakDeltaRadianScaledVal = Mathf.PI * invRadianScalar * 0.5f;
-            bool isBeforePeak = _pC.Radian < peakDeltaRadianScaledVal;
-
-            if (speed >= maxSpeed)
+            if (speed >= gear.MaxSpeed)
             {
                 MotorTorque = 0f;
                 //Debug.Log($"Max speed is reached!");
             }
-            
-            if (_pC.Radian < Mathf.PI * invRadianScalar)
+
+            if (_pC.Radian < gear.ScaledRadianEndpoint)
             {
                 const float thousandthOfRadian = Mathf.PI / 1000;
 
                 _pC.Radian += thousandthOfRadian;
             }
-            
-            MotorTorque = lowestTorque + deltaTorque * (float)Math.Sin(_pC.Radian * radianScalar);
-        }
 
+            MotorTorque = gear.LowestTorque + gear.DeltaTorque * Mathf.Sin(_pC.Radian * gear.RadianScalar);
+        }
 
         private void ReleaseThrottle()
         {
