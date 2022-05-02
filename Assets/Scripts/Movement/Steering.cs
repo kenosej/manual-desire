@@ -1,106 +1,65 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Movement
 {
-public class Steering : MonoBehaviour
-{
-    private ParentControl _pC;
-    const float LEFT_MAX_ANGLE = -30f;
-    const float RIGHT_MAX_ANGLE = 30f;
-    [field: SerializeField] float CurrSteerAngle { get; set; }
-    [field: SerializeField] float SteerMult { get; set; } = 1.5f;
-   
-    private void Awake()
+    public class Steering : MonoBehaviour
     {
-        _pC = GetComponent<ParentControl>();
-    }
-
-    private void FixedUpdate()
-    {
-        Steer();
-        ReturnSteeringWheelToCenter();
-    }
-
-    private void Steer()
-    {
-        if (_pC._left) TurnLeft();
-        if (_pC._right) TurnRight();
-    }
-
-    private void TurnLeft()
-    {
-        if (CurrSteerAngle < 0.1f && CurrSteerAngle > -0.1f) CurrSteerAngle = -0.1f;
-
-        bool isTurnedRight = CurrSteerAngle > 0;
-        float newAngle;
-
-        if (isTurnedRight)
-        {
-            newAngle = CurrSteerAngle / SteerMult - 0.1f;
-        }
-        else
-        {
-            newAngle = CurrSteerAngle * SteerMult;
-        }
-            
-        if (newAngle > LEFT_MAX_ANGLE)
-        {
-            CurrSteerAngle = newAngle;
-        }
+        private Rigidbody _rB;
+        private ParentControl _pC;
+        [SerializeField] float _maxAngle = 30f;
         
-        for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-        {
-            if (i < 2)
-            {
-                _pC._wheelsColliders[i].steerAngle = CurrSteerAngle;
-            }
-        }
-    }
+        [field: SerializeField] private float SteerStep { get; set; } = 1.1f;
+        [field: SerializeField] private float ReleaseSteerStep { get; set; } = 0.9f;
     
-    private void TurnRight()
-    {
-        if (CurrSteerAngle > -0.1f && CurrSteerAngle < 0.1f) CurrSteerAngle = 0.1f;
-        
-        bool isTurnedLeft = CurrSteerAngle < 0;
-        float newAngle;
-        
-        if (isTurnedLeft)
-        {
-            newAngle = CurrSteerAngle / SteerMult + 0.1f;
-        }
-        else
-        {
-            newAngle = CurrSteerAngle * SteerMult;
-        }
-        
-        if (newAngle < RIGHT_MAX_ANGLE)
-        {
-            CurrSteerAngle = newAngle;
-        }
-        
-        for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-        {
-            if (i < 2)
-            {
-                _pC._wheelsColliders[i].steerAngle = CurrSteerAngle;
-            }
-        }
-    }
+        [SerializeField] private float _currSteerAngle;
     
-    private void ReturnSteeringWheelToCenter()
-    {
-        if (!_pC._left && !_pC._right && CurrSteerAngle != 0f)
+        public float CurrSteerAngle
         {
-            CurrSteerAngle /= SteerMult;
-
-            if (Mathf.Abs(CurrSteerAngle) < 0.1f)
+            get => _currSteerAngle;
+            set
             {
-                CurrSteerAngle = 0f;
+                float absAngle = Mathf.Abs(value);
+                
+                if (absAngle < SteerStep)
+                    _currSteerAngle = 0f;
+                else if (absAngle < _maxAngle)
+                    _currSteerAngle = value;
             }
+        }
+       
+        private void Awake()
+        {
+            _rB = GetComponent<Rigidbody>();
+            _pC = GetComponent<ParentControl>();
+        }
+    
+        private void FixedUpdate()
+        {
+            AdjustMaxSteeringAngleToCarSpeed();
+            AdjustAngle();
+            Steer();
+        }
+
+        private void AdjustMaxSteeringAngleToCarSpeed()
+        {
+            float lowestSteerAngleAtSpeed = 90f;
+            float speedInKmh = _rB.velocity.magnitude * 3.6f;
             
+            if (speedInKmh > lowestSteerAngleAtSpeed)
+                speedInKmh = lowestSteerAngleAtSpeed;
+            
+            _maxAngle = 30f - 25 * (speedInKmh / lowestSteerAngleAtSpeed);
+        }
+
+        private void AdjustAngle()
+        {
+            if (_pC._left) TurnLeft();
+            else if (_pC._right) TurnRight();
+            else ReturnSteeringWheelToCenter();
+        }
+    
+        private void Steer()
+        {
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
             {
                 if (i < 2)
@@ -109,6 +68,27 @@ public class Steering : MonoBehaviour
                 }
             }
         }
+    
+        private void TurnLeft()
+        {
+            CurrSteerAngle -= SteerStep;
+        }
+        
+        private void TurnRight()
+        {
+            CurrSteerAngle += SteerStep;
+        }
+        
+        private void ReturnSteeringWheelToCenter()
+        {
+            if (CurrSteerAngle == 0f) return;
+            
+            bool areWheelsOnLeft = CurrSteerAngle < 0f;
+    
+            if (areWheelsOnLeft)
+                CurrSteerAngle += ReleaseSteerStep;
+            else
+                CurrSteerAngle -= ReleaseSteerStep;
+        }
     }
-}
 }
