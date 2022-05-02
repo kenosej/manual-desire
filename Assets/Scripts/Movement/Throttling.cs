@@ -21,6 +21,27 @@ namespace Movement
         {
             if (_pC._throttle) PressThrottle();
             if (!_pC._throttle) ReleaseThrottle();
+            RotateWheelMeshes();
+        }
+
+        private void RotateWheelMeshes()
+        {
+            _pC._wheelsMesh[0].transform.localEulerAngles = new Vector3(
+                    _pC._wheelsMesh[0].transform.localEulerAngles.x,
+                    _pC._wheelsColliders[0].steerAngle - _pC._wheelsMesh[0].transform.localEulerAngles.z,
+                    _pC._wheelsMesh[0].transform.localEulerAngles.z
+                );
+            
+            _pC._wheelsMesh[1].transform.localEulerAngles = new Vector3(
+                    _pC._wheelsMesh[1].transform.localEulerAngles.x,
+                    _pC._wheelsColliders[1].steerAngle - _pC._wheelsMesh[1].transform.localEulerAngles.z,
+                    _pC._wheelsMesh[1].transform.localEulerAngles.z
+                );
+
+            for (int i = 0; i < _pC._wheelsMesh.Length; i++)
+            {
+                _pC._wheelsMesh[i].transform.Rotate(_pC._wheelsColliders[i].rpm / 60 * 360, 0, 0);
+            }
         }
 
         private void PressThrottle()
