@@ -8,8 +8,8 @@ namespace Movement
         private ParentControl _pC;
         [SerializeField] float _maxAngle = 30f;
         
-        [field: SerializeField] private float SteerStep { get; set; } = 1.1f;
-        [field: SerializeField] private float ReleaseSteerStep { get; set; } = 0.9f;
+        [field: SerializeField] private float SteerStep { get; } = 1.1f;
+        [field: SerializeField] private float ReleaseSteerStep { get; } = 0.9f;
     
         [SerializeField] private float _currSteerAngle;
     
@@ -18,12 +18,10 @@ namespace Movement
             get => _currSteerAngle;
             set
             {
-                float absAngle = Mathf.Abs(value);
-                
-                if (absAngle < SteerStep)
+                if (Mathf.Abs(value) < SteerStep)
                     _currSteerAngle = 0f;
-                else if (absAngle < _maxAngle)
-                    _currSteerAngle = value;
+                else
+                    _currSteerAngle = Mathf.Clamp(value, _maxAngle * -1, _maxAngle);
             }
         }
        
