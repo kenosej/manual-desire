@@ -15,9 +15,27 @@ namespace Movement
 
         private void FixedUpdate()
         {
+            if (_pC.Clutch) ClutchUp();
             if (ShouldChangeGears()) ShiftIntoNewGear();
         }
-        
+
+        private void ClutchUp()
+        {
+            if (_pC.Radian > 0)
+            {
+                _pC.Radian -= Mathf.PI / 11111;
+            }
+            
+            // don't transfer torque to wheels
+            for (var i = 0; i < _pC._wheelsColliders.Length; i++)
+            {
+                if (i < 2)
+                {
+                    _pC._wheelsColliders[i].motorTorque = 0f;
+                }
+            }
+        }
+
         private bool ShouldChangeGears()
         {
             if (!_pC.ShiftingReady) return false;
