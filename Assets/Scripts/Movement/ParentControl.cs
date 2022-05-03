@@ -27,6 +27,26 @@ namespace Movement
         // without additional scaling, max value is PI, which corresponds to the positive half of sin wave
         [field: SerializeField] public float Radian;
 
+        public float FindCorrectRadianEndpointToGear()
+        {
+            float scaledRadianEndpoint;
+            
+            if (CurrentGear == GearsEnum.NEUTRAL)
+            {
+                scaledRadianEndpoint = Car.MinScaledRadianEndpoint;
+            }
+            else if (CurrentGear == GearsEnum.REVERSE)
+            {
+                scaledRadianEndpoint = Car.GearReverse.ScaledRadianEndpoint;
+            }
+            else
+            {
+                scaledRadianEndpoint = Car.Gears.Find(g => g.Level == (int)CurrentGear).ScaledRadianEndpoint;
+            }
+
+            return scaledRadianEndpoint;
+        }
+
         private void Awake()
         {
             FetchCarInfoFromJson();

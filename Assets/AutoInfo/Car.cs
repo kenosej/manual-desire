@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoInfo
 {
@@ -10,5 +11,21 @@ namespace AutoInfo
         public int MinTorque { get; set; }
         public int Weight { get; set; }
         public List<Gear> Gears { get; set; }
+        // calculated
+        public Gear GearReverse // just a reference to the 1st gear, cuz they are often the same
+        {
+            get
+            {
+                return Gears.Find(g => g.Level == 1); // chance for a bug
+            }
+        }
+
+        public float MinScaledRadianEndpoint
+        {
+            get
+            {
+                return Gears.Min(g => g.ScaledRadianEndpoint); // chance for a bug
+            }
+        }
     }
 }

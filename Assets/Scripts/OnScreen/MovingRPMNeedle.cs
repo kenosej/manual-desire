@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoInfo;
 using Movement;
 using UnityEngine;
@@ -22,25 +23,22 @@ namespace OnScreen
             _currRotation = transform.eulerAngles;
         }
         
-        private void UpdateNeedlePosition(float rot)
+        private void UpdateNeedlePosition(in float rotation)
         {
-            _currRotation.z = rot;
+            _currRotation.z = rotation;
             transform.rotation = Quaternion.Euler(_currRotation);
         }
 
         private void Update()
         {
-            if (_pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL && _pC.CurrentGear != ParentControl.GearsEnum.REVERSE)
-                UpdateNeedlePosition(ScaleNeedlePositionToScaledRadian());
+            UpdateNeedlePosition(ScaleNeedlePositionToScaledRadian(_pC.FindCorrectRadianEndpointToGear()));
         }
 
-        private float ScaleNeedlePositionToScaledRadian()
+        private float ScaleNeedlePositionToScaledRadian(in float scaledRadianEndpoint)
         {
-            Gear gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
-
             float numerator = (END_POS - START_POS) * _pC.Radian;
 
-            return numerator / gear.ScaledRadianEndpoint + START_POS;
+            return numerator / scaledRadianEndpoint + START_POS;
         }
 
     }

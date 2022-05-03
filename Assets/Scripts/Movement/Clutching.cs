@@ -15,15 +15,20 @@ namespace Movement
 
         private void FixedUpdate()
         {
-            if (_pC.Clutch) ClutchUp();
+            if (_pC.Clutch)
+            {
+                ClutchUp(_pC.FindCorrectRadianEndpointToGear());
+            }
             if (ShouldChangeGears()) ShiftIntoNewGear();
         }
 
-        private void ClutchUp()
+        private void ClutchUp(in float scaledRadianEndpoint)
         {
+            float dropRate = scaledRadianEndpoint * 0.0003f;
+            
             if (_pC.Radian > 0)
             {
-                _pC.Radian -= Mathf.PI / 11111;
+                _pC.Radian -= dropRate;
             }
             
             // don't transfer torque to wheels
