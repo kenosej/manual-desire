@@ -59,8 +59,8 @@ namespace Movement
                     if (!IsNextGearValid(nextGear))
                         return;
                     
-                    if (ShouldSmoothShift(nextGear))
-                        SmoothShifting(nextGear);
+                    if (ShouldTransferRadianLoad(nextGear))
+                        TransferRadianLoad(nextGear);
                     
                     _pC.CurrentGear = nextGear;
                     return;
@@ -68,7 +68,7 @@ namespace Movement
             }
         }
 
-        private bool ShouldSmoothShift(ParentControl.GearsEnum nextGear)
+        private bool ShouldTransferRadianLoad(ParentControl.GearsEnum nextGear)
         {
             return _pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL &&
                    _pC.CurrentGear != ParentControl.GearsEnum.REVERSE &&
@@ -88,7 +88,7 @@ namespace Movement
             return _pC.Car.Gears.Any(g => g?.Level == (int)nextGear);
         }
 
-        private void SmoothShifting(ParentControl.GearsEnum switchingToGear)
+        private void TransferRadianLoad(ParentControl.GearsEnum switchingToGear)
         {
             Gear currGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
             Gear nextGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)switchingToGear);
