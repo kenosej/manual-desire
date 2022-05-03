@@ -19,8 +19,11 @@ namespace Movement
 
         private void FixedUpdate()
         {
-            if (_pC._throttle) PressThrottle();
-            if (!_pC._throttle) ReleaseThrottle();
+            if (!_pC.Clutch)
+            {
+                if (_pC._throttle) PressThrottle();
+                if (!_pC._throttle) ReleaseThrottle();
+            }
             RotateWheelMeshes();
         }
 
@@ -116,14 +119,18 @@ namespace Movement
 
         private void ReleaseThrottle()
         {
+            Gear gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
+
+            float dropRate = gear.ScaledRadianEndpoint * 0.001f;
+            
+            if (_pC.Radian > 0)
+            {
+                _pC.Radian -= dropRate;
+            }
+                
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
             {
                 MotorTorque = 0f;
-
-                if (_pC.Radian > 0) // smooth scaling down the 0-1 value to which the DELTA_TORQUE is scaled
-                {
-                    _pC.Radian -= Mathf.PI / 15000;
-                }
 
                 if (i < 2)
                 {
