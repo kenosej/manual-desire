@@ -24,7 +24,7 @@ namespace Movement
 
         private void ClutchUp(in float scaledRadianEndpoint)
         {
-            float dropRate = scaledRadianEndpoint * 0.0003f;
+            float dropRate = scaledRadianEndpoint * 0.003f;
             
             if (_pC.Radian > 0)
             {

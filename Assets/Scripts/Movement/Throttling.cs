@@ -142,7 +142,7 @@ namespace Movement
 
         private void ReleaseThrottle(in float scaledRadianEndpoint)
         {
-            float dropRate = scaledRadianEndpoint * 0.001f;
+            float dropRate = scaledRadianEndpoint * 0.0005f;
             
             if (_pC.Radian > 0)
             {
