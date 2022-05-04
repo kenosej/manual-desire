@@ -36,7 +36,7 @@ namespace OnScreen
 
         private float ScaleNeedlePositionToScaledRadian(in float scaledRadianEndpoint)
         {
-            float numerator = (END_POS - START_POS) * _pC.Radian;
+            float numerator = (END_POS - START_POS) * (_pC.ShouldSmoothAlignRadian ? _pC.SmoothAligningRadian : _pC.Radian);
 
             return numerator / scaledRadianEndpoint + START_POS;
         }

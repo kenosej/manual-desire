@@ -2,6 +2,7 @@ using AutoInfo;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine.Serialization;
 
 namespace Movement
 {
@@ -25,7 +26,63 @@ namespace Movement
         [field: SerializeField] public bool[] GearsReceiver { get; set; } = new bool[10]; // NEUTRAL, 1-8, REVERSE
         
         // without additional scaling, max value is PI, which corresponds to the positive half of sin wave
-        [field: SerializeField] public float Radian;
+        [SerializeField] private float _radian;
+
+        public float Radian
+        {
+            get => _radian;
+            set
+            {
+                if (ShouldSmoothAlignRadian)
+                {
+                    float scaledRadianEndpoint = FindCorrectRadianEndpointToGear();
+                    
+                    if (ShouldSmoothAlignRadianUpOrDown)
+                    {
+                        if (SmoothAligningRadian < value)
+                        {
+                            SmoothAligningRadian += scaledRadianEndpoint * 0.01f;
+                        }
+                        else
+                        {
+                            ShouldSmoothAlignRadian = false;
+                        }
+                    }
+                    else
+                    {
+                        if (SmoothAligningRadian > value)
+                        {
+                            SmoothAligningRadian -= scaledRadianEndpoint * 0.01f;
+                        }
+                        else
+                        {
+                            ShouldSmoothAlignRadian = false;
+                        }
+                    }
+                }
+
+                if (value <= 0f) return;
+
+                _radian = value;
+            }
+        }
+        
+        [SerializeField] public bool ShouldSmoothAlignRadian;
+        [SerializeField] public bool ShouldSmoothAlignRadianUpOrDown; // up (true) when switching to lower gear
+
+        [SerializeField] private float _smoothAligningRadian;
+
+        public float SmoothAligningRadian
+        {
+            get => _smoothAligningRadian;
+            private set => _smoothAligningRadian = value;
+        }
+
+        public void SetSmoothAligningRadianIntoNewGearScale(in float radian, in float nextGearScaledRadianEndpoint)
+        {
+            _smoothAligningRadian = nextGearScaledRadianEndpoint * radian / FindCorrectRadianEndpointToGear();
+        }
+        
 
         public float FindCorrectRadianEndpointToGear()
         {

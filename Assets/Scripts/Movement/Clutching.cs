@@ -26,10 +26,7 @@ namespace Movement
         {
             float dropRate = scaledRadianEndpoint * 0.003f;
             
-            if (_pC.Radian > 0)
-            {
-                _pC.Radian -= dropRate;
-            }
+            _pC.Radian -= dropRate;
             
             // don't transfer torque to wheels
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
@@ -125,6 +122,10 @@ namespace Movement
             }
 
             float nextGearMaximumRadianEndpoint = nextGearScaledRadianEndpoint * exchangePoint;
+            
+            _pC.ShouldSmoothAlignRadian = true;
+            _pC.ShouldSmoothAlignRadianUpOrDown = false;
+            _pC.SetSmoothAligningRadianIntoNewGearScale(_pC.Radian, nextGearScaledRadianEndpoint);
             _pC.Radian = nextGearMaximumRadianEndpoint * _pC.Radian / currGearScaledRadianEndpoint;
         }
 
@@ -146,11 +147,14 @@ namespace Movement
             }
             else
             {
-                _pC.Radian = nextGearScaledRadianEndpoint;
-                return;
+                exchangePoint = 0f;
             }
             
             float currGearPointOfMaximumExchange = currGearScaledRadianEndpoint * exchangePoint;
+            
+            _pC.ShouldSmoothAlignRadian = true;
+            _pC.ShouldSmoothAlignRadianUpOrDown = true;
+            _pC.SetSmoothAligningRadianIntoNewGearScale(_pC.Radian, nextGearScaledRadianEndpoint);
 
             if (_pC.Radian >= currGearPointOfMaximumExchange)
             {

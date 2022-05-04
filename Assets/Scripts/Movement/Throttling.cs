@@ -144,10 +144,7 @@ namespace Movement
         {
             float dropRate = scaledRadianEndpoint * 0.0005f;
             
-            if (_pC.Radian > 0)
-            {
-                _pC.Radian -= dropRate;
-            }
+            _pC.Radian -= dropRate;
                 
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
             {
