@@ -19,8 +19,6 @@ namespace Movement
 
         private void FixedUpdate()
         {
-            CoordinateWheelMeshes(); // move to ParentControl
-            
             if (_pC.Clutch) return;
 
             if (!_pC.IsTurnedOn)
@@ -31,35 +29,6 @@ namespace Movement
             
             if (_pC._throttle) PressThrottle();
             else DecideWhenNoThrottle();
-        }
-
-        private void CoordinateWheelMeshes()
-        {
-            CoordinateWheelMeshesSideways();
-            CoordinateWheelMeshesForwards();
-        }
-
-        private void CoordinateWheelMeshesSideways()
-        {
-            _pC._wheelsMesh[0].transform.localEulerAngles = new Vector3(
-                    _pC._wheelsMesh[0].transform.localEulerAngles.x,
-                    _pC._wheelsColliders[0].steerAngle - _pC._wheelsMesh[0].transform.localEulerAngles.z,
-                    _pC._wheelsMesh[0].transform.localEulerAngles.z
-                );
-            
-            _pC._wheelsMesh[1].transform.localEulerAngles = new Vector3(
-                    _pC._wheelsMesh[1].transform.localEulerAngles.x,
-                    _pC._wheelsColliders[1].steerAngle - _pC._wheelsMesh[1].transform.localEulerAngles.z,
-                    _pC._wheelsMesh[1].transform.localEulerAngles.z
-                );
-        }
-
-        private void CoordinateWheelMeshesForwards()
-        {
-            for (int i = 0; i < _pC._wheelsMesh.Length; i++)
-            {
-                _pC._wheelsMesh[i].transform.Rotate(_pC._wheelsColliders[i].rpm / 60 * 360, 0, 0);
-            }
         }
 
         private void PressThrottle()

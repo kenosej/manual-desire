@@ -1,3 +1,4 @@
+using System;
 using AutoInfo;
 using System.IO;
 using UnityEngine;
@@ -124,6 +125,40 @@ namespace Movement
             foreach (Gear gear in Car.Gears)
             {
                  Debug.Log($"Gear {gear.Level}, ScaledRadianEndpoint: {gear.ScaledRadianEndpoint}");
+            }
+        }
+
+        private void Update()
+        {
+            CoordinateWheelMeshes(); 
+        }
+
+        private void CoordinateWheelMeshes()
+        {
+            CoordinateWheelMeshesSideways();
+            CoordinateWheelMeshesForwards();
+        }
+        
+        private void CoordinateWheelMeshesSideways()
+        {
+            _wheelsMesh[0].transform.localEulerAngles = new Vector3(
+                    _wheelsMesh[0].transform.localEulerAngles.x,
+                    _wheelsColliders[0].steerAngle - _wheelsMesh[0].transform.localEulerAngles.z,
+                    _wheelsMesh[0].transform.localEulerAngles.z
+                );
+            
+            _wheelsMesh[1].transform.localEulerAngles = new Vector3(
+                    _wheelsMesh[1].transform.localEulerAngles.x,
+                    _wheelsColliders[1].steerAngle - _wheelsMesh[1].transform.localEulerAngles.z,
+                    _wheelsMesh[1].transform.localEulerAngles.z
+                );
+        }
+
+        private void CoordinateWheelMeshesForwards()
+        {
+            for (int i = 0; i < _wheelsMesh.Length; i++)
+            {
+                _wheelsMesh[i].transform.Rotate(_wheelsColliders[i].rpm / 60 * 360, 0, 0);
             }
         }
     }
