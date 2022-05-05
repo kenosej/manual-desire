@@ -16,12 +16,17 @@ namespace Movement
         {
             if (_pC._brake)
             {
+                if (!_pC.Clutch &&
+                    _pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL &&
+                    _pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.1f)
+                {
+                    _pC.IsTurnedOn = false;
+                }
+                
                 foreach (var wheelCollider in _pC._wheelsColliders)
                 {
                     wheelCollider.brakeTorque = BrakeTorque;
                 }
-    
-                //Debug.Log(_wheelsColliders[0].brakeTorque);
             }
     
             if (!_pC._brake)
