@@ -20,12 +20,18 @@ namespace Movement
 
         private void FixedUpdate()
         {
-            if (!_pC.Clutch)
+            CoordinateWheelMeshes(); // move to ParentControl
+            
+            if (_pC.Clutch) return;
+
+            if (!_pC.IsTurnedOn)
             {
-                if (_pC._throttle) PressThrottle();
-                if (!_pC._throttle) ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
+                ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
+                return;
             }
-            CoordinateWheelMeshes();
+            
+            if (_pC._throttle) PressThrottle();
+            else ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
         }
 
         private void CoordinateWheelMeshes()

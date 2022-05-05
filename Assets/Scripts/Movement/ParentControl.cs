@@ -13,6 +13,7 @@ namespace Movement
         public GameObject[] _wheelsMesh;
         public WheelCollider[] _wheelsColliders;
         public Car Car { get; set; }
+        [field: SerializeField] public bool IsTurnedOn { get; set; }
 
         public bool _brake;
         public bool _left;
@@ -61,7 +62,7 @@ namespace Movement
                     }
                 }
 
-                if (value <= 0f) return;
+                if (value < 0f) return;
 
                 _radian = value;
             }

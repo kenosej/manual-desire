@@ -163,6 +163,15 @@ namespace InputScripts
                     ""processors"": """",
                     ""interactions"": ""Hold(duration=0.2)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleOn"",
+                    ""type"": ""Button"",
+                    ""id"": ""3e6d4056-a431-42c4-a2b6-b04b85b36250"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -330,6 +339,17 @@ namespace InputScripts
                     ""action"": ""Gear2Act"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2b1ae7e-7546-4977-82d0-4998bd78ec11"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": ""Hold(duration=0.3)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -353,6 +373,7 @@ namespace InputScripts
             m_Player_GearReverseAct = m_Player.FindAction("GearReverseAct", throwIfNotFound: true);
             m_Player_GearNeutralAct = m_Player.FindAction("GearNeutralAct", throwIfNotFound: true);
             m_Player_ClutchAct = m_Player.FindAction("ClutchAct", throwIfNotFound: true);
+            m_Player_ToggleOn = m_Player.FindAction("ToggleOn", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -427,6 +448,7 @@ namespace InputScripts
         private readonly InputAction m_Player_GearReverseAct;
         private readonly InputAction m_Player_GearNeutralAct;
         private readonly InputAction m_Player_ClutchAct;
+        private readonly InputAction m_Player_ToggleOn;
         public struct PlayerActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -446,6 +468,7 @@ namespace InputScripts
             public InputAction @GearReverseAct => m_Wrapper.m_Player_GearReverseAct;
             public InputAction @GearNeutralAct => m_Wrapper.m_Player_GearNeutralAct;
             public InputAction @ClutchAct => m_Wrapper.m_Player_ClutchAct;
+            public InputAction @ToggleOn => m_Wrapper.m_Player_ToggleOn;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -500,6 +523,9 @@ namespace InputScripts
                     @ClutchAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
                     @ClutchAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
                     @ClutchAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
+                    @ToggleOn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOn;
+                    @ToggleOn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOn;
+                    @ToggleOn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOn;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -549,6 +575,9 @@ namespace InputScripts
                     @ClutchAct.started += instance.OnClutchAct;
                     @ClutchAct.performed += instance.OnClutchAct;
                     @ClutchAct.canceled += instance.OnClutchAct;
+                    @ToggleOn.started += instance.OnToggleOn;
+                    @ToggleOn.performed += instance.OnToggleOn;
+                    @ToggleOn.canceled += instance.OnToggleOn;
                 }
             }
         }
@@ -570,6 +599,7 @@ namespace InputScripts
             void OnGearReverseAct(InputAction.CallbackContext context);
             void OnGearNeutralAct(InputAction.CallbackContext context);
             void OnClutchAct(InputAction.CallbackContext context);
+            void OnToggleOn(InputAction.CallbackContext context);
         }
     }
 }

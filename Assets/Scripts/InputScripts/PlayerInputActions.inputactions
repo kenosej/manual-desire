@@ -139,6 +139,15 @@
                     "processors": "",
                     "interactions": "Hold(duration=0.2)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleOn",
+                    "type": "Button",
+                    "id": "3e6d4056-a431-42c4-a2b6-b04b85b36250",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -304,6 +313,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Gear2Act",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2b1ae7e-7546-4977-82d0-4998bd78ec11",
+                    "path": "<Keyboard>/t",
+                    "interactions": "Hold(duration=0.3)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleOn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

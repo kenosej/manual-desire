@@ -1,3 +1,4 @@
+using System;
 using InputScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +21,8 @@ namespace Movement
 
         private void RegisterInputs()
         {
+            _pIA.Player.ToggleOn.performed += ToggleOn;
+            
             _pIA.Player.ThrottleAct.performed += ThrottleUp;
             _pIA.Player.ThrottleAct.canceled +=  ThrottleDown;
 
@@ -66,6 +69,11 @@ namespace Movement
             _pIA.Player.ClutchAct.started += ClutchUp;
             _pIA.Player.ClutchAct.performed += ClutchedFull;
             _pIA.Player.ClutchAct.canceled += ClutchDown;
+        }
+
+        private void ToggleOn(InputAction.CallbackContext obj)
+        {
+            _pC.IsTurnedOn = !_pC.IsTurnedOn;
         }
 
         private void ClutchUp(InputAction.CallbackContext obj)
