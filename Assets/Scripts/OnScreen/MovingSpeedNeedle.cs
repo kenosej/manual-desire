@@ -5,6 +5,7 @@ namespace OnScreen
     public class MovingSpeedNeedle : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rB;
+        
         public float SpeedInKmh
         {
             get => _rB.velocity.magnitude * 3.6f;
@@ -20,16 +21,6 @@ namespace OnScreen
         private void Awake()
         {
             _currRotation = transform.eulerAngles;
-
-            // useful for setting up needle positions
-            
-            //_currRotation.z = _currRotation.z % 360;
-            //if (_currRotation.z > 180)
-            //    _currRotation.z -= 360f;
-            //
-            //Debug.Log(_currRotation.z);
-            //UpdateNeedlePosition(_currRotation.z);
-            //Debug.Log(_currRotation.z);
         }
 
         private void UpdateNeedlePosition(in float rot)

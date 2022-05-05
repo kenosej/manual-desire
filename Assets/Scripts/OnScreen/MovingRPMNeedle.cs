@@ -1,5 +1,3 @@
-using System.Linq;
-using AutoInfo;
 using Movement;
 using UnityEngine;
 
@@ -14,7 +12,6 @@ namespace OnScreen
         private const float LEER_GAS_POS = -47.677f;
         private const float END_POS = -254.978f;
         
-        private float _maxScaledRadian;
         private Vector3 _currRotation;
 
         private void Awake()
@@ -43,6 +40,5 @@ namespace OnScreen
 
             return numerator / scaledRadianEndpoint + startPosition;
         }
-
     }
 }

@@ -2,7 +2,6 @@ using AutoInfo;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
-using UnityEngine.Serialization;
 
 namespace Movement
 {
@@ -84,7 +83,6 @@ namespace Movement
         {
             _smoothAligningRadian = nextGearScaledRadianEndpoint * radian / FindCorrectRadianEndpointToGear();
         }
-        
 
         public float FindCorrectRadianEndpointToGear()
         {
@@ -110,6 +108,7 @@ namespace Movement
         {
             FetchCarInfoFromJson();
         }
+        
         private void FetchCarInfoFromJson()
         {
             var fs = new FileStream("./Assets/AutoInfo/PurpleFirst.json", FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -124,7 +123,7 @@ namespace Movement
         {
             foreach (Gear gear in Car.Gears)
             {
-                 Debug.Log($"Gear {gear.Level}, Max DeltaRadianScalar: {Mathf.PI * (gear.Denominator / gear.Numerator)}");
+                 Debug.Log($"Gear {gear.Level}, ScaledRadianEndpoint: {gear.ScaledRadianEndpoint}");
             }
         }
     }

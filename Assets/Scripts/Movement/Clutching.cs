@@ -15,10 +15,7 @@ namespace Movement
 
         private void FixedUpdate()
         {
-            if (_pC.Clutch)
-            {
-                ClutchUp(_pC.FindCorrectRadianEndpointToGear());
-            }
+            if (_pC.Clutch) ClutchUp(_pC.FindCorrectRadianEndpointToGear());
             if (ShouldChangeGears()) ShiftIntoNewGear();
         }
 
@@ -164,7 +161,5 @@ namespace Movement
             
             _pC.Radian = nextGearScaledRadianEndpoint * _pC.Radian / currGearPointOfMaximumExchange;
         }
-
-        
     }
 }

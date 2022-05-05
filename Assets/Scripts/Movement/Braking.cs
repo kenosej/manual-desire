@@ -1,40 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Movement
 {
-public class Braking : MonoBehaviour
-{
-    private ParentControl _pC;
-    [field: SerializeField] float BrakeTorque { get; set; } = 7000f;
-    
-    private void Awake()
+    public class Braking : MonoBehaviour
     {
-        _pC = GetComponent<ParentControl>();
-    }
-    
-    private void FixedUpdate()
-    {
-        if (_pC._brake)
+        private ParentControl _pC;
+        [field: SerializeField] float BrakeTorque { get; set; } = 7000f;
+        
+        private void Awake()
         {
-            foreach (var wheelCollider in _pC._wheelsColliders)
-            {
-                wheelCollider.brakeTorque = BrakeTorque;
-            }
-
-            //Debug.Log(_wheelsColliders[0].brakeTorque);
+            _pC = GetComponent<ParentControl>();
         }
-
-        if (!_pC._brake)
+        
+        private void FixedUpdate()
         {
-            foreach (var wheelCollider in _pC._wheelsColliders)
+            if (_pC._brake)
             {
-                wheelCollider.brakeTorque = 0f;
+                foreach (var wheelCollider in _pC._wheelsColliders)
+                {
+                    wheelCollider.brakeTorque = BrakeTorque;
+                }
+    
+                //Debug.Log(_wheelsColliders[0].brakeTorque);
+            }
+    
+            if (!_pC._brake)
+            {
+                foreach (var wheelCollider in _pC._wheelsColliders)
+                {
+                    wheelCollider.brakeTorque = 0f;
+                }
             }
         }
     }
-    
-}
 }

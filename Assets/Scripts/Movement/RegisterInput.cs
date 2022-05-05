@@ -1,6 +1,5 @@
-using System;
-using InputScripts;
 using UnityEngine;
+using InputScripts;
 using UnityEngine.InputSystem;
 
 namespace Movement
@@ -231,6 +230,5 @@ namespace Movement
         {
             _pC._throttle = false;
         }
-        
     }
 }
