@@ -19,11 +19,23 @@ namespace Movement
 
         private void FixedUpdate()
         {
-            if (_pC.Clutch) return;
-
-            if (!_pC.IsTurnedOn)
+            if (!_pC.IsTurnedOn || _pC._brake)
             {
                 ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
+                return;
+            }
+
+            //if (_pC._brake)
+            //{
+            //    ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
+            //    return;
+            //}
+            
+            if (!_pC._throttle && _pC.Clutch) return;
+            
+            if (_pC.Clutch && _pC._throttle)
+            {
+                IncreaseRadianInNeutral();
                 return;
             }
             
