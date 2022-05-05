@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AutoInfo
+namespace Models
 {
     public class Gear
     {

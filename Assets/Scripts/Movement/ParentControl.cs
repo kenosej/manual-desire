@@ -1,4 +1,4 @@
-using AutoInfo;
+using Models;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -12,6 +12,7 @@ namespace Movement
         public GameObject[] _wheelsMesh;
         public WheelCollider[] _wheelsColliders;
         public Car Car { get; set; }
+        public bool IsCarDead { get; set; }
         [field: SerializeField] public bool IsTurnedOn { get; set; }
 
         [SerializeField] private float _heat;
@@ -135,7 +136,7 @@ namespace Movement
         
         private void FetchCarInfoFromJson()
         {
-            var fs = new FileStream("./Assets/AutoInfo/PurpleFirst.json", FileMode.Open, FileAccess.Read, FileShare.Read);
+            var fs = new FileStream("./Assets/CarsInfo/PurpleFirst.json", FileMode.Open, FileAccess.Read, FileShare.Read);
             using var sr = new StreamReader(fs);
             
             Car = JsonConvert.DeserializeObject<Car>(sr.ReadToEnd());

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Movement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +17,12 @@ namespace OnScreen
             get => _barFillAmount;
             set
             {
-                if (value < 0f || value > 1f) return;
+                if (value <= 0f)
+                {
+                    _pC.IsCarDead = true;
+                    return;
+                }
+                if (value > 1f) return;
                 _barFillAmount = value;
             }
         }
