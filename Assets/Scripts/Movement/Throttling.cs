@@ -124,16 +124,35 @@ namespace Movement
                     {
                         if (i < 2)
                         {
-                            //_pC._wheelsColliders[i].motorTorque = _pC.Car.LeerGasTorque;
+                            _pC._wheelsColliders[i].motorTorque = 10f;
                         }
                     }
                 }
-                // turn off the car at the other gears
+                else if (_pC.CurrentGear == ParentControl.GearsEnum.REVERSE)
+                {
+                    for (var i = 0; i < _pC._wheelsColliders.Length; i++)
+                    {
+                        if (i < 2)
+                        {
+                            _pC._wheelsColliders[i].motorTorque = -10f;
+                        }
+                    }
+                }
+                else if (_pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL)
+                {
+                    JerkForward();
+                    _pC.IsTurnedOn = false;
+                }
             }
             else
             {
                 ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
             }
+        }
+
+        private void JerkForward()
+        { 
+            _rB.AddRelativeForce(Vector3.forward * 100, ForceMode.Acceleration);
         }
 
         private void ReleaseThrottle(in float scaledRadianEndpoint)
