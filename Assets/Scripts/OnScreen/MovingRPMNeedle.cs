@@ -11,6 +11,7 @@ namespace OnScreen
         private ParentControl _pC;
         
         private const float START_POS = -13.617f;
+        private const float LEER_GAS_POS = -47.677f;
         private const float END_POS = -254.978f;
         
         private float _maxScaledRadian;
@@ -36,9 +37,11 @@ namespace OnScreen
 
         private float ScaleNeedlePositionToScaledRadian(in float scaledRadianEndpoint)
         {
-            float numerator = (END_POS - START_POS) * (_pC.ShouldSmoothAlignRadian ? _pC.SmoothAligningRadian : _pC.Radian);
+            float startPosition = _pC.IsTurnedOn ? LEER_GAS_POS : START_POS;
+            
+            float numerator = (END_POS - startPosition) * (_pC.ShouldSmoothAlignRadian ? _pC.SmoothAligningRadian : _pC.Radian);
 
-            return numerator / scaledRadianEndpoint + START_POS;
+            return numerator / scaledRadianEndpoint + startPosition;
         }
 
     }

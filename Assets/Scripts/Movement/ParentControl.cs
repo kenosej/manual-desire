@@ -62,6 +62,7 @@ namespace Movement
                     }
                 }
 
+                // TODO don't allow asigning values greater than scaled radian endpoint
                 if (value < 0f) return;
 
                 _radian = value;

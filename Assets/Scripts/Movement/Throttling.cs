@@ -1,6 +1,5 @@
-using System;
-using System.Linq;
 using AutoInfo;
+using System.Linq;
 using UnityEngine;
 
 namespace Movement
@@ -31,7 +30,7 @@ namespace Movement
             }
             
             if (_pC._throttle) PressThrottle();
-            else ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
+            else DecideWhenNoThrottle();
         }
 
         private void CoordinateWheelMeshes()
@@ -98,9 +97,9 @@ namespace Movement
 
             if (_pC.Radian < smallestRadianEndpointOfAlLGears)
             {
-                const float thousandthOfRadian = Mathf.PI / 800;
+                const float step = Mathf.PI / 800;
 
-                _pC.Radian += thousandthOfRadian;
+                _pC.Radian += step;
             }
         }
 
@@ -144,6 +143,28 @@ namespace Movement
             }
 
             MotorTorque = gear.LowestTorque + gear.DeltaTorque * Mathf.Sin(scaledRadian);
+        }
+
+        private void DecideWhenNoThrottle()
+        {
+            if (_pC.Radian < 0.001f)
+            {
+                if (_pC.CurrentGear == ParentControl.GearsEnum.FIRST)
+                {
+                    for (var i = 0; i < _pC._wheelsColliders.Length; i++)
+                    {
+                        if (i < 2)
+                        {
+                            //_pC._wheelsColliders[i].motorTorque = _pC.Car.LeerGasTorque;
+                        }
+                    }
+                }
+                // turn off the car at the other gears
+            }
+            else
+            {
+                ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
+            }
         }
 
         private void ReleaseThrottle(in float scaledRadianEndpoint)
