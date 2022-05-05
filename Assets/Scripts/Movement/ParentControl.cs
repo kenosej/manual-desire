@@ -1,4 +1,3 @@
-using System;
 using AutoInfo;
 using System.IO;
 using UnityEngine;
@@ -14,6 +13,30 @@ namespace Movement
         public WheelCollider[] _wheelsColliders;
         public Car Car { get; set; }
         [field: SerializeField] public bool IsTurnedOn { get; set; }
+
+        [SerializeField] private float _heat;
+        
+        public float Heat
+        {
+            get => _heat;
+            set
+            {
+                if (value < 0f || value > 100f) return;
+                _heat = value;
+            }
+        }
+
+        [SerializeField] private float _damage;
+        
+        public float Damage
+        {
+            get => _damage;
+            set
+            {
+                if (value > 100 || value < 0) return;
+                _damage = value;
+            }
+        }
 
         public bool _brake;
         public bool _left;

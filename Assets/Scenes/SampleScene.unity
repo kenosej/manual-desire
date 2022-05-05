@@ -632,14 +632,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322386145}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7934727, w: -0.60860574}
+  m_LocalRotation: {x: -0, y: -0, z: -0.12351781, w: 0.99234235}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5166842, y: 1.5166842, z: 1.5166842}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1330507267}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -254.978}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -14.19}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -173.4, y: -210.1}
@@ -2981,6 +2981,9 @@ MonoBehaviour:
   - {fileID: 242327339}
   - {fileID: 206589496}
   - {fileID: 2075089172}
+  <IsTurnedOn>k__BackingField: 0
+  _heat: 0
+  _damage: 0
   _brake: 0
   _left: 0
   _right: 0
@@ -2989,7 +2992,10 @@ MonoBehaviour:
   <ShiftingReady>k__BackingField: 0
   <CurrentGear>k__BackingField: 0
   <GearsReceiver>k__BackingField: 00000000000000000000
-  Radian: 0
+  _radian: 0
+  ShouldSmoothAlignRadian: 0
+  ShouldSmoothAlignRadianUpOrDown: 0
+  _smoothAligningRadian: 0
 --- !u!4 &1322809260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6301142851818038027, guid: 62010132604e8c94d96b4cb4fe6d3394, type: 3}
@@ -3008,8 +3014,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxAngle: 30
-  <SteerStep>k__BackingField: 1.1
-  <ReleaseSteerStep>k__BackingField: 0.9
   _currSteerAngle: 0
 --- !u!114 &1322809262
 MonoBehaviour:
@@ -4171,6 +4175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1668054654}
+  - component: {fileID: 1668054655}
   m_Layer: 5
   m_Name: Gears
   m_TagString: Untagged
@@ -4208,6 +4213,19 @@ RectTransform:
   m_AnchoredPosition: {x: -358, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1668054655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668054653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa894f87352ed8f4eaa51fd97476ce64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _carObjReference: {fileID: 1322809254}
 --- !u!1 &1932381707 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8804133248813466372, guid: 62010132604e8c94d96b4cb4fe6d3394, type: 3}

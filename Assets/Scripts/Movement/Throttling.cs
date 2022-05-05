@@ -1,3 +1,4 @@
+using System;
 using AutoInfo;
 using System.Linq;
 using UnityEngine;
@@ -19,18 +20,14 @@ namespace Movement
 
         private void FixedUpdate()
         {
+            RegulateHeat();
+            
             if (!_pC.IsTurnedOn || _pC._brake)
             {
                 ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
                 return;
             }
 
-            //if (_pC._brake)
-            //{
-            //    ReleaseThrottle(_pC.FindCorrectRadianEndpointToGear());
-            //    return;
-            //}
-            
             if (!_pC._throttle && _pC.Clutch) return;
             
             if (_pC.Clutch && _pC._throttle)
@@ -41,6 +38,32 @@ namespace Movement
             
             if (_pC._throttle) PressThrottle();
             else DecideWhenNoThrottle();
+        }
+
+        private void RegulateHeat()
+        {
+            float multiplier = _pC.Heat > 50f ? 0.75f : 1f;
+            bool shouldCoolDownOnModerateRPMs = _pC.Heat > 50f;
+
+            if (_pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.65f)
+            {
+                if (shouldCoolDownOnModerateRPMs)
+                {
+                    _pC.Heat -= 0.02f * multiplier;
+                }
+                else
+                {
+                    _pC.Heat += 0.02f * multiplier;
+                }
+            }
+            else if (_pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.75f)
+            {
+                _pC.Heat += 0.05f * multiplier;
+            }
+            else
+            {
+                _pC.Heat += 0.1f * multiplier;
+            }
         }
 
         private void PressThrottle()
@@ -106,11 +129,6 @@ namespace Movement
 
             float scaledRadian = _pC.Radian * gear.RadianScalar;
 
-            if (scaledRadian > gear.ScaledRadianPeak && Mathf.Sin(scaledRadian) < 0.0001f)
-            {
-                Debug.Log($"({gear.Level}. gear) {speed} m/s; {speed * 3.6f} km/h | Wave returned to 0");
-            }
-            
             if (Mathf.Sin(scaledRadian) > 0.9999f)
             {
                 Debug.Log($"({gear.Level}. gear) {speed} m/s; {speed * 3.6f} km/h | PEAK");
