@@ -10,6 +10,8 @@ namespace Movement
         public enum Drive { Front, Rear, All };
         public enum GearsEnum { Neutral, First, Second, Third, Fourth, Fifth, Sixth, Seventh, Eighth, Reverse };
         
+        private Rigidbody _rB;
+        
         public GameObject[] wheelsMesh; 
         public WheelCollider[] wheelsColliders;
         public Car Car { get; private set; }
@@ -45,6 +47,8 @@ namespace Movement
         public bool left;
         public bool right;
         public bool throttle;
+
+        public float SpeedInKmh => _rB.velocity.magnitude * 3.6f;
         
         [field: SerializeField] public bool Clutch { get; set; }
         [field: SerializeField] public bool ShiftingReady { get; set; }
@@ -128,6 +132,7 @@ namespace Movement
 
         private void Awake()
         {
+            _rB = GetComponent<Rigidbody>();
             FetchCarInfoFromJson();
         }
         

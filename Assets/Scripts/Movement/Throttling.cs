@@ -70,10 +70,8 @@ namespace Movement
                 }
                 default:
                 {
-                    var speedInKmh = _rB.velocity.magnitude * 3.6f;
-
                     var gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
-                    AdjustThrottleToGear(speedInKmh, gear);
+                    AdjustThrottleToGear(gear);
                     break;
                 }
             }
@@ -105,7 +103,7 @@ namespace Movement
             MotorTorque = (firstGear.LowestTorque + firstGear.DeltaTorque * Mathf.Sin(_pC.Radian * firstGear.RadianScalar)) * -1;
         }
 
-        private void AdjustThrottleToGear(in float speedInKmh, Gear gear)
+        private void AdjustThrottleToGear(Gear gear)
         {
             float scaledRadian = _pC.Radian * gear.RadianScalar;
 
@@ -123,10 +121,10 @@ namespace Movement
 
             MotorTorque = gear.LowestTorque + gear.DeltaTorque * Mathf.Sin(scaledRadian);
 
-            if (speedInKmh <= gear.MaxSpeedKmh) return;
+            if (_pC.SpeedInKmh <= gear.MaxSpeedKmh) return;
             
             // the faster car goes above its gear limit, the smaller torque is applied (partly) proportionally
-            var speedSubtractionStep = Mathf.Ceil(Mathf.Abs(speedInKmh - gear.MaxSpeedKmh)) / 100;
+            var speedSubtractionStep = Mathf.Ceil(Mathf.Abs(_pC.SpeedInKmh - gear.MaxSpeedKmh)) / 100;
             
             MotorTorque *= Mathf.Clamp(0.45f - speedSubtractionStep, 0.2f, 0.70f);
         }
@@ -175,6 +173,5 @@ namespace Movement
             MotorTorque = 0f;
             _pC.ApplyTorqueToWheels(MotorTorque);
         }
-
     }
 }

@@ -34,13 +34,9 @@ namespace Movement
 
         private void AdjustMaxSteeringAngleToCarSpeed()
         {
-            var lowestSteerAngleAtSpeed = 90f;
-            var speedInKmh = _rB.velocity.magnitude * 3.6f;
+            const float lowestSteerAngleAtSpeed = 90f;
             
-            if (speedInKmh > lowestSteerAngleAtSpeed)
-                speedInKmh = lowestSteerAngleAtSpeed;
-            
-            maxAngle = 30f - 25 * (speedInKmh / lowestSteerAngleAtSpeed);
+            maxAngle = 30f - 25 * ((_pC.SpeedInKmh > lowestSteerAngleAtSpeed ? lowestSteerAngleAtSpeed : _pC.SpeedInKmh) / lowestSteerAngleAtSpeed);
         }
 
         private void AdjustAngle()
