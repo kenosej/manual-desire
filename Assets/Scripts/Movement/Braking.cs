@@ -14,27 +14,35 @@ namespace Movement
         
         private void FixedUpdate()
         {
-            if (_pC._brake)
+            if (_pC._brake) Brake();
+            else ReleaseBrake();
+        }
+
+        private void ReleaseBrake()
+        {
+            foreach (var wheelCollider in _pC._wheelsColliders)
             {
-                if (!_pC.Clutch &&
-                    _pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL &&
-                    _pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.1f)
-                {
-                    _pC.IsTurnedOn = false;
-                }
-                
-                foreach (var wheelCollider in _pC._wheelsColliders)
-                {
-                    wheelCollider.brakeTorque = BrakeTorque;
-                }
+                wheelCollider.brakeTorque = 0f;
             }
-    
-            if (!_pC._brake)
+        }
+
+        private void Brake()
+        {
+            TurnCarOffIfBrakingAtLowRPMsWithoutClutch();
+            
+            foreach (var wheelCollider in _pC._wheelsColliders)
             {
-                foreach (var wheelCollider in _pC._wheelsColliders)
-                {
-                    wheelCollider.brakeTorque = 0f;
-                }
+                wheelCollider.brakeTorque = BrakeTorque;
+            }
+        }
+
+        private void TurnCarOffIfBrakingAtLowRPMsWithoutClutch()
+        {
+            if (!_pC.Clutch &&
+                _pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL &&
+                _pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.1f)
+            {
+                _pC.IsTurnedOn = false;
             }
         }
     }
