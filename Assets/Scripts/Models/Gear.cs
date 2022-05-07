@@ -5,7 +5,7 @@ namespace Models
     public class Gear
     {
         public int Level { get; set; }
-        public float MaxSpeed { get; set; }
+        public float MinSpeedKmh { get; set; }
         public float MaxSpeedKmh { get; set; }
         public float LowestTorque { get; set; }
         public float HighestTorque { get; set; }

@@ -58,41 +58,14 @@ namespace Movement
             get => _radian;
             set
             {
-                if (ShouldSmoothAlignRadian)
-                {
-                    float scaledRadianEndpoint = FindCorrectRadianEndpointToGear();
-                    
-                    if (ShouldSmoothAlignRadianUpOrDown)
-                    {
-                        if (SmoothAligningRadian < value)
-                        {
-                            SmoothAligningRadian += scaledRadianEndpoint * 0.01f;
-                        }
-                        else
-                        {
-                            ShouldSmoothAlignRadian = false;
-                        }
-                    }
-                    else
-                    {
-                        if (SmoothAligningRadian > value)
-                        {
-                            SmoothAligningRadian -= scaledRadianEndpoint * 0.01f;
-                        }
-                        else
-                        {
-                            ShouldSmoothAlignRadian = false;
-                        }
-                    }
-                }
+                ManageSmoothAlignRadian(in value);
 
-                // TODO don't allow asigning values greater than scaled radian endpoint
-                if (value < 0f) return;
+                if (value < 0f || value > FindCorrectRadianEndpointToGear()) return;
 
                 _radian = value;
             }
         }
-        
+
         [SerializeField] public bool ShouldSmoothAlignRadian;
         [SerializeField] public bool ShouldSmoothAlignRadianUpOrDown; // up (true) when switching to lower gear
 
@@ -127,6 +100,36 @@ namespace Movement
             }
 
             return scaledRadianEndpoint;
+        }
+        
+        private void ManageSmoothAlignRadian(in float value)
+        {
+            if (!ShouldSmoothAlignRadian) return;
+            
+            float scaledRadianEndpoint = FindCorrectRadianEndpointToGear();
+            
+            if (ShouldSmoothAlignRadianUpOrDown)
+            {
+                if (SmoothAligningRadian < value)
+                {
+                    SmoothAligningRadian += scaledRadianEndpoint * 0.01f;
+                }
+                else
+                {
+                    ShouldSmoothAlignRadian = false;
+                }
+            }
+            else
+            {
+                if (SmoothAligningRadian > value)
+                {
+                    SmoothAligningRadian -= scaledRadianEndpoint * 0.01f;
+                }
+                else
+                {
+                    ShouldSmoothAlignRadian = false;
+                }
+            }
         }
 
         private void Awake()

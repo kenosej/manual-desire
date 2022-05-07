@@ -1,53 +1,51 @@
 {
   "Name": "Purple first",
   "NumberOfGears": 5,
-  "MaxTorque": 500,
-  "MinTorque": 10,
   "Weight": 1500,
   "Gears": [
     {
       "Level": 1,
-      "MaxSpeed": 8.3,
-      "MaxSpeedKmh": 29.8,
-      "LowestTorque": 350,
-      "HighestTorque": 500,
-      "Numerator": 29,
+      "MinSpeedKmh": 0,
+      "MaxSpeedKmh": 30,
+      "LowestTorque": 500,
+      "HighestTorque": 600,
+      "Numerator": 35,
       "Denominator": 10
     },
     {
       "Level": 2,
-      "MaxSpeed": 13.8,
-      "MaxSpeedKmh": 49.68,
-      "LowestTorque": 300,
-      "HighestTorque": 425,
-      "Numerator": 22,
+      "MinSpeedKmh": 2,
+      "MaxSpeedKmh": 70,
+      "LowestTorque": 500,
+      "HighestTorque": 550,
+      "Numerator": 30,
       "Denominator": 10
     },
     {
       "Level": 3,
-      "MaxSpeed": 19.4,
-      "MaxSpeedKmh": 69.8,
-      "LowestTorque": 250,
-      "HighestTorque": 360,
-      "Numerator": 18,
+      "MinSpeedKmh": 20,
+      "MaxSpeedKmh": 100,
+      "LowestTorque": 400,
+      "HighestTorque": 500,
+      "Numerator": 17,
       "Denominator": 10
     },
     {
       "Level": 4,
-      "MaxSpeed": 25,
-      "MaxSpeedKmh": 90,
-      "LowestTorque": 150,
-      "HighestTorque": 305,
+      "MinSpeedKmh": 45,
+      "MaxSpeedKmh": 140,
+      "LowestTorque": 400,
+      "HighestTorque": 450,
       "Numerator": 13,
       "Denominator": 10
     },
     {
       "Level": 5,
-      "MaxSpeed": 50,
-      "MaxSpeedKmh": 180,
-      "LowestTorque": 150,
-      "HighestTorque": 305,
-      "Numerator": 11,
+      "MinSpeedKmh": 80,
+      "MaxSpeedKmh": 200,
+      "LowestTorque": 300,
+      "HighestTorque": 400,
+      "Numerator": 7,
       "Denominator": 10
     }
   ]
