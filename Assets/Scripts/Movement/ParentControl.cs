@@ -7,92 +7,92 @@ namespace Movement
 {
     public class ParentControl : MonoBehaviour
     {
-        public enum Drive { FRONT, REAR, ALL };
-        public enum GearsEnum { NEUTRAL, FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, REVERSE };
+        public enum Drive { Front, Rear, All };
+        public enum GearsEnum { Neutral, First, Second, Third, Fourth, Fifth, Sixth, Seventh, Eighth, Reverse };
         
-        public GameObject[] _wheelsMesh;
-        public WheelCollider[] _wheelsColliders;
-        public Car Car { get; set; }
+        public GameObject[] wheelsMesh; 
+        public WheelCollider[] wheelsColliders;
+        public Car Car { get; private set; }
         public bool IsCarDead { get; set; }
         [field: SerializeField] public bool IsTurnedOn { get; set; }
 
-        [SerializeField] private float _heat;
+        [SerializeField] private float heat;
         
         public float Heat
         {
-            get => _heat;
+            get => heat;
             set
             {
                 if (value < 0f || value > 100f) return;
-                _heat = value;
+                heat = value;
             }
         }
 
-        [SerializeField] private float _damage;
+        [SerializeField] private float damage;
         
         public float Damage
         {
-            get => _damage;
+            get => damage;
             set
             {
                 if (value > 100 || value < 0) return;
-                _damage = value;
+                damage = value;
             }
         }
 
-        public bool _parkingBrake;
-        public bool _brake;
-        public bool _left;
-        public bool _right;
-        public bool _throttle;
+        public bool parkingBrake;
+        public bool brake;
+        public bool left;
+        public bool right;
+        public bool throttle;
         
         [field: SerializeField] public bool Clutch { get; set; }
         [field: SerializeField] public bool ShiftingReady { get; set; }
         
-        [field: SerializeField] public GearsEnum CurrentGear { get; set; } = GearsEnum.NEUTRAL;
+        [field: SerializeField] public GearsEnum CurrentGear { get; set; } = GearsEnum.Neutral;
         [field: SerializeField] public bool[] GearsReceiver { get; set; } = new bool[10]; // NEUTRAL, 1-8, REVERSE
         
         // without additional scaling, max value is PI, which corresponds to the positive half of sin wave
-        [SerializeField] private float _radian;
+        [SerializeField] private float radian;
 
         public float Radian
         {
-            get => _radian;
+            get => radian;
             set
             {
                 ManageSmoothAlignRadian(in value);
 
                 if (value < 0f || value > FindCorrectRadianEndpointToGear()) return;
 
-                _radian = value;
+                radian = value;
             }
         }
 
-        [SerializeField] public bool ShouldSmoothAlignRadian;
-        [SerializeField] public bool ShouldSmoothAlignRadianUpOrDown; // up (true) when switching to lower gear
-
-        [SerializeField] private float _smoothAligningRadian;
+        [SerializeField] public bool shouldSmoothAlignRadian;
+        [SerializeField] public bool shouldSmoothAlignRadianUpOrDown; // up (true) when switching to lower gear
+        
+        [SerializeField] private float smoothAligningRadian;
 
         public float SmoothAligningRadian
         {
-            get => _smoothAligningRadian;
-            private set => _smoothAligningRadian = value;
+            get => smoothAligningRadian;
+            private set => smoothAligningRadian = value;
         }
 
-        public void SetSmoothAligningRadianIntoNewGearScale(in float radian, in float nextGearScaledRadianEndpoint)
+        public void SetSmoothAligningRadianIntoNewGearScale(in float parameterRadian, in float nextGearScaledRadianEndpoint)
         {
-            _smoothAligningRadian = nextGearScaledRadianEndpoint * radian / FindCorrectRadianEndpointToGear();
+            smoothAligningRadian = nextGearScaledRadianEndpoint * parameterRadian / FindCorrectRadianEndpointToGear();
         }
 
         public float FindCorrectRadianEndpointToGear()
         {
             float scaledRadianEndpoint;
             
-            if (CurrentGear == GearsEnum.NEUTRAL)
+            if (CurrentGear == GearsEnum.Neutral)
             {
                 scaledRadianEndpoint = Car.MinScaledRadianEndpoint;
             }
-            else if (CurrentGear == GearsEnum.REVERSE)
+            else if (CurrentGear == GearsEnum.Reverse)
             {
                 scaledRadianEndpoint = Car.GearReverse.ScaledRadianEndpoint;
             }
@@ -106,31 +106,23 @@ namespace Movement
         
         private void ManageSmoothAlignRadian(in float value)
         {
-            if (!ShouldSmoothAlignRadian) return;
+            if (!shouldSmoothAlignRadian) return;
             
-            float scaledRadianEndpoint = FindCorrectRadianEndpointToGear();
+            var scaledRadianEndpoint = FindCorrectRadianEndpointToGear();
             
-            if (ShouldSmoothAlignRadianUpOrDown)
+            if (shouldSmoothAlignRadianUpOrDown)
             {
                 if (SmoothAligningRadian < value)
-                {
                     SmoothAligningRadian += scaledRadianEndpoint * 0.01f;
-                }
                 else
-                {
-                    ShouldSmoothAlignRadian = false;
-                }
+                    shouldSmoothAlignRadian = false;
             }
             else
             {
                 if (SmoothAligningRadian > value)
-                {
                     SmoothAligningRadian -= scaledRadianEndpoint * 0.01f;
-                }
                 else
-                {
-                    ShouldSmoothAlignRadian = false;
-                }
+                    shouldSmoothAlignRadian = false;
             }
         }
 
@@ -152,33 +144,31 @@ namespace Movement
         private void LogDeltaMaxScalarPerGears()
         {
             foreach (Gear gear in Car.Gears)
-            {
                  Debug.Log($"Gear {gear.Level}, ScaledRadianEndpoint: {gear.ScaledRadianEndpoint}");
-            }
         }
         
         public void ApplyTorqueToWheels(in float torque)
         {
-            for (var i = 0; i < _wheelsColliders.Length; i++)
+            for (var i = 0; i < wheelsColliders.Length; i++)
             {
                 switch (Car.CalcDrive)
                 {
-                    case Drive.FRONT:
+                    case Drive.Front:
                     {
                         if (i < 2)
-                            _wheelsColliders[i].motorTorque = torque;
+                            wheelsColliders[i].motorTorque = torque;
 
                         break;
                     }
-                    case Drive.REAR:
+                    case Drive.Rear:
                     {
                         if (i > 1)
-                            _wheelsColliders[i].motorTorque = torque;
+                            wheelsColliders[i].motorTorque = torque;
 
                         break;
                     }
                     default:
-                        _wheelsColliders[i].motorTorque = torque;
+                        wheelsColliders[i].motorTorque = torque;
                         break;
                 }
             }
@@ -197,25 +187,23 @@ namespace Movement
         
         private void CoordinateWheelMeshesSideways()
         {
-            _wheelsMesh[0].transform.localEulerAngles = new Vector3(
-                    _wheelsMesh[0].transform.localEulerAngles.x,
-                    _wheelsColliders[0].steerAngle - _wheelsMesh[0].transform.localEulerAngles.z,
-                    _wheelsMesh[0].transform.localEulerAngles.z
+            wheelsMesh[0].transform.localEulerAngles = new Vector3(
+                    wheelsMesh[0].transform.localEulerAngles.x,
+                    wheelsColliders[0].steerAngle - wheelsMesh[0].transform.localEulerAngles.z,
+                    wheelsMesh[0].transform.localEulerAngles.z
                 );
             
-            _wheelsMesh[1].transform.localEulerAngles = new Vector3(
-                    _wheelsMesh[1].transform.localEulerAngles.x,
-                    _wheelsColliders[1].steerAngle - _wheelsMesh[1].transform.localEulerAngles.z,
-                    _wheelsMesh[1].transform.localEulerAngles.z
+            wheelsMesh[1].transform.localEulerAngles = new Vector3(
+                    wheelsMesh[1].transform.localEulerAngles.x,
+                    wheelsColliders[1].steerAngle - wheelsMesh[1].transform.localEulerAngles.z,
+                    wheelsMesh[1].transform.localEulerAngles.z
                 );
         }
 
         private void CoordinateWheelMeshesForwards()
         {
-            for (int i = 0; i < _wheelsMesh.Length; i++)
-            {
-                _wheelsMesh[i].transform.Rotate(_wheelsColliders[i].rpm / 60 * 360, 0, 0);
-            }
+            for (int i = 0; i < wheelsMesh.Length; i++)
+                wheelsMesh[i].transform.Rotate(wheelsColliders[i].rpm / 60 * 360, 0, 0);
         }
     }
 }

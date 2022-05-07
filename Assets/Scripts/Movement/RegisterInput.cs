@@ -80,12 +80,12 @@ namespace Movement
         
         private void ParkingBrakeUp(InputAction.CallbackContext obj)
         {
-            _pC._parkingBrake = true;
+            _pC.parkingBrake = true;
         }
 
         private void ParkingBrakeDown(InputAction.CallbackContext obj)
         {
-            _pC._parkingBrake = false;
+            _pC.parkingBrake = false;
         }
         
         private void ClutchUp(InputAction.CallbackContext obj)
@@ -206,42 +206,42 @@ namespace Movement
 
         private void TurnLeft(InputAction.CallbackContext obj)
         {
-            _pC._left = true;
+            _pC.left = true;
         }
 
         private void UndoTurnLeft(InputAction.CallbackContext obj)
         {
-            _pC._left = false;
+            _pC.left = false;
         }
 
         private void TurnRight(InputAction.CallbackContext obj)
         {
-            _pC._right = true;
+            _pC.right = true;
         }
 
         private void UndoTurnRight(InputAction.CallbackContext obj)
         {
-            _pC._right = false;
+            _pC.right = false;
         }
 
         private void BrakeUp(InputAction.CallbackContext obj)
         {
-            _pC._brake = true;
+            _pC.brake = true;
         }
 
         private void BrakeDown(InputAction.CallbackContext obj)
         {
-            _pC._brake = false;
+            _pC.brake = false;
         }
 
         private void ThrottleUp(InputAction.CallbackContext ctx)
         {
-            _pC._throttle = true;
+            _pC.throttle = true;
         }
 
         private void ThrottleDown(InputAction.CallbackContext ctx)
         {
-            _pC._throttle = false;
+            _pC.throttle = false;
         }
     }
 }

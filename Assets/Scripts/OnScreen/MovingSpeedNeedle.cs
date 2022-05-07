@@ -4,12 +4,9 @@ namespace OnScreen
 {
     public class MovingSpeedNeedle : MonoBehaviour
     {
-        [SerializeField] private Rigidbody _rB;
-        
-        public float SpeedInKmh
-        {
-            get => _rB.velocity.magnitude * 3.6f;
-        }
+        private Rigidbody _rB;
+
+        private float SpeedInKmh => _rB.velocity.magnitude * 3.6f;
 
         private Vector3 _currRotation;
 
@@ -36,7 +33,7 @@ namespace OnScreen
 
         private float ScaleNeedlePositionToSpeed()
         {
-            float numerator = (END_POS - START_POS) * SpeedInKmh;
+            var numerator = (END_POS - START_POS) * SpeedInKmh;
 
             return numerator / MAX_KMH + START_POS;
         }

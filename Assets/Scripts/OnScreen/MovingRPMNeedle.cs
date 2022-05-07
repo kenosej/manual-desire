@@ -5,8 +5,8 @@ namespace OnScreen
 {
     public class MovingRPMNeedle : MonoBehaviour
     {
-        public GameObject _carObjectReference;
         private ParentControl _pC;
+        public GameObject carObjectReference;
         
         private const float START_POS = -13.617f;
         private const float LEER_GAS_POS = -47.677f;
@@ -16,7 +16,7 @@ namespace OnScreen
 
         private void Awake()
         {
-            _pC = _carObjectReference.GetComponent<ParentControl>();
+            _pC = carObjectReference.GetComponent<ParentControl>();
 
             _currRotation = transform.eulerAngles;
         }
@@ -34,9 +34,9 @@ namespace OnScreen
 
         private float ScaleNeedlePositionToScaledRadian(in float scaledRadianEndpoint)
         {
-            float startPosition = _pC.IsTurnedOn ? LEER_GAS_POS : START_POS;
+            var startPosition = _pC.IsTurnedOn ? LEER_GAS_POS : START_POS;
             
-            float numerator = (END_POS - startPosition) * (_pC.ShouldSmoothAlignRadian ? _pC.SmoothAligningRadian : _pC.Radian);
+            var numerator = (END_POS - startPosition) * (_pC.shouldSmoothAlignRadian ? _pC.SmoothAligningRadian : _pC.Radian);
 
             return numerator / scaledRadianEndpoint + startPosition;
         }

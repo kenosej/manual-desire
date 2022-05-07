@@ -6,31 +6,35 @@ namespace OnScreen
 {
     public class Health : MonoBehaviour
     {
-        public GameObject _carObjectReference;
-        private ParentControl _pC;
         private Image _bar;
+        private ParentControl _pC;
+        public GameObject carObjectReference;
         
         private float _barFillAmount = 1f;
 
-        public float BarFillAmount
+        private float BarFillAmount
         {
             get => _barFillAmount;
             set
             {
-                if (value <= 0f)
+                switch (value)
                 {
-                    _pC.IsCarDead = true;
-                    return;
+                    case <= 0f:
+                        _pC.IsCarDead = true;
+                        return;
+                    case > 1f:
+                        return;
+                    default:
+                        _barFillAmount = value;
+                        break;
                 }
-                if (value > 1f) return;
-                _barFillAmount = value;
             }
         }
         
         private void Awake()
         {
-            _pC = _carObjectReference.GetComponent<ParentControl>();
             _bar = GetComponent<Image>();
+            _pC = carObjectReference.GetComponent<ParentControl>();
         }
 
         private void Update()
@@ -42,9 +46,7 @@ namespace OnScreen
         private void HeatDamage()
         {
             if (_pC.Heat > 95)
-            {
                 BarFillAmount -= 0.05f * Time.deltaTime;
-            }
         }
 
         private void UpdateBar()

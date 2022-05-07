@@ -6,27 +6,27 @@ namespace OnScreen
 {
     public class SwitchGearsVisuals : MonoBehaviour
     {
-        public GameObject _carObjReference;
         private ParentControl _pC;
-        private Image[] Gears = new Image[10];
+        public GameObject carObjReference;
+        private readonly Image[] _gears = new Image[10];
 
         private void Awake()
         {
-            _pC = _carObjReference.GetComponent<ParentControl>();
+            _pC = carObjReference.GetComponent<ParentControl>();
 
             LinkVisuals();
         }
         
         private void LinkVisuals()
         {
-            Gears[0] = transform.Find("GearNeutral").gameObject.GetComponent<Image>();
+            _gears[0] = transform.Find("GearNeutral").gameObject.GetComponent<Image>();
 
             for (int i = 1; i < 9; i++)
             {
-                Gears[i] = transform.Find($"Gear{i}").gameObject.GetComponent<Image>();
+                _gears[i] = transform.Find($"Gear{i}").gameObject.GetComponent<Image>();
             }
 
-            Gears[9] = transform.Find("GearReverse").gameObject.GetComponent<Image>();
+            _gears[9] = transform.Find("GearReverse").gameObject.GetComponent<Image>();
         }
 
         private void Update()
@@ -36,12 +36,10 @@ namespace OnScreen
 
         private void ColorCurrentGear()
         {
-            foreach (Image gear in Gears)
-            {
+            foreach (var gear in _gears)
                 gear.color = Color.white;
-            }
             
-            Gears[(int)_pC.CurrentGear].color = Color.black;
+            _gears[(int)_pC.CurrentGear].color = Color.black;
         }
     }
 }

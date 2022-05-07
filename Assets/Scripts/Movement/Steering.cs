@@ -6,23 +6,17 @@ namespace Movement
     {
         private Rigidbody _rB;
         private ParentControl _pC;
-        [SerializeField] float _maxAngle = 30f;
+        [SerializeField] private float maxAngle = 30f;
         
         [field: SerializeField] private float SteerStep { get; } = 1.1f;
         [field: SerializeField] private float ReleaseSteerStep { get; } = 0.9f;
     
-        [SerializeField] private float _currSteerAngle;
-    
-        public float CurrSteerAngle
+        [SerializeField] private float currSteerAngle;
+
+        private float CurrSteerAngle
         {
-            get => _currSteerAngle;
-            set
-            {
-                if (Mathf.Abs(value) < SteerStep)
-                    _currSteerAngle = 0f;
-                else
-                    _currSteerAngle = Mathf.Clamp(value, _maxAngle * -1, _maxAngle);
-            }
+            get => currSteerAngle;
+            set => currSteerAngle = Mathf.Abs(value) < SteerStep ? 0f : Mathf.Clamp(value, maxAngle * -1, maxAngle);
         }
        
         private void Awake()
@@ -40,31 +34,27 @@ namespace Movement
 
         private void AdjustMaxSteeringAngleToCarSpeed()
         {
-            float lowestSteerAngleAtSpeed = 90f;
-            float speedInKmh = _rB.velocity.magnitude * 3.6f;
+            var lowestSteerAngleAtSpeed = 90f;
+            var speedInKmh = _rB.velocity.magnitude * 3.6f;
             
             if (speedInKmh > lowestSteerAngleAtSpeed)
                 speedInKmh = lowestSteerAngleAtSpeed;
             
-            _maxAngle = 30f - 25 * (speedInKmh / lowestSteerAngleAtSpeed);
+            maxAngle = 30f - 25 * (speedInKmh / lowestSteerAngleAtSpeed);
         }
 
         private void AdjustAngle()
         {
-            if (_pC._left) TurnLeft();
-            else if (_pC._right) TurnRight();
+            if (_pC.left) TurnLeft();
+            else if (_pC.right) TurnRight();
             else ReturnSteeringWheelToCenter();
         }
     
         private void Steer()
         {
-            for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-            {
+            for (var i = 0; i < _pC.wheelsColliders.Length; i++)
                 if (i < 2)
-                {
-                    _pC._wheelsColliders[i].steerAngle = CurrSteerAngle;
-                }
-            }
+                    _pC.wheelsColliders[i].steerAngle = CurrSteerAngle;
         }
     
         private void TurnLeft()
@@ -81,7 +71,7 @@ namespace Movement
         {
             if (CurrSteerAngle == 0f) return;
             
-            bool areWheelsOnLeft = CurrSteerAngle < 0f;
+            var areWheelsOnLeft = CurrSteerAngle < 0f;
     
             if (areWheelsOnLeft)
                 CurrSteerAngle += ReleaseSteerStep;

@@ -1,6 +1,6 @@
+using Movement;
 using System.Linq;
 using System.Collections.Generic;
-using Movement;
 
 namespace Models
 {
@@ -12,21 +12,10 @@ namespace Models
         public string Drive { get; set; }
         public List<Gear> Gears { get; set; }
         // calculated
-        public Gear GearReverse // just a reference to the 1st gear, cuz they are often the same
-        {
-            get
-            {
-                return Gears.Find(g => g.Level == 1); // chance for a bug
-            }
-        }
+        public Gear GearReverse => Gears.Find(g => g.Level == 1); // just a reference to the 1st gear, cuz they are often the same
 
-        public float MinScaledRadianEndpoint
-        {
-            get
-            {
-                return Gears.Min(g => g.ScaledRadianEndpoint); // chance for a bug
-            }
-        }
+        // chance for a bug
+        public float MinScaledRadianEndpoint => Gears.Min(g => g.ScaledRadianEndpoint); // chance for a bug
 
         public ParentControl.Drive CalcDrive
         {
@@ -35,11 +24,11 @@ namespace Models
                 switch (Drive)
                 {
                     case "FRONT":
-                        return ParentControl.Drive.FRONT;
+                        return ParentControl.Drive.Front;
                     case "REAR":
-                        return ParentControl.Drive.REAR;
+                        return ParentControl.Drive.Rear;
                     default:
-                        return ParentControl.Drive.ALL;
+                        return ParentControl.Drive.All;
                 }
             }
         }

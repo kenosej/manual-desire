@@ -13,35 +13,11 @@ namespace Models
         public float Denominator { get; set; }
         
         // calculated
-        public float RadianScalar
-        {
-            get
-            {
-                return Numerator / Denominator;
-            }
-        }
-        public float ScaledRadianEndpoint 
-        {
-            get
-            {
-                return Mathf.PI * (Denominator / Numerator);
-            } 
-        }
+        public float RadianScalar => Numerator / Denominator;
+        public float ScaledRadianEndpoint => Mathf.PI * (Denominator / Numerator);
 
-        public float ScaledRadianPeak
-        {
-            get
-            {
-                return ScaledRadianEndpoint / 2f;
-            } 
-        }
-        
-        public float DeltaTorque
-        {
-            get
-            {
-                return HighestTorque - LowestTorque;
-            }
-        }
+        public float ScaledRadianPeak => ScaledRadianEndpoint / 2f;
+
+        public float DeltaTorque => HighestTorque - LowestTorque;
     }
 }

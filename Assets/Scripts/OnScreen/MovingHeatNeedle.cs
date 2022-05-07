@@ -5,8 +5,8 @@ namespace OnScreen
 {
     public class MovingHeatNeedle : MonoBehaviour
     {
-        public GameObject _carObjectReference;
         private ParentControl _pC;
+        public GameObject carObjectReference;
         
         private const float START_POS =  -0.239f;
         private const float END_POS = -95.062f;
@@ -17,7 +17,7 @@ namespace OnScreen
 
         private void Awake()
         {
-            _pC = _carObjectReference.GetComponent<ParentControl>();
+            _pC = carObjectReference.GetComponent<ParentControl>();
             
             _currRotation = transform.eulerAngles;
         }

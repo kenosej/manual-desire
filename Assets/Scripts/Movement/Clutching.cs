@@ -21,9 +21,9 @@ namespace Movement
 
         private void ClutchUp(in float scaledRadianEndpoint)
         {
-            if (_pC._throttle) return;
+            if (_pC.throttle) return;
             
-            float dropRate = scaledRadianEndpoint * 0.003f;
+            var dropRate = scaledRadianEndpoint * 0.003f;
             
             _pC.Radian -= dropRate;
             
@@ -32,49 +32,43 @@ namespace Movement
 
         private bool ShouldChangeGears()
         {
-            if (!_pC.ShiftingReady) return false;
-
-            return _pC.GearsReceiver.Any(g => g);
+            return _pC.ShiftingReady && _pC.GearsReceiver.Any(g => g);
         }
         
         private void ShiftIntoNewGear()
         {
             for (int i = 0; i < _pC.GearsReceiver.Length; i++)
             {
-                if (_pC.GearsReceiver[i])
-                {
-                    ParentControl.GearsEnum nextGear = (ParentControl.GearsEnum) i;
+                if (!_pC.GearsReceiver[i]) continue;
+                
+                var nextGear = (ParentControl.GearsEnum) i;
 
-                    if (!IsNextGearValid(nextGear))
-                        return;
-                    
-                    if (ShouldTransferRadianLoad(nextGear))
-                        TransferRadianLoad(nextGear);
-                    
-                    _pC.CurrentGear = nextGear;
+                if (!IsNextGearValid(nextGear))
                     return;
-                }
+                    
+                if (ShouldTransferRadianLoad(nextGear))
+                    TransferRadianLoad(nextGear);
+                    
+                _pC.CurrentGear = nextGear;
+                return;
             }
         }
 
         private bool ShouldTransferRadianLoad(ParentControl.GearsEnum nextGear)
         {
-            return _pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL &&
-                   _pC.CurrentGear != ParentControl.GearsEnum.REVERSE &&
-                   nextGear != ParentControl.GearsEnum.NEUTRAL &&
-                   nextGear != ParentControl.GearsEnum.REVERSE;
+            return _pC.CurrentGear != ParentControl.GearsEnum.Neutral &&
+                   _pC.CurrentGear != ParentControl.GearsEnum.Reverse &&
+                   nextGear != ParentControl.GearsEnum.Neutral &&
+                   nextGear != ParentControl.GearsEnum.Reverse;
         }
 
         private bool IsNextGearValid(ParentControl.GearsEnum nextGear)
         {
-            if (nextGear == ParentControl.GearsEnum.REVERSE ||
-                nextGear == ParentControl.GearsEnum.NEUTRAL)
+            if (nextGear == ParentControl.GearsEnum.Reverse ||
+                nextGear == ParentControl.GearsEnum.Neutral)
                 return true;
             
-            if ((int)nextGear > _pC.Car.NumberOfGears)
-                return false;
-
-            return _pC.Car.Gears.Any(g => g?.Level == (int)nextGear);
+            return (int)nextGear <= _pC.Car.NumberOfGears && _pC.Car.Gears.Any(g => g?.Level == (int)nextGear);
         }
 
         private void TransferRadianLoad(ParentControl.GearsEnum switchingToGear)
@@ -83,13 +77,9 @@ namespace Movement
             Gear nextGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)switchingToGear);
             
             if ((int)switchingToGear > (int)_pC.CurrentGear)
-            {
                 ShiftingUp(switchingToGear, currGearMeta.ScaledRadianEndpoint, nextGearMeta.ScaledRadianEndpoint);
-            }
             else if ((int)switchingToGear < (int)_pC.CurrentGear)
-            {
                 ShiftingDown(switchingToGear, currGearMeta.ScaledRadianEndpoint, nextGearMeta.ScaledRadianEndpoint);
-            }
         }
 
         private void ShiftingUp(ParentControl.GearsEnum nextGear, float currGearScaledRadianEndpoint, float nextGearScaledRadianEndpoint)
@@ -97,26 +87,18 @@ namespace Movement
             float exchangePoint;
             
             if ((int)nextGear == (int)_pC.CurrentGear + 1)
-            {
                 exchangePoint = 0.6f;
-            }
             else if ((int)nextGear == (int)_pC.CurrentGear + 2)
-            {
                 exchangePoint = 0.4f;
-            }
             else if ((int)nextGear == (int)_pC.CurrentGear + 3)
-            {
                 exchangePoint = 0.1f;
-            }
             else
-            {
                 exchangePoint = 0f;
-            }
 
             float nextGearMaximumRadianEndpoint = nextGearScaledRadianEndpoint * exchangePoint;
             
-            _pC.ShouldSmoothAlignRadian = true;
-            _pC.ShouldSmoothAlignRadianUpOrDown = false;
+            _pC.shouldSmoothAlignRadian = true;
+            _pC.shouldSmoothAlignRadianUpOrDown = false;
             _pC.SetSmoothAligningRadianIntoNewGearScale(_pC.Radian, nextGearScaledRadianEndpoint);
             _pC.Radian = nextGearMaximumRadianEndpoint * _pC.Radian / currGearScaledRadianEndpoint;
         }
@@ -126,26 +108,18 @@ namespace Movement
             float exchangePoint;
             
             if ((int)nextGear == (int)_pC.CurrentGear - 1)
-            {
                 exchangePoint = 0.6f;
-            }
             else if ((int)nextGear == (int)_pC.CurrentGear - 2)
-            {
                 exchangePoint = 0.4f;
-            }
             else if ((int)nextGear == (int)_pC.CurrentGear - 3)
-            {
                 exchangePoint = 0.1f;
-            }
             else
-            {
                 exchangePoint = 0f;
-            }
             
             float currGearPointOfMaximumExchange = currGearScaledRadianEndpoint * exchangePoint;
             
-            _pC.ShouldSmoothAlignRadian = true;
-            _pC.ShouldSmoothAlignRadianUpOrDown = true;
+            _pC.shouldSmoothAlignRadian = true;
+            _pC.shouldSmoothAlignRadianUpOrDown = true;
             _pC.SetSmoothAligningRadianIntoNewGearScale(_pC.Radian, nextGearScaledRadianEndpoint);
 
             if (_pC.Radian >= currGearPointOfMaximumExchange)

@@ -15,61 +15,47 @@ namespace Movement
         
         private void FixedUpdate()
         {
-            if (_pC._brake) Brake();
+            if (_pC.brake) Brake();
             else ReleaseBrake();
 
-            if (_pC._parkingBrake) ParkingBrake();
+            if (_pC.parkingBrake) ParkingBrake();
             else ReleaseParkingBrake();
         }
 
         private void ParkingBrake()
         {
-            for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-            {
+            for (var i = 0; i < _pC.wheelsColliders.Length; i++)
                 if (i > 1)
-                {
-                    _pC._wheelsColliders[i].brakeTorque = ParkingBrakeTorque;
-                }
-            }
+                    _pC.wheelsColliders[i].brakeTorque = ParkingBrakeTorque;
         }
 
         private void ReleaseParkingBrake()
         {
-            for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-            {
+            for (var i = 0; i < _pC.wheelsColliders.Length; i++)
                 if (i > 1)
-                {
-                    _pC._wheelsColliders[i].brakeTorque = 0f;
-                }
-            }
+                    _pC.wheelsColliders[i].brakeTorque = 0f;
         }
 
         private void ReleaseBrake()
         {
-            foreach (var wheelCollider in _pC._wheelsColliders)
-            {
+            foreach (var wheelCollider in _pC.wheelsColliders)
                 wheelCollider.brakeTorque = 0f;
-            }
         }
 
         private void Brake()
         {
             TurnCarOffIfBrakingAtLowRPMsWithoutClutch();
             
-            foreach (var wheelCollider in _pC._wheelsColliders)
-            {
+            foreach (var wheelCollider in _pC.wheelsColliders)
                 wheelCollider.brakeTorque = BrakeTorque;
-            }
         }
 
         private void TurnCarOffIfBrakingAtLowRPMsWithoutClutch()
         {
             if (!_pC.Clutch &&
-                _pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL &&
+                _pC.CurrentGear != ParentControl.GearsEnum.Neutral &&
                 _pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.1f)
-            {
                 _pC.IsTurnedOn = false;
-            }
         }
     }
 }
