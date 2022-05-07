@@ -79,10 +79,10 @@ namespace Movement
             }
             else
             {
-                float speed = _rB.velocity.magnitude;
+                float speedInKmh = _rB.velocity.magnitude * 3.6f;
 
                 Gear gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
-                AdjustThrottleToGear(speed, gear);
+                AdjustThrottleToGear(speedInKmh, gear);
             }
             
             for (var i = 0; i < _pC._wheelsColliders.Length; i++)
@@ -118,19 +118,13 @@ namespace Movement
             MotorTorque = (firstGear.LowestTorque + firstGear.DeltaTorque * Mathf.Sin(_pC.Radian * firstGear.RadianScalar)) * -1;
         }
 
-        private void AdjustThrottleToGear(in float speed, Gear gear)
+        private void AdjustThrottleToGear(in float speedInKmh, Gear gear)
         {
-            //if (speed >= gear.MaxSpeed)
-            //{
-            //    MotorTorque = 0f;
-            //    Debug.Log($"Max speed is reached! {speed} m/s; {speed * 3.6f} km/h");
-            //}
-
             float scaledRadian = _pC.Radian * gear.RadianScalar;
 
             if (Mathf.Sin(scaledRadian) > 0.9999f)
             {
-                Debug.Log($"({gear.Level}. gear) {speed} m/s; {speed * 3.6f} km/h | PEAK");
+                Debug.Log($"({gear.Level}. gear) {speedInKmh * 3.6f} km/h | PEAK");
             }
             
             if (_pC.Radian < gear.ScaledRadianEndpoint)
@@ -141,6 +135,14 @@ namespace Movement
             }
 
             MotorTorque = gear.LowestTorque + gear.DeltaTorque * Mathf.Sin(scaledRadian);
+            
+            if (speedInKmh > gear.MaxSpeedKmh)
+            {
+                // the faster car goes above its gear limit, the smaller torque is applied (partly) proportionally
+                float speedSubtractionStep = Mathf.Ceil(Mathf.Abs(speedInKmh - gear.MaxSpeedKmh)) / 100;
+                
+                MotorTorque *= Mathf.Clamp(0.45f - speedSubtractionStep, 0.2f, 0.70f);
+            }
         }
 
         private void DecideWhenNoThrottle()
