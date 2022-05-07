@@ -7,6 +7,7 @@ namespace Movement
 {
     public class ParentControl : MonoBehaviour
     {
+        public enum Drive { FRONT, REAR, ALL };
         public enum GearsEnum { NEUTRAL, FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, REVERSE };
         
         public GameObject[] _wheelsMesh;
@@ -152,6 +153,33 @@ namespace Movement
             foreach (Gear gear in Car.Gears)
             {
                  Debug.Log($"Gear {gear.Level}, ScaledRadianEndpoint: {gear.ScaledRadianEndpoint}");
+            }
+        }
+        
+        public void ApplyTorqueToWheels(in float torque)
+        {
+            for (var i = 0; i < _wheelsColliders.Length; i++)
+            {
+                switch (Car.CalcDrive)
+                {
+                    case Drive.FRONT:
+                    {
+                        if (i < 2)
+                            _wheelsColliders[i].motorTorque = torque;
+
+                        break;
+                    }
+                    case Drive.REAR:
+                    {
+                        if (i > 1)
+                            _wheelsColliders[i].motorTorque = torque;
+
+                        break;
+                    }
+                    default:
+                        _wheelsColliders[i].motorTorque = torque;
+                        break;
+                }
             }
         }
 

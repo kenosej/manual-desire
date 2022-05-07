@@ -2,6 +2,7 @@
   "Name": "Purple first",
   "NumberOfGears": 5,
   "Weight": 1500,
+  "Drive": "FRONT",
   "Gears": [
     {
       "Level": 1,
@@ -42,7 +43,7 @@
     {
       "Level": 5,
       "MinSpeedKmh": 80,
-      "MaxSpeedKmh": 200,
+      "MaxSpeedKmh": 190,
       "LowestTorque": 300,
       "HighestTorque": 400,
       "Numerator": 7,

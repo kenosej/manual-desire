@@ -27,14 +27,7 @@ namespace Movement
             
             _pC.Radian -= dropRate;
             
-            // don't transfer torque to wheels
-            for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-            {
-                if (i < 2)
-                {
-                    _pC._wheelsColliders[i].motorTorque = 0f;
-                }
-            }
+            _pC.ApplyTorqueToWheels(0f);
         }
 
         private bool ShouldChangeGears()

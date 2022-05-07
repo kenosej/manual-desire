@@ -85,13 +85,7 @@ namespace Movement
                 AdjustThrottleToGear(speedInKmh, gear);
             }
             
-            for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-            {
-                if (i < 2)
-                {
-                    _pC._wheelsColliders[i].motorTorque = MotorTorque;
-                }
-            }
+            _pC.ApplyTorqueToWheels(MotorTorque);
         }
 
         private void IncreaseRadianInNeutral()
@@ -151,23 +145,11 @@ namespace Movement
             {
                 if (_pC.CurrentGear == ParentControl.GearsEnum.FIRST)
                 {
-                    for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-                    {
-                        if (i < 2)
-                        {
-                            _pC._wheelsColliders[i].motorTorque = 10f;
-                        }
-                    }
+                    _pC.ApplyTorqueToWheels(10f);
                 }
                 else if (_pC.CurrentGear == ParentControl.GearsEnum.REVERSE)
                 {
-                    for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-                    {
-                        if (i < 2)
-                        {
-                            _pC._wheelsColliders[i].motorTorque = -10f;
-                        }
-                    }
+                    _pC.ApplyTorqueToWheels(-10f);
                 }
                 else if (_pC.CurrentGear != ParentControl.GearsEnum.NEUTRAL)
                 {
@@ -191,16 +173,10 @@ namespace Movement
             float dropRate = scaledRadianEndpoint * 0.0005f;
             
             _pC.Radian -= dropRate;
-                
-            for (var i = 0; i < _pC._wheelsColliders.Length; i++)
-            {
-                MotorTorque = 0f;
-
-                if (i < 2)
-                {
-                    _pC._wheelsColliders[i].motorTorque = MotorTorque;
-                }
-            }
+            
+            MotorTorque = 0f;
+            _pC.ApplyTorqueToWheels(MotorTorque);
         }
+
     }
 }
