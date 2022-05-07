@@ -8,7 +8,7 @@ namespace OnScreen
     {
         private Image _bar;
         private ParentControl _pC;
-        public GameObject carObjectReference;
+        private OnScreenParent _osp;
         
         private float _barFillAmount = 1f;
 
@@ -26,15 +26,16 @@ namespace OnScreen
                         return;
                     default:
                         _barFillAmount = value;
-                        break;
+                        return;
                 }
             }
         }
         
         private void Awake()
         {
+            _osp = transform.parent.GetComponentInParent<OnScreenParent>();
             _bar = GetComponent<Image>();
-            _pC = carObjectReference.GetComponent<ParentControl>();
+            _pC = _osp.carObjectReference.GetComponent<ParentControl>();
         }
 
         private void Update()

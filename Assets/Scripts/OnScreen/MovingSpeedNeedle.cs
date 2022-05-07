@@ -4,12 +4,8 @@ namespace OnScreen
 {
     public class MovingSpeedNeedle : MonoBehaviour
     {
-        private Rigidbody _rB;
-
-        private float SpeedInKmh => _rB.velocity.magnitude * 3.6f;
-
-        private Vector3 _currRotation;
-
+        private OnScreenParent _osp;
+        
         private const float START_POS = -12.359f;
         private const float END_POS = -254.883f;
 
@@ -17,23 +13,17 @@ namespace OnScreen
 
         private void Awake()
         {
-            _currRotation = transform.eulerAngles;
-        }
-
-        private void UpdateNeedlePosition(in float rot)
-        {
-            _currRotation.z = rot;
-            transform.rotation = Quaternion.Euler(_currRotation);
+            _osp = transform.parent.GetComponentInParent<OnScreenParent>();
         }
 
         private void Update()
         {
-            UpdateNeedlePosition(ScaleNeedlePositionToSpeed());
+            _osp.UpdateNeedlePosition(ScaleNeedlePositionToSpeed(), gameObject);
         }
 
         private float ScaleNeedlePositionToSpeed()
         {
-            var numerator = (END_POS - START_POS) * SpeedInKmh;
+            var numerator = (END_POS - START_POS) * _osp.SpeedInKmh;
 
             return numerator / MAX_KMH + START_POS;
         }
