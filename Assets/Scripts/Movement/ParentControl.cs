@@ -40,6 +40,7 @@ namespace Movement
             }
         }
 
+        public bool _parkingBrake;
         public bool _brake;
         public bool _left;
         public bool _right;

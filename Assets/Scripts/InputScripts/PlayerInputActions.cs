@@ -161,13 +161,22 @@ namespace InputScripts
                     ""id"": ""7e42bf07-76fa-4927-8ca9-142941227111"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.2)"",
+                    ""interactions"": ""Hold(duration=0.1)"",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ToggleOn"",
+                    ""name"": ""ToggleOnAct"",
                     ""type"": ""Button"",
                     ""id"": ""3e6d4056-a431-42c4-a2b6-b04b85b36250"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ParkingBrakeAct"",
+                    ""type"": ""Button"",
+                    ""id"": ""23648ddc-b724-4977-a50e-e00a625ca08c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -347,7 +356,18 @@ namespace InputScripts
                     ""interactions"": ""Hold(duration=0.3)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleOn"",
+                    ""action"": ""ToggleOnAct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97ce9ad5-2985-4ccc-87c9-a5cb438c38ea"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Hold(duration=0.1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ParkingBrakeAct"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -373,7 +393,8 @@ namespace InputScripts
             m_Player_GearReverseAct = m_Player.FindAction("GearReverseAct", throwIfNotFound: true);
             m_Player_GearNeutralAct = m_Player.FindAction("GearNeutralAct", throwIfNotFound: true);
             m_Player_ClutchAct = m_Player.FindAction("ClutchAct", throwIfNotFound: true);
-            m_Player_ToggleOn = m_Player.FindAction("ToggleOn", throwIfNotFound: true);
+            m_Player_ToggleOnAct = m_Player.FindAction("ToggleOnAct", throwIfNotFound: true);
+            m_Player_ParkingBrakeAct = m_Player.FindAction("ParkingBrakeAct", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -448,7 +469,8 @@ namespace InputScripts
         private readonly InputAction m_Player_GearReverseAct;
         private readonly InputAction m_Player_GearNeutralAct;
         private readonly InputAction m_Player_ClutchAct;
-        private readonly InputAction m_Player_ToggleOn;
+        private readonly InputAction m_Player_ToggleOnAct;
+        private readonly InputAction m_Player_ParkingBrakeAct;
         public struct PlayerActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -468,7 +490,8 @@ namespace InputScripts
             public InputAction @GearReverseAct => m_Wrapper.m_Player_GearReverseAct;
             public InputAction @GearNeutralAct => m_Wrapper.m_Player_GearNeutralAct;
             public InputAction @ClutchAct => m_Wrapper.m_Player_ClutchAct;
-            public InputAction @ToggleOn => m_Wrapper.m_Player_ToggleOn;
+            public InputAction @ToggleOnAct => m_Wrapper.m_Player_ToggleOnAct;
+            public InputAction @ParkingBrakeAct => m_Wrapper.m_Player_ParkingBrakeAct;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -523,9 +546,12 @@ namespace InputScripts
                     @ClutchAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
                     @ClutchAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
                     @ClutchAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClutchAct;
-                    @ToggleOn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOn;
-                    @ToggleOn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOn;
-                    @ToggleOn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOn;
+                    @ToggleOnAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOnAct;
+                    @ToggleOnAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOnAct;
+                    @ToggleOnAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleOnAct;
+                    @ParkingBrakeAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnParkingBrakeAct;
+                    @ParkingBrakeAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnParkingBrakeAct;
+                    @ParkingBrakeAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnParkingBrakeAct;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -575,9 +601,12 @@ namespace InputScripts
                     @ClutchAct.started += instance.OnClutchAct;
                     @ClutchAct.performed += instance.OnClutchAct;
                     @ClutchAct.canceled += instance.OnClutchAct;
-                    @ToggleOn.started += instance.OnToggleOn;
-                    @ToggleOn.performed += instance.OnToggleOn;
-                    @ToggleOn.canceled += instance.OnToggleOn;
+                    @ToggleOnAct.started += instance.OnToggleOnAct;
+                    @ToggleOnAct.performed += instance.OnToggleOnAct;
+                    @ToggleOnAct.canceled += instance.OnToggleOnAct;
+                    @ParkingBrakeAct.started += instance.OnParkingBrakeAct;
+                    @ParkingBrakeAct.performed += instance.OnParkingBrakeAct;
+                    @ParkingBrakeAct.canceled += instance.OnParkingBrakeAct;
                 }
             }
         }
@@ -599,7 +628,8 @@ namespace InputScripts
             void OnGearReverseAct(InputAction.CallbackContext context);
             void OnGearNeutralAct(InputAction.CallbackContext context);
             void OnClutchAct(InputAction.CallbackContext context);
-            void OnToggleOn(InputAction.CallbackContext context);
+            void OnToggleOnAct(InputAction.CallbackContext context);
+            void OnParkingBrakeAct(InputAction.CallbackContext context);
         }
     }
 }

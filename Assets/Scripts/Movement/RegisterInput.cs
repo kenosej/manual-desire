@@ -20,7 +20,10 @@ namespace Movement
 
         private void RegisterInputs()
         {
-            _pIA.Player.ToggleOn.performed += ToggleOn;
+            _pIA.Player.ToggleOnAct.performed += ToggleOn;
+            
+            _pIA.Player.ParkingBrakeAct.performed += ParkingBrakeUp;
+            _pIA.Player.ParkingBrakeAct.canceled += ParkingBrakeDown;
             
             _pIA.Player.ThrottleAct.performed += ThrottleUp;
             _pIA.Player.ThrottleAct.canceled +=  ThrottleDown;
@@ -74,7 +77,17 @@ namespace Movement
         {
             _pC.IsTurnedOn = !_pC.IsTurnedOn;
         }
+        
+        private void ParkingBrakeUp(InputAction.CallbackContext obj)
+        {
+            _pC._parkingBrake = true;
+        }
 
+        private void ParkingBrakeDown(InputAction.CallbackContext obj)
+        {
+            _pC._parkingBrake = false;
+        }
+        
         private void ClutchUp(InputAction.CallbackContext obj)
         {
             _pC.Clutch = true;

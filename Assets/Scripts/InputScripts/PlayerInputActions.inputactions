@@ -137,13 +137,22 @@
                     "id": "7e42bf07-76fa-4927-8ca9-142941227111",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold(duration=0.2)",
+                    "interactions": "Hold(duration=0.1)",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleOn",
+                    "name": "ToggleOnAct",
                     "type": "Button",
                     "id": "3e6d4056-a431-42c4-a2b6-b04b85b36250",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ParkingBrakeAct",
+                    "type": "Button",
+                    "id": "23648ddc-b724-4977-a50e-e00a625ca08c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -323,7 +332,18 @@
                     "interactions": "Hold(duration=0.3)",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleOn",
+                    "action": "ToggleOnAct",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97ce9ad5-2985-4ccc-87c9-a5cb438c38ea",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold(duration=0.1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ParkingBrakeAct",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
