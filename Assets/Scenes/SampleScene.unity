@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 5094362}
   - component: {fileID: 5094361}
   - component: {fileID: 5094360}
+  - component: {fileID: 5094364}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -228,6 +229,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &5094364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 289ec4631b41e6b44aca49caecf16fbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carObjectReference: {fileID: 1322809254}
 --- !u!1 &98552982
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +711,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22feab3c95421349bb4a9dc67271081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _carObjectReference: {fileID: 1322809254}
 --- !u!1 &329067554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,6 +1206,7 @@ GameObject:
   - component: {fileID: 552955252}
   - component: {fileID: 552955254}
   - component: {fileID: 552955253}
+  - component: {fileID: 552955255}
   m_Layer: 5
   m_Name: Bar
   m_TagString: Untagged
@@ -1258,6 +1272,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552955251}
   m_CullTransparentMesh: 1
+--- !u!114 &552955255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552955251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34e49bc8e6f710d469da49a0f41c5816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &565502032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,7 +1335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cff9085b20a504282e5bcdcb067f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _carObjectReference: {fileID: 1322809254}
 --- !u!114 &565502035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1847,7 +1872,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7f2267befb2304fbded80fabd3d057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rB: {fileID: 1322809266}
 --- !u!1 &785334057
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,7 +2469,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1858005172513079971, guid: 62010132604e8c94d96b4cb4fe6d3394, type: 3}
       propertyPath: m_Drag
-      value: 0
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6301142851818038027, guid: 62010132604e8c94d96b4cb4fe6d3394, type: 3}
       propertyPath: m_RootOrder
@@ -3177,31 +3201,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683a2cc24ddeca84dbda0338378930ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheelsMesh:
+  wheelsMesh:
   - {fileID: 1460427613}
   - {fileID: 1932381707}
   - {fileID: 1146786342}
   - {fileID: 579809853}
-  _wheelsColliders:
+  wheelsColliders:
   - {fileID: 1521618841}
   - {fileID: 242327339}
   - {fileID: 206589496}
   - {fileID: 2075089172}
   <IsTurnedOn>k__BackingField: 0
-  _heat: 0
-  _damage: 0
-  _brake: 0
-  _left: 0
-  _right: 0
-  _throttle: 0
+  heat: 0
+  damage: 0
+  parkingBrake: 0
+  brake: 0
+  left: 0
+  right: 0
+  throttle: 0
   <Clutch>k__BackingField: 0
   <ShiftingReady>k__BackingField: 0
   <CurrentGear>k__BackingField: 0
   <GearsReceiver>k__BackingField: 00000000000000000000
-  _radian: 0
-  ShouldSmoothAlignRadian: 0
-  ShouldSmoothAlignRadianUpOrDown: 0
-  _smoothAligningRadian: 0
+  radian: 0
+  shouldSmoothAlignRadian: 0
+  shouldSmoothAlignRadianUpOrDown: 0
+  smoothAligningRadian: 0
 --- !u!4 &1322809260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6301142851818038027, guid: 62010132604e8c94d96b4cb4fe6d3394, type: 3}
@@ -3219,8 +3244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f455123404fe9bc4ca5b4284509194cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxAngle: 30
-  _currSteerAngle: 0
+  maxAngle: 30
+  currSteerAngle: 0
 --- !u!114 &1322809262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3246,6 +3271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <BrakeTorque>k__BackingField: 7000
+  <ParkingBrakeTorque>k__BackingField: 3000
 --- !u!114 &1322809264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3271,11 +3297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524f3b57631756a47b990c9c2535c579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &1322809266 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1858005172513079971, guid: 62010132604e8c94d96b4cb4fe6d3394, type: 3}
-  m_PrefabInstance: {fileID: 1018186345}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1330507266
 GameObject:
   m_ObjectHideFlags: 0
@@ -4431,7 +4452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa894f87352ed8f4eaa51fd97476ce64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _carObjReference: {fileID: 1322809254}
+  carObjReference: {fileID: 1322809254}
 --- !u!1 &1752272820
 GameObject:
   m_ObjectHideFlags: 0
@@ -4570,7 +4591,7 @@ MonoBehaviour:
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
