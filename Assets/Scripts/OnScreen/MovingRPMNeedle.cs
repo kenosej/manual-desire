@@ -74,7 +74,7 @@ namespace OnScreen
 
         private float FindZNeedlePosition()
         {
-            if (_pC.CurrentGear == ParentControl.GearsEnum.Neutral || (_pC.throttle && _pC.Clutch))
+            if (_pC.CurrentGear == ParentControl.GearsEnum.Neutral || _pC.Clutch)
                 return ScaleNeedlePositionToScaledRadian(_pC.FindCorrectRadianEndpointToGear());
 
             return ScaleNeedlePositionToAvgSpeed();
