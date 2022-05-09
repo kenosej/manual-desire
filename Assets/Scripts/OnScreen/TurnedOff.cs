@@ -1,0 +1,25 @@
+using Movement;
+using TMPro;
+using UnityEngine;
+
+namespace OnScreen
+{
+    public class TurnedOff : MonoBehaviour
+    {
+        private ParentControl _pC;
+        private OnScreenParent _osp;
+        private TextMeshProUGUI _tmp;
+    
+        private void Awake()
+        {
+            _osp = transform.parent.GetComponentInParent<OnScreenParent>();
+            _pC = _osp.carObjectReference.GetComponent<ParentControl>();
+            _tmp = GetComponent<TextMeshProUGUI>();
+        }
+
+        private void Update()
+        {
+            _tmp.enabled = !_pC.IsTurnedOn;
+        }
+    }
+}
