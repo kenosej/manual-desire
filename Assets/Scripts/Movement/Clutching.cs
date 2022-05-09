@@ -1,4 +1,3 @@
-using Models;
 using System.Linq;
 using UnityEngine;
 
@@ -6,22 +5,50 @@ namespace Movement
 {
     public class Clutching : MonoBehaviour
     {
+        private Rigidbody _rB;
         private ParentControl _pC;
         
         private void Awake()
         {
+            _rB = GetComponent<Rigidbody>();
             _pC = GetComponent<ParentControl>();
         }
 
         private void FixedUpdate()
         {
-            if (_pC.Clutch) ClutchUp(_pC.FindCorrectRadianEndpointToGear());
+            ClutchUp();
+            TurnCarOffIfStartingBelowMinSpeed();
+            
             if (ShouldChangeGears()) ShiftIntoNewGear();
         }
 
-        private void ClutchUp(in float scaledRadianEndpoint)
+        private void TurnCarOffIfStartingBelowMinSpeed()
         {
-            if (_pC.throttle) return;
+            if (!_pC.IsTurnedOn || _pC.Clutch) return;
+            
+            if (_pC.CurrentGear == ParentControl.GearsEnum.Neutral ||
+                _pC.CurrentGear == ParentControl.GearsEnum.First ||
+                _pC.CurrentGear == ParentControl.GearsEnum.Reverse) 
+                return;
+            
+            var gear = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
+            
+            if (_pC.SpeedInKmh > gear.MinSpeedKmh) return;
+            
+            JerkForward();
+            _pC.IsTurnedOn = false;
+        }
+        
+        private void JerkForward()
+        { 
+            _rB.AddRelativeForce(Vector3.forward * 100, ForceMode.Acceleration);
+        }
+
+        private void ClutchUp()
+        {
+            if (_pC.throttle || !_pC.Clutch) return;
+
+            var scaledRadianEndpoint = _pC.FindCorrectRadianEndpointToGear();
             
             var dropRate = scaledRadianEndpoint * 0.003f;
             
@@ -73,8 +100,8 @@ namespace Movement
 
         private void TransferRadianLoad(ParentControl.GearsEnum switchingToGear)
         {
-            Gear currGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
-            Gear nextGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)switchingToGear);
+            var currGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)_pC.CurrentGear);
+            var nextGearMeta = _pC.Car.Gears.Find(g => g.Level == (int)switchingToGear);
             
             if ((int)switchingToGear > (int)_pC.CurrentGear)
                 ShiftingUp(switchingToGear, currGearMeta.ScaledRadianEndpoint, nextGearMeta.ScaledRadianEndpoint);
@@ -95,11 +122,8 @@ namespace Movement
             else
                 exchangePoint = 0f;
 
-            float nextGearMaximumRadianEndpoint = nextGearScaledRadianEndpoint * exchangePoint;
+            var nextGearMaximumRadianEndpoint = nextGearScaledRadianEndpoint * exchangePoint;
             
-            _pC.shouldSmoothAlignRadian = true;
-            _pC.shouldSmoothAlignRadianUpOrDown = false;
-            _pC.SetSmoothAligningRadianIntoNewGearScale(_pC.Radian, nextGearScaledRadianEndpoint);
             _pC.Radian = nextGearMaximumRadianEndpoint * _pC.Radian / currGearScaledRadianEndpoint;
         }
 
@@ -116,12 +140,8 @@ namespace Movement
             else
                 exchangePoint = 0f;
             
-            float currGearPointOfMaximumExchange = currGearScaledRadianEndpoint * exchangePoint;
+            var currGearPointOfMaximumExchange = currGearScaledRadianEndpoint * exchangePoint;
             
-            _pC.shouldSmoothAlignRadian = true;
-            _pC.shouldSmoothAlignRadianUpOrDown = true;
-            _pC.SetSmoothAligningRadianIntoNewGearScale(_pC.Radian, nextGearScaledRadianEndpoint);
-
             if (_pC.Radian >= currGearPointOfMaximumExchange)
             {
                 _pC.Radian = nextGearScaledRadianEndpoint;

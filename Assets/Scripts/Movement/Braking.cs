@@ -44,17 +44,19 @@ namespace Movement
 
         private void Brake()
         {
-            TurnCarOffIfBrakingAtLowRPMsWithoutClutch();
+            TurnCarOffIfBrakingAtLowSpeedWithoutClutch();
             
             foreach (var wheelCollider in _pC.wheelsColliders)
                 wheelCollider.brakeTorque = BrakeTorque;
         }
 
-        private void TurnCarOffIfBrakingAtLowRPMsWithoutClutch()
+        private void TurnCarOffIfBrakingAtLowSpeedWithoutClutch()
         {
+            var correctMinSpeedToGear = _pC.FindCorrectMinSpeedToGear();
+                
             if (!_pC.Clutch &&
                 _pC.CurrentGear != ParentControl.GearsEnum.Neutral &&
-                _pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.1f)
+                _pC.SpeedInKmh < (correctMinSpeedToGear == 0f ? 1f : correctMinSpeedToGear * 1.1f))
                 _pC.IsTurnedOn = false;
         }
     }

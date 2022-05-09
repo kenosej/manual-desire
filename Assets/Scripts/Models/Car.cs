@@ -11,10 +11,10 @@ namespace Models
         public int Weight { get; set; }
         public string Drive { get; set; }
         public List<Gear> Gears { get; set; }
+        
         // calculated
         public Gear GearReverse => Gears.Find(g => g.Level == 1); // just a reference to the 1st gear, cuz they are often the same
 
-        // chance for a bug
         public float MinScaledRadianEndpoint => Gears.Min(g => g.ScaledRadianEndpoint); // chance for a bug
 
         public ParentControl.Drive CalcDrive

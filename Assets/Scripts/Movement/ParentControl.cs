@@ -1,5 +1,6 @@
 using Models;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 
@@ -49,6 +50,34 @@ namespace Movement
         public bool throttle;
 
         public float SpeedInKmh => _rB.velocity.magnitude * 3.6f;
+
+        public float SpeedInKmhFromRPM
+        {
+            get
+            {
+                var avgWheelRadius = wheelsColliders.Average(wc => wc.radius);
+                
+                var perimeter = avgWheelRadius * Mathf.PI * 2f;
+
+                float avgRPMOfDriveWheels;
+
+                if (Car.CalcDrive == Drive.Front)
+                {
+                    avgRPMOfDriveWheels = wheelsColliders.Take(2).Average(wc => wc.rpm);
+                }
+                else if (Car.CalcDrive == Drive.Rear)
+                {
+                    avgRPMOfDriveWheels = wheelsColliders.TakeLast(2).Average(wc => wc.rpm);
+                }
+                else
+                {
+                    avgRPMOfDriveWheels = wheelsColliders.Average(wc => wc.rpm);
+                }
+                
+                // * 60, cuz from m/min to m/h, then /1000 to km/h
+                return Mathf.Abs(perimeter * avgRPMOfDriveWheels * 60 / 1000);
+            }
+        }
         
         [field: SerializeField] public bool Clutch { get; set; }
         [field: SerializeField] public bool ShiftingReady { get; set; }
@@ -64,70 +93,70 @@ namespace Movement
             get => radian;
             set
             {
-                ManageSmoothAlignRadian(in value);
-
                 if (value < 0f || value > FindCorrectRadianEndpointToGear()) return;
 
                 radian = value;
             }
         }
 
-        [SerializeField] public bool shouldSmoothAlignRadian;
-        [SerializeField] public bool shouldSmoothAlignRadianUpOrDown; // up (true) when switching to lower gear
-        
-        [SerializeField] private float smoothAligningRadian;
-
-        public float SmoothAligningRadian
-        {
-            get => smoothAligningRadian;
-            private set => smoothAligningRadian = value;
-        }
-
-        public void SetSmoothAligningRadianIntoNewGearScale(in float parameterRadian, in float nextGearScaledRadianEndpoint)
-        {
-            smoothAligningRadian = nextGearScaledRadianEndpoint * parameterRadian / FindCorrectRadianEndpointToGear();
-        }
-
         public float FindCorrectRadianEndpointToGear()
         {
             float scaledRadianEndpoint;
             
-            if (CurrentGear == GearsEnum.Neutral)
+            switch (CurrentGear)
             {
-                scaledRadianEndpoint = Car.MinScaledRadianEndpoint;
-            }
-            else if (CurrentGear == GearsEnum.Reverse)
-            {
-                scaledRadianEndpoint = Car.GearReverse.ScaledRadianEndpoint;
-            }
-            else
-            {
-                scaledRadianEndpoint = Car.Gears.Find(g => g.Level == (int)CurrentGear).ScaledRadianEndpoint;
+                case GearsEnum.Neutral:
+                    scaledRadianEndpoint = Car.MinScaledRadianEndpoint;
+                    break;
+                case GearsEnum.Reverse:
+                    scaledRadianEndpoint = Car.GearReverse.ScaledRadianEndpoint;
+                    break;
+                default:
+                    scaledRadianEndpoint = Car.Gears.Find(g => g.Level == (int)CurrentGear).ScaledRadianEndpoint;
+                    break;
             }
 
             return scaledRadianEndpoint;
         }
-        
-        private void ManageSmoothAlignRadian(in float value)
+
+        public float FindCorrectMinSpeedToGear()
         {
-            if (!shouldSmoothAlignRadian) return;
+            float minSpeed;
             
-            var scaledRadianEndpoint = FindCorrectRadianEndpointToGear();
+            switch (CurrentGear)
+            {
+                case GearsEnum.Neutral:
+                    minSpeed = 0f;
+                    break;
+                case GearsEnum.Reverse:
+                    minSpeed = Car.GearReverse.MinSpeedKmh;
+                    break;
+                default:
+                    minSpeed = Car.Gears.Find(g => g.Level == (int)CurrentGear).MinSpeedKmh;
+                    break;
+            }
+
+            return minSpeed;
+        }
+
+        public float FindCorrectMaxSpeedToGear()
+        {
+            float maxSpeed;
             
-            if (shouldSmoothAlignRadianUpOrDown)
+            switch (CurrentGear)
             {
-                if (SmoothAligningRadian < value)
-                    SmoothAligningRadian += scaledRadianEndpoint * 0.01f;
-                else
-                    shouldSmoothAlignRadian = false;
+                case GearsEnum.Neutral:
+                    maxSpeed = float.MinValue; // to avoid division with 0
+                    break;
+                case GearsEnum.Reverse:
+                    maxSpeed = Car.GearReverse.MaxSpeedKmh;
+                    break;
+                default:
+                    maxSpeed = Car.Gears.Find(g => g.Level == (int)CurrentGear).MaxSpeedKmh;
+                    break;
             }
-            else
-            {
-                if (SmoothAligningRadian > value)
-                    SmoothAligningRadian -= scaledRadianEndpoint * 0.01f;
-                else
-                    shouldSmoothAlignRadian = false;
-            }
+
+            return maxSpeed;
         }
 
         private void Awake()

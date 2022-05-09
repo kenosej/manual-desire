@@ -7,8 +7,8 @@
     {
       "Level": 1,
       "MinSpeedKmh": 0,
-      "MaxSpeedKmh": 30,
-      "LowestTorque": 500,
+      "MaxSpeedKmh": 40,
+      "LowestTorque": 300,
       "HighestTorque": 600,
       "Numerator": 35,
       "Denominator": 10
@@ -16,7 +16,7 @@
     {
       "Level": 2,
       "MinSpeedKmh": 2,
-      "MaxSpeedKmh": 70,
+      "MaxSpeedKmh": 80,
       "LowestTorque": 500,
       "HighestTorque": 550,
       "Numerator": 30,
@@ -25,7 +25,7 @@
     {
       "Level": 3,
       "MinSpeedKmh": 20,
-      "MaxSpeedKmh": 100,
+      "MaxSpeedKmh": 110,
       "LowestTorque": 400,
       "HighestTorque": 500,
       "Numerator": 17,
@@ -34,7 +34,7 @@
     {
       "Level": 4,
       "MinSpeedKmh": 45,
-      "MaxSpeedKmh": 140,
+      "MaxSpeedKmh": 150,
       "LowestTorque": 400,
       "HighestTorque": 450,
       "Numerator": 13,
@@ -43,7 +43,7 @@
     {
       "Level": 5,
       "MinSpeedKmh": 80,
-      "MaxSpeedKmh": 190,
+      "MaxSpeedKmh": 200,
       "LowestTorque": 300,
       "HighestTorque": 400,
       "Numerator": 7,
