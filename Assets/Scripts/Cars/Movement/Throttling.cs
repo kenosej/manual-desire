@@ -1,8 +1,8 @@
-using Models;
 using System.Linq;
+using Cars.Models;
 using UnityEngine;
 
-namespace Movement
+namespace Cars.Movement
 {
     public class Throttling : MonoBehaviour
     {

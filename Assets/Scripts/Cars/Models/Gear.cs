@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Models
+namespace Cars.Models
 {
     public class Gear
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace OnScreen
+namespace Cars.OnScreen
 {
     public class MovingSpeedNeedle : MonoBehaviour
     {

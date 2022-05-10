@@ -1,8 +1,8 @@
-using Movement;
 using System.Linq;
+using Cars.Movement;
 using System.Collections.Generic;
 
-namespace Models
+namespace Cars.Models
 {
     public class Car
     {

@@ -1,8 +1,8 @@
 using TMPro;
-using Movement;
 using UnityEngine;
+using Cars.Movement;
 
-namespace OnScreen
+namespace Cars.OnScreen
 {
     public class HeatDamage : MonoBehaviour
     {

@@ -1,8 +1,8 @@
-using Movement;
 using UnityEngine;
+using Cars.Movement;
 using UnityEngine.UI;
 
-namespace OnScreen
+namespace Cars.OnScreen
 {
     public class SwitchGearsVisuals : MonoBehaviour
     {

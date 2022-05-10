@@ -1,9 +1,9 @@
 using System;
-using Movement;
 using System.Linq;
 using UnityEngine;
+using Cars.Movement;
 
-namespace OnScreen
+namespace Cars.OnScreen
 {
     public class MovingRPMNeedle : MonoBehaviour
     {

@@ -1,7 +1,7 @@
-using Movement;
 using UnityEngine;
+using Cars.Movement;
 
-namespace OnScreen
+namespace Cars.OnScreen
 {
     public class OnScreenParent : MonoBehaviour
     {

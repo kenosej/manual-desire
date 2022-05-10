@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Movement
+namespace Cars.Movement
 {
     public class Heating : MonoBehaviour
     {

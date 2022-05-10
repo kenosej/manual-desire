@@ -1,8 +1,8 @@
 using UnityEngine;
-using InputScripts;
+using Cars.InputScripts;
 using UnityEngine.InputSystem;
 
-namespace Movement
+namespace Cars.Movement
 {
     public class RegisterInput : MonoBehaviour
     {
