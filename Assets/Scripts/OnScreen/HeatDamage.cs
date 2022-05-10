@@ -12,7 +12,7 @@ namespace OnScreen
         
         private void Awake()
         {
-            _osp = transform.parent.GetComponentInParent<OnScreenParent>();
+            _osp = GetComponentInParent<OnScreenParent>();
             _pC = _osp.carObjectReference.GetComponent<ParentControl>();
             _tmp = GetComponent<TextMeshProUGUI>();
         }
