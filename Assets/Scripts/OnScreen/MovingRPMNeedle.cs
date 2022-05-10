@@ -14,6 +14,8 @@ namespace OnScreen
         private const float LEER_GAS_POS = -47.677f;
         private const float END_POS = -254.978f;
 
+        private float CorrectStartPos => _pC.IsTurnedOn ? LEER_GAS_POS : START_POS;
+
         private const int Z_NEEDLE_POS_ARR_SIZE = 241;
         private float[] _zNeedlePositions = new float[Z_NEEDLE_POS_ARR_SIZE];
         private int _zNeedlePosCounter;
@@ -54,6 +56,7 @@ namespace OnScreen
         }
         
         private float _avgClampedSpeed;
+        private float _avgZNeedlePosition;
         
         private void Awake()
         {
@@ -68,8 +71,11 @@ namespace OnScreen
             UpdateAvgClampedSpeed();
 
             PopulateZNeedlePositions(FindZNeedlePosition());
+            _avgZNeedlePosition = _zNeedlePositions.Average();
             
-            _osp.UpdateNeedlePosition(_zNeedlePositions.Average(), gameObject);
+            _pC.RPMNeedle01Position = Mathf.InverseLerp(CorrectStartPos, END_POS, _avgZNeedlePosition);
+            
+            _osp.UpdateNeedlePosition(_avgZNeedlePosition, gameObject);
         }
 
         private float FindZNeedlePosition()
@@ -103,20 +109,16 @@ namespace OnScreen
 
         private float ScaleNeedlePositionToAvgSpeed()
         {
-            var startPosition = _pC.IsTurnedOn ? LEER_GAS_POS : START_POS;
-            
-            var numerator = (END_POS - startPosition) * (_avgClampedSpeed - _pC.FindCorrectMinSpeedToGear());
+            var numerator = (END_POS - CorrectStartPos) * (_avgClampedSpeed - _pC.FindCorrectMinSpeedToGear());
 
-            return numerator / (_pC.FindCorrectMaxSpeedToGear() - _pC.FindCorrectMinSpeedToGear()) + startPosition;
+            return numerator / (_pC.FindCorrectMaxSpeedToGear() - _pC.FindCorrectMinSpeedToGear()) + CorrectStartPos;
         }
         
         private float ScaleNeedlePositionToScaledRadian(in float scaledRadianEndpoint)
         {
-            var startPosition = _pC.IsTurnedOn ? LEER_GAS_POS : START_POS;
-            
-            var numerator = (END_POS - startPosition) * _pC.Radian;
+            var numerator = (END_POS - CorrectStartPos) * _pC.Radian;
         
-            return numerator / scaledRadianEndpoint + startPosition;
+            return numerator / scaledRadianEndpoint + CorrectStartPos;
         }
     }
 }

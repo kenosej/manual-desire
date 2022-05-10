@@ -158,6 +158,8 @@ namespace Movement
 
             return maxSpeed;
         }
+        
+        public float RPMNeedle01Position { get; set; }
 
         private void Awake()
         {
