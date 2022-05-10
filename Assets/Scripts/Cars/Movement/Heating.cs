@@ -20,13 +20,13 @@ namespace Cars.Movement
         {
             var multiplier = _pC.Heat > 50f ? 0.75f : 1f;
             var shouldCoolDownOnModerateRPMs = _pC.Heat > 50f;
-    
-            if (_pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.65f)
+
+            if (_pC.RPMNeedle01Position < 0.65f)
                 if (shouldCoolDownOnModerateRPMs)
                     _pC.Heat -= 0.02f * multiplier;
                 else
                     _pC.Heat += 0.02f * multiplier;
-            else if (_pC.Radian < _pC.FindCorrectRadianEndpointToGear() * 0.75f)
+            else if (_pC.RPMNeedle01Position < 0.75f)
                 _pC.Heat += 0.05f * multiplier;
             else
                 _pC.Heat += 0.1f * multiplier;
