@@ -18,17 +18,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: door
-    second: {fileID: 2100000, guid: aef1a8f976ceaeb47bd5f356761f2c66, type: 2}
+    second: {fileID: 2100000, guid: 2cfc9b780dee914449224572e6a7848b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: roof
-    second: {fileID: 2100000, guid: 89665d51fb7112a4fb72e949a593635f, type: 2}
+    second: {fileID: 2100000, guid: 7fe409e8175eb184eac71c48b8d7ec27, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: window
-    second: {fileID: 2100000, guid: c3c5e513d7493d0448cc2d8e3824bb11, type: 2}
+    second: {fileID: 2100000, guid: abb29d7d00b9f46489a1dcc6e168ea75, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

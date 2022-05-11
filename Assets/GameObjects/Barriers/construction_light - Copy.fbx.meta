@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: 56ce40abe7980de4d960b72acb50ea3e
+guid: bbac5c306a14fda40bc52224f95f972e
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: _defaultMat
-    second: {fileID: 2100000, guid: 1565eb26ed930d245af44c03234509bf, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: border
-    second: {fileID: 2100000, guid: d63469ae863426b499ac8f915c88526f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: door
-    second: {fileID: 2100000, guid: 6ed2ea12824af1c40811dabdc3c4f086, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: roof
-    second: {fileID: 2100000, guid: 7fe409e8175eb184eac71c48b8d7ec27, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: window
-    second: {fileID: 2100000, guid: abb29d7d00b9f46489a1dcc6e168ea75, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
