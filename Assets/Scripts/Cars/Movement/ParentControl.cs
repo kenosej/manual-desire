@@ -159,7 +159,20 @@ namespace Cars.Movement
             return maxSpeed;
         }
         
-        public float RPMNeedle01Position { get; set; }
+        public bool RPMsAreIncreasing { get; private set; }
+
+        private float _RPMNeedle01Position;
+
+        public float RPMNeedle01Position
+        {
+            get => _RPMNeedle01Position;
+            set
+            {
+                if (value < 0f || value > 1f) return;
+                RPMsAreIncreasing = value > _RPMNeedle01Position;
+                _RPMNeedle01Position = value;
+            }
+        }
 
         private void Awake()
         {
