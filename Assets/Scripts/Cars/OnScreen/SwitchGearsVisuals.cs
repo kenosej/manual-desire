@@ -15,7 +15,7 @@ namespace Cars.OnScreen
 
         private void Awake()
         {
-            _pC = carObjReference.GetComponent<ParentControl>();
+            _pC = carObjReference.GetComponent<ParentControl>(); // needs fix
 
             LinkVisuals();
             DeactivateUnusedGears();

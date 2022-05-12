@@ -3,6 +3,7 @@
   "NumberOfGears": 5,
   "Weight": 1500,
   "Drive": "FRONT",
+  "SoundFilename": "low",
   "Gears": [
     {
       "Level": 1,
@@ -11,7 +12,9 @@
       "LowestTorque": 300,
       "HighestTorque": 600,
       "Numerator": 35,
-      "Denominator": 10
+      "Denominator": 10,
+      "SoundPitchAmount": 0.8,
+      "SoundPitchOffset": 0
     },
     {
       "Level": 2,
@@ -20,7 +23,9 @@
       "LowestTorque": 500,
       "HighestTorque": 550,
       "Numerator": 30,
-      "Denominator": 10
+      "Denominator": 10,
+      "SoundPitchAmount": 0.7,
+      "SoundPitchOffset": 0.1
     },
     {
       "Level": 3,
@@ -29,7 +34,9 @@
       "LowestTorque": 400,
       "HighestTorque": 500,
       "Numerator": 17,
-      "Denominator": 10
+      "Denominator": 10,
+      "SoundPitchAmount": 0.6,
+      "SoundPitchOffset": 0.2
     },
     {
       "Level": 4,
@@ -38,7 +45,9 @@
       "LowestTorque": 400,
       "HighestTorque": 450,
       "Numerator": 13,
-      "Denominator": 10
+      "Denominator": 10,
+      "SoundPitchAmount": 0.6,
+      "SoundPitchOffset": 0.3
     },
     {
       "Level": 5,
@@ -47,7 +56,9 @@
       "LowestTorque": 300,
       "HighestTorque": 400,
       "Numerator": 7,
-      "Denominator": 10
+      "Denominator": 10,
+      "SoundPitchAmount": 0.6,
+      "SoundPitchOffset": 0.4
     }
   ]
 }

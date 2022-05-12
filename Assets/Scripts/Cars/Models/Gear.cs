@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Cars.Movement;
 
 namespace Cars.Models
 {
@@ -11,6 +13,8 @@ namespace Cars.Models
         public float HighestTorque { get; set; }
         public float Numerator { get; set; }
         public float Denominator { get; set; }
+        public float SoundPitchAmount { get; set; } // 0f-1f
+        public float SoundPitchOffset { get; set; } // MAX: 1f - SoundPitchAmount
         
         // calculated
         public float RadianScalar => Numerator / Denominator;

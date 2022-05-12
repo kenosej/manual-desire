@@ -10,6 +10,7 @@ namespace Cars.Models
         public int NumberOfGears { get; set; }
         public int Weight { get; set; }
         public string Drive { get; set; }
+        public string SoundFilename { get; set; }
         public List<Gear> Gears { get; set; }
         
         // calculated
