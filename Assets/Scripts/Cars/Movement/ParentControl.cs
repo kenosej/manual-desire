@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using Cars.Models;
@@ -10,6 +11,8 @@ namespace Cars.Movement
     {
         public enum Drive { Front, Rear, All };
         public enum GearsEnum { Neutral, First, Second, Third, Fourth, Fifth, Sixth, Seventh, Eighth, Reverse };
+
+        public Vector3 CenterOfMass = new Vector3(0f, 0.66f, 0f);
         
         private Rigidbody _rB;
         
@@ -174,6 +177,8 @@ namespace Cars.Movement
         private void Awake()
         {
             _rB = GetComponent<Rigidbody>();
+            Debug.Log($"Auto-calculated center of mass: {_rB.centerOfMass.y} (y)");
+            _rB.centerOfMass = CenterOfMass;
             FetchCarInfoFromJson();
         }
         
@@ -222,7 +227,7 @@ namespace Cars.Movement
 
         private void Update()
         {
-            CoordinateWheelMeshes(); 
+            CoordinateWheelMeshes();
         }
 
         private void CoordinateWheelMeshes()
