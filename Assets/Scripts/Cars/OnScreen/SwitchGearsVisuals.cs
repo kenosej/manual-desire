@@ -6,8 +6,8 @@ namespace Cars.OnScreen
 {
     public class SwitchGearsVisuals : MonoBehaviour
     {
+        private OnScreenParent _osp;
         private ParentControl _pC;
-        public GameObject carObjReference;
         private readonly Image[] _gears = new Image[10];
 
         private Sprite[] _unselectedGears = new Sprite[10];
@@ -15,7 +15,8 @@ namespace Cars.OnScreen
 
         private void Awake()
         {
-            _pC = carObjReference.GetComponent<ParentControl>(); // needs fix
+            _osp = GetComponentInParent<OnScreenParent>();
+            _pC = _osp.carObjectReference.GetComponent<ParentControl>();
 
             LinkVisuals();
             DeactivateUnusedGears();
