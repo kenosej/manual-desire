@@ -11,27 +11,6 @@ namespace Cars.OnScreen
         private ParentControl _pC;
         private OnScreenParent _osp;
         
-        private float _barFillAmount = 1f;
-
-        private float BarFillAmount
-        {
-            get => _barFillAmount;
-            set
-            {
-                switch (value)
-                {
-                    case <= 0f:
-                        _pC.IsCarDead = true;
-                        return;
-                    case > 1f:
-                        return;
-                    default:
-                        _barFillAmount = value;
-                        return;
-                }
-            }
-        }
-        
         private void Awake()
         {
             _osp = transform.parent.GetComponentInParent<OnScreenParent>();
@@ -48,12 +27,12 @@ namespace Cars.OnScreen
         private void HeatDamage()
         {
             if (_pC.Heat > 95)
-                BarFillAmount -= 0.05f * Time.deltaTime;
+                _pC.HealthBarFillAmount -= 0.05f * Time.deltaTime;
         }
 
         private void UpdateBar()
         {
-            _bar.fillAmount = BarFillAmount;
+            _bar.fillAmount = _pC.HealthBarFillAmount;
         }
     }
 }

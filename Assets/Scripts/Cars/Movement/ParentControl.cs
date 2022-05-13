@@ -21,6 +21,27 @@ namespace Cars.Movement
         public Car Car { get; private set; }
         public bool IsCarDead { get; set; }
         [field: SerializeField] public bool IsTurnedOn { get; set; }
+        
+        private float _healthBarFillAmount = 1f;
+
+        public float HealthBarFillAmount
+        {
+            get => _healthBarFillAmount;
+            set
+            {
+                switch (value)
+                {
+                    case <= 0f:
+                        IsCarDead = true;
+                        return;
+                    case > 1f:
+                        return;
+                    default:
+                        _healthBarFillAmount = value;
+                        return;
+                }
+            }
+        }
 
         [SerializeField] private float heat;
         
@@ -31,18 +52,6 @@ namespace Cars.Movement
             {
                 if (value < 0f || value > 100f) return;
                 heat = value;
-            }
-        }
-
-        [SerializeField] private float damage;
-        
-        public float Damage
-        {
-            get => damage;
-            set
-            {
-                if (value > 100 || value < 0) return;
-                damage = value;
             }
         }
 
