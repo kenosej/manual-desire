@@ -12,6 +12,7 @@ namespace Cars.OnScreen
 
         private Sprite[] _unselectedGears = new Sprite[10];
         private Sprite[] _selectedGears = new Sprite[10];
+        private Sprite[] _shiftingReadyGears = new Sprite[10];
 
         private void Awake()
         {
@@ -27,13 +28,16 @@ namespace Cars.OnScreen
         {
             _selectedGears[0] = Resources.Load<Sprite>($"SelectedGears/sn");
             _unselectedGears[0] = Resources.Load<Sprite>($"UnselectedGears/un");
+            _shiftingReadyGears[0] = Resources.Load<Sprite>($"ShiftingReadyGears/rn");
             _selectedGears[9] = Resources.Load<Sprite>($"SelectedGears/sr");
             _unselectedGears[9] = Resources.Load<Sprite>($"UnselectedGears/ur");
+            _shiftingReadyGears[9] = Resources.Load<Sprite>($"ShiftingReadyGears/rr");
             
             for (int i = 1; i <= _pC.Car.NumberOfGears; i++)
             {
                 _selectedGears[i] = Resources.Load<Sprite>($"SelectedGears/s{i}");
                 _unselectedGears[i] = Resources.Load<Sprite>($"UnselectedGears/u{i}");
+                _shiftingReadyGears[i] = Resources.Load<Sprite>($"ShiftingReadyGears/r{i}");
             }
         }
         
@@ -70,7 +74,7 @@ namespace Cars.OnScreen
             // reverse
             _gears[9].sprite = _unselectedGears[9];
 
-            _gears[(int)_pC.CurrentGear].sprite = _selectedGears[(int)_pC.CurrentGear];
+            _gears[(int)_pC.CurrentGear].sprite = _pC.ShiftingReady ? _shiftingReadyGears[(int)_pC.CurrentGear] : _selectedGears[(int)_pC.CurrentGear];
         }
     }
 }
