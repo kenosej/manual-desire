@@ -26,7 +26,7 @@ namespace Cars.Movement
         private void Awake()
         {
             _as = GetComponents<AudioSource>();
-            _pC = GetComponentInParent<ParentControl>();
+            _pC = GetComponent<ParentControl>();
 
             FillStartingAudioStates();
             SetAudioComponentsStates();
@@ -54,7 +54,9 @@ namespace Cars.Movement
         
         private void TurningOn()
         {
-            if (!_pC.IsTurnedOn || !_audioStates[(int)AudioEnum.CanTurnOn]) return;
+            //if (!_pC.IsTurnedOn || !_audioStates[(int)AudioEnum.CanTurnOn]) return;
+            if (!_pC.IsTurnedOn) return;
+            if (!_audioStates[(int)AudioEnum.CanTurnOn]) return;
             
             PlayTurningOnAndOffAudio("startup");
             _audioStates[(int)AudioEnum.CanTurnOn] = false;

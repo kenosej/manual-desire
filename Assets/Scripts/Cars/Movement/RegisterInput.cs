@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Cars.Movement
 {
-    [RequireComponent(typeof(ParentControl), typeof(PlayerInputActions))]
+    [RequireComponent(typeof(ParentControl))]
     public class RegisterInput : MonoBehaviour
     {
         private ParentControl _pC;
