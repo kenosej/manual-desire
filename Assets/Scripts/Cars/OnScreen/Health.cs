@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace Cars.OnScreen
 {
+    [RequireComponent(typeof(Image))]
     public class Health : MonoBehaviour
     {
         private Image _bar;

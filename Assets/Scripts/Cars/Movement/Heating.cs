@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Cars.Movement
 {
+    [RequireComponent(typeof(ParentControl))]
     public class Heating : MonoBehaviour
     {
         private ParentControl _pC;
@@ -16,7 +17,7 @@ namespace Cars.Movement
             RegulateHeat();
         }
 
-        private void RegulateHeat()
+        private void RegulateHeat() // TODO: manage when car is turned off
         {
             var multiplier = _pC.Heat > 50f ? 0.75f : 1f;
             var shouldCoolDownOnModerateRPMs = _pC.Heat > 50f;

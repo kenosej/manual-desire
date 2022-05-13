@@ -3,6 +3,7 @@ using System.Collections;
 
 namespace Cars.Movement
 {
+    [RequireComponent(typeof(AudioSource))]
     public class ControlAudio : MonoBehaviour
     {
         private enum AudioEnum

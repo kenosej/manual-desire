@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using Cars.Models;
@@ -7,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace Cars.Movement
 {
+    //[RequireComponent(typeof(Rigidbody))]
     public class ParentControl : MonoBehaviour
     {
         public enum Drive { Front, Rear, All };

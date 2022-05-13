@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Cars.Movement
 {
+    [RequireComponent(typeof(ParentControl))]
     public class Braking : MonoBehaviour
     {
         private ParentControl _pC;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Cars.Movement
 {
+    [RequireComponent(typeof(Rigidbody), typeof(ParentControl))]
     public class Clutching : MonoBehaviour
     {
         private Rigidbody _rB;

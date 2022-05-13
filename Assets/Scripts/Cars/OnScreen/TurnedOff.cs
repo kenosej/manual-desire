@@ -4,6 +4,7 @@ using Cars.Movement;
 
 namespace Cars.OnScreen
 {
+    [RequireComponent(typeof(TextMeshProUGUI))]
     public class TurnedOff : MonoBehaviour
     {
         private ParentControl _pC;

@@ -11,7 +11,7 @@ namespace Cars.OnScreen
         
         public float SpeedInKmh => _rB.velocity.magnitude * 3.6f;
 
-        public virtual void Awake()
+        private void Awake()
         {
             _rB = carObjectReference.GetComponent<Rigidbody>();
             _pC = carObjectReference.GetComponent<ParentControl>();

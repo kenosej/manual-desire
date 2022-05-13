@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Cars.Movement
 {
+    [RequireComponent(typeof(ParentControl), typeof(Rigidbody))]
     public class Steering : MonoBehaviour
     {
         private Rigidbody _rB;

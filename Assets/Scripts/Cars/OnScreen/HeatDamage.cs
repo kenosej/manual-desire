@@ -4,6 +4,7 @@ using Cars.Movement;
 
 namespace Cars.OnScreen
 {
+    [RequireComponent(typeof(TextMeshProUGUI))]
     public class HeatDamage : MonoBehaviour
     {
         private ParentControl _pC;

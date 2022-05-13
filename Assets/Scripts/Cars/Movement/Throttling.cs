@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Cars.Movement
 {
+    [RequireComponent(typeof(ParentControl))]
     public class Throttling : MonoBehaviour
     {
         private ParentControl _pC;
