@@ -10,7 +10,7 @@ namespace Map
 {
     public class MapGeneration : MonoBehaviour
     {
-        [field: SerializeField] private GameObject Car { get; set; }
+        //[field: SerializeField] private GameObject Car { get; set; }
         [field: SerializeField] private GameObject Container { get; set; }
         [field: SerializeField] private GameObject StartMapPart { get; set; }
         [field: SerializeField] private GameObject EndMapPart { get; set; }
