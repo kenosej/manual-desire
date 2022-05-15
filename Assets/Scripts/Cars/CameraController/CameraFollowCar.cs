@@ -6,7 +6,7 @@ namespace Cars.CameraController
 	{
 		public Transform car;
 		public float distance = 6.4f;
-		public float height = 1.4f;
+		public float height = 2.5f;
 		public float rotationDamping = 3.0f;
 		public float heightDamping = 2.0f;
 		public float zoomRatio = 0.5f;
@@ -18,6 +18,8 @@ namespace Cars.CameraController
 
 		private void Awake()
 		{
+			car = transform.Find("/Car").GetChild(0);
+			
 			_rB = car.GetComponent<Rigidbody>();
 			_camera = GetComponent<Camera>();
 		}

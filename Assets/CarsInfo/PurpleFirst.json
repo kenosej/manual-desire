@@ -1,5 +1,6 @@
 {
-  "Name": "Purple first",
+  "Name": "Purple First",
+  "PrefabName": "PurpleFirst",
   "NumberOfGears": 5,
   "Weight": 1000,
   "Drive": "FRONT",

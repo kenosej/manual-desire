@@ -3,6 +3,7 @@ using System.Linq;
 using Cars.Models;
 using UnityEngine;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Cars.Movement
 {
@@ -20,7 +21,7 @@ namespace Cars.Movement
         
         public GameObject[] wheelsMesh; 
         public WheelCollider[] wheelsColliders;
-        public Car Car { get; private set; }
+        public Car Car { get; set; }
         public bool IsCarDead { get; set; }
         [field: SerializeField] public bool IsTurnedOn { get; set; }
         
@@ -190,23 +191,6 @@ namespace Cars.Movement
             _rB = GetComponent<Rigidbody>();
             Debug.Log($"Auto-calculated center of mass: {_rB.centerOfMass.y} (y)");
             _rB.centerOfMass = CenterOfMass;
-            FetchCarInfoFromJson();
-        }
-        
-        private void FetchCarInfoFromJson()
-        {
-            var fs = new FileStream("./Assets/CarsInfo/PurpleFirst.json", FileMode.Open, FileAccess.Read, FileShare.Read);
-            using var sr = new StreamReader(fs);
-            
-            Car = JsonConvert.DeserializeObject<Car>(sr.ReadToEnd());
-            
-            LogDeltaMaxScalarPerGears();
-        }
-
-        private void LogDeltaMaxScalarPerGears()
-        {
-            foreach (Gear gear in Car.Gears)
-                 Debug.Log($"Gear {gear.Level}, ScaledRadianEndpoint: {gear.ScaledRadianEndpoint}");
         }
         
         public void ApplyTorqueToWheels(in float torque)

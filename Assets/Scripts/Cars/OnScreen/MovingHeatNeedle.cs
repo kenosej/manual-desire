@@ -15,7 +15,7 @@ namespace Cars.OnScreen
         
         private Vector3 _currRotation;
 
-        private void Awake()
+        private void Start()
         {
             _osp = transform.parent.GetComponentInParent<OnScreenParent>();
             _pC = _osp.carObjectReference.GetComponent<ParentControl>();

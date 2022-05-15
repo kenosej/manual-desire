@@ -7,6 +7,7 @@ namespace Cars.Models
     public class Car
     {
         public string Name { get; set; }
+        public string PrefabName { get; set; }
         public int NumberOfGears { get; set; }
         public int Weight { get; set; }
         public string Drive { get; set; }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Cars.Movement;
 
@@ -14,6 +15,7 @@ namespace Cars.OnScreen
 
         private void Awake()
         {
+			carObjectReference = transform.Find("/Car").GetChild(0).gameObject;
             _rB = carObjectReference.GetComponent<Rigidbody>();
             _pC = carObjectReference.GetComponent<ParentControl>();
             _cG = GetComponent<CanvasGroup>();

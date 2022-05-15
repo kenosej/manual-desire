@@ -14,7 +14,7 @@ namespace Cars.OnScreen
         private Sprite[] _selectedGears = new Sprite[10];
         private Sprite[] _shiftingReadyGears = new Sprite[10];
 
-        private void Awake()
+        private void Start()
         {
             _osp = GetComponentInParent<OnScreenParent>();
             _pC = _osp.carObjectReference.GetComponent<ParentControl>();

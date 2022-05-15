@@ -11,7 +11,7 @@ namespace Cars.OnScreen
         private OnScreenParent _osp;
         private TextMeshProUGUI _tmp;
     
-        private void Awake()
+        private void Start()
         {
             _osp = transform.parent.GetComponentInParent<OnScreenParent>();
             _pC = _osp.carObjectReference.GetComponent<ParentControl>();

@@ -11,7 +11,7 @@ namespace Cars.OnScreen
         private ParentControl _pC;
         private OnScreenParent _osp;
         
-        private void Awake()
+        private void Start()
         {
             _osp = transform.parent.GetComponentInParent<OnScreenParent>();
             _bar = GetComponent<Image>();

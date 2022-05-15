@@ -61,6 +61,8 @@ namespace Menu
         public void OpenCarsMenu()
         {
             DisableAllMenus();
+
+            //LoadCars();
             
             _cars.SetActive(true);
         }

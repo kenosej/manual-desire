@@ -58,7 +58,7 @@ namespace Cars.OnScreen
         private float _avgClampedSpeed;
         private float _avgZNeedlePosition;
         
-        private void Awake()
+        private void Start()
         {
             _osp = transform.parent.GetComponentInParent<OnScreenParent>();
             _pC = _osp.carObjectReference.GetComponent<ParentControl>();

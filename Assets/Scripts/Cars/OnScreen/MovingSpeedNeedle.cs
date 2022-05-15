@@ -11,7 +11,7 @@ namespace Cars.OnScreen
 
         private const float MAX_KMH = 200f;
 
-        private void Awake()
+        private void Start()
         {
             _osp = transform.parent.GetComponentInParent<OnScreenParent>();
         }

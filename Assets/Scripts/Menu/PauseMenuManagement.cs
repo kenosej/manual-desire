@@ -13,7 +13,7 @@ namespace Menu
         {
             _cG = GetComponent<CanvasGroup>();
             ShowPauseMenu(false);
-            _pC = transform.Find("/Car").gameObject.GetComponent<ParentControl>();
+            _pC = transform.Find("/Car").GetChild(0).gameObject.GetComponent<ParentControl>();
         }
 
         private void Update()
