@@ -37,11 +37,15 @@ namespace Menu
 
         public void Resume()
         {
+            if (_cG.alpha == 0f) return;
+            
             _pC.IsPaused = false;
         }
 
         public void Quit()
         {
+            if (_cG.alpha == 0f) return;
+            
             SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
         }
     }
