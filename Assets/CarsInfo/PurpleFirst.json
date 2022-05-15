@@ -1,7 +1,7 @@
 {
   "Name": "Purple first",
   "NumberOfGears": 5,
-  "Weight": 1500,
+  "Weight": 1000,
   "Drive": "FRONT",
   "SoundFilename": "low",
   "Gears": [
