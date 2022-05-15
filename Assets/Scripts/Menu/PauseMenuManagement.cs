@@ -25,6 +25,7 @@ namespace Menu
             }
             else
             {
+                ShowPauseMenu(false);
                 Time.timeScale = 1f;
             }
         }
