@@ -181,6 +181,15 @@ namespace Cars.InputScripts
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuitAct"",
+                    ""type"": ""Button"",
+                    ""id"": ""321b8a20-a08c-4cc6-9450-f7fc7fef19b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -370,6 +379,17 @@ namespace Cars.InputScripts
                     ""action"": ""ParkingBrakeAct"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ce774d5-312c-4b28-af51-f61f6ea6f2b4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuitAct"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -395,6 +415,7 @@ namespace Cars.InputScripts
             m_Player_ClutchAct = m_Player.FindAction("ClutchAct", throwIfNotFound: true);
             m_Player_ToggleOnAct = m_Player.FindAction("ToggleOnAct", throwIfNotFound: true);
             m_Player_ParkingBrakeAct = m_Player.FindAction("ParkingBrakeAct", throwIfNotFound: true);
+            m_Player_QuitAct = m_Player.FindAction("QuitAct", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -471,6 +492,7 @@ namespace Cars.InputScripts
         private readonly InputAction m_Player_ClutchAct;
         private readonly InputAction m_Player_ToggleOnAct;
         private readonly InputAction m_Player_ParkingBrakeAct;
+        private readonly InputAction m_Player_QuitAct;
         public struct PlayerActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -492,6 +514,7 @@ namespace Cars.InputScripts
             public InputAction @ClutchAct => m_Wrapper.m_Player_ClutchAct;
             public InputAction @ToggleOnAct => m_Wrapper.m_Player_ToggleOnAct;
             public InputAction @ParkingBrakeAct => m_Wrapper.m_Player_ParkingBrakeAct;
+            public InputAction @QuitAct => m_Wrapper.m_Player_QuitAct;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -552,6 +575,9 @@ namespace Cars.InputScripts
                     @ParkingBrakeAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnParkingBrakeAct;
                     @ParkingBrakeAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnParkingBrakeAct;
                     @ParkingBrakeAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnParkingBrakeAct;
+                    @QuitAct.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuitAct;
+                    @QuitAct.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuitAct;
+                    @QuitAct.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuitAct;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -607,6 +633,9 @@ namespace Cars.InputScripts
                     @ParkingBrakeAct.started += instance.OnParkingBrakeAct;
                     @ParkingBrakeAct.performed += instance.OnParkingBrakeAct;
                     @ParkingBrakeAct.canceled += instance.OnParkingBrakeAct;
+                    @QuitAct.started += instance.OnQuitAct;
+                    @QuitAct.performed += instance.OnQuitAct;
+                    @QuitAct.canceled += instance.OnQuitAct;
                 }
             }
         }
@@ -630,6 +659,7 @@ namespace Cars.InputScripts
             void OnClutchAct(InputAction.CallbackContext context);
             void OnToggleOnAct(InputAction.CallbackContext context);
             void OnParkingBrakeAct(InputAction.CallbackContext context);
+            void OnQuitAct(InputAction.CallbackContext context);
         }
     }
 }

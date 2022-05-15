@@ -11,6 +11,8 @@ namespace Cars.Movement
     {
         public enum Drive { Front, Rear, All };
         public enum GearsEnum { Neutral, First, Second, Third, Fourth, Fifth, Sixth, Seventh, Eighth, Reverse };
+        
+        public bool IsPaused { get; set; }
 
         public Vector3 CenterOfMass = new Vector3(0f, 0.66f, 0f);
         

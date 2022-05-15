@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Cars.InputScripts;
 using UnityEngine.InputSystem;
@@ -9,18 +10,21 @@ namespace Cars.Movement
     {
         private ParentControl _pC;
         private PlayerInputActions _pIA;
+        private GameObject _pauseCanvas;
 
         private void Awake()
         {
             _pC = GetComponent<ParentControl>();
             
             _pIA = new PlayerInputActions();
-            _pIA.Enable();
+            _pIA.Player.Enable();
             RegisterInputs();
         }
 
         private void RegisterInputs()
         {
+            _pIA.Player.QuitAct.performed += TogglePauseMenu;
+            
             _pIA.Player.ToggleOnAct.performed += ToggleOn;
             
             _pIA.Player.ParkingBrakeAct.performed += ParkingBrakeUp;
@@ -72,6 +76,11 @@ namespace Cars.Movement
             _pIA.Player.ClutchAct.started += ClutchUp;
             _pIA.Player.ClutchAct.performed += ClutchedFull;
             _pIA.Player.ClutchAct.canceled += ClutchDown;
+        }
+
+        private void TogglePauseMenu(InputAction.CallbackContext obj)
+        {
+            _pC.IsPaused = !_pC.IsPaused;
         }
 
         private void ToggleOn(InputAction.CallbackContext obj)

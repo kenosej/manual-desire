@@ -47,6 +47,17 @@ namespace Cars.Movement
 
         private void Update()
         {
+            if (_pC.IsPaused)
+            {
+                foreach (var audioSource in _as)
+                    audioSource.enabled = false;
+
+                return;
+            }
+            
+            foreach (var audioSource in _as)
+                audioSource.enabled = true;
+            
             TurningOn();
             TurningOff();
             PlayVariants();
@@ -54,9 +65,7 @@ namespace Cars.Movement
         
         private void TurningOn()
         {
-            //if (!_pC.IsTurnedOn || !_audioStates[(int)AudioEnum.CanTurnOn]) return;
-            if (!_pC.IsTurnedOn) return;
-            if (!_audioStates[(int)AudioEnum.CanTurnOn]) return;
+            if (!_pC.IsTurnedOn || !_audioStates[(int)AudioEnum.CanTurnOn]) return;
             
             PlayTurningOnAndOffAudio("startup");
             _audioStates[(int)AudioEnum.CanTurnOn] = false;
