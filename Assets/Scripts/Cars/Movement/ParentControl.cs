@@ -21,7 +21,18 @@ namespace Cars.Movement
         
         public GameObject[] wheelsMesh; 
         public WheelCollider[] wheelsColliders;
-        public Car Car { get; set; }
+        
+        private Car _car;
+        public Car Car
+        {
+            get => _car;
+            set
+            {
+                _car = value;
+                _rB.mass = _car.Weight;
+            }
+        }
+        
         public bool IsCarDead { get; set; }
         [field: SerializeField] public bool IsTurnedOn { get; set; }
         
