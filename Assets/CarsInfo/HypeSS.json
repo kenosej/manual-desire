@@ -1,8 +1,8 @@
 {
   "Name": "Hype SS",
   "PrefabName": "HypeSS",
-  "Weight": 1000,
-  "Drive": "REAR",
+  "Weight": 1300,
+  "Drive": "ALL",
   "SoundFilename": "med",
   "Gears": [
     {
@@ -10,8 +10,8 @@
       "MinSpeedKmh": 0,
       "MaxSpeedKmh": 40,
       "LowestTorque": 300,
-      "HighestTorque": 600,
-      "Numerator": 35,
+      "HighestTorque": 700,
+      "Numerator": 30,
       "Denominator": 10,
       "SoundPitchAmount": 0.8,
       "SoundPitchOffset": 0
@@ -22,7 +22,7 @@
       "MaxSpeedKmh": 80,
       "LowestTorque": 500,
       "HighestTorque": 550,
-      "Numerator": 30,
+      "Numerator": 28,
       "Denominator": 10,
       "SoundPitchAmount": 0.7,
       "SoundPitchOffset": 0.1

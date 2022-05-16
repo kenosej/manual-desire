@@ -1,7 +1,7 @@
 {
   "Name": "Red All",
   "PrefabName": "RedAll",
-  "Weight": 1100,
+  "Weight": 1250,
   "Drive": "ALL",
   "SoundFilename": "low",
   "Gears": [
@@ -9,67 +9,45 @@
       "Level": 1,
       "MinSpeedKmh": 0,
       "MaxSpeedKmh": 40,
-      "LowestTorque": 300,
+      "LowestTorque": 500,
       "HighestTorque": 600,
-      "Numerator": 35,
+      "Numerator": 25,
       "Denominator": 10,
       "SoundPitchAmount": 0.8,
       "SoundPitchOffset": 0
     },
     {
       "Level": 2,
-      "MinSpeedKmh": 2,
-      "MaxSpeedKmh": 80,
-      "LowestTorque": 500,
+      "MinSpeedKmh": 20,
+      "MaxSpeedKmh": 100,
+      "LowestTorque": 450,
       "HighestTorque": 550,
-      "Numerator": 30,
+      "Numerator": 20,
       "Denominator": 10,
       "SoundPitchAmount": 0.7,
       "SoundPitchOffset": 0.1
     },
     {
       "Level": 3,
-      "MinSpeedKmh": 20,
-      "MaxSpeedKmh": 110,
+      "MinSpeedKmh": 50,
+      "MaxSpeedKmh": 140,
       "LowestTorque": 400,
       "HighestTorque": 500,
-      "Numerator": 17,
+      "Numerator": 13,
       "Denominator": 10,
       "SoundPitchAmount": 0.6,
       "SoundPitchOffset": 0.2
     },
     {
       "Level": 4,
-      "MinSpeedKmh": 45,
-      "MaxSpeedKmh": 150,
-      "LowestTorque": 400,
-      "HighestTorque": 450,
-      "Numerator": 13,
-      "Denominator": 10,
-      "SoundPitchAmount": 0.6,
-      "SoundPitchOffset": 0.3
-    },
-    {
-      "Level": 5,
       "MinSpeedKmh": 80,
       "MaxSpeedKmh": 200,
       "LowestTorque": 300,
       "HighestTorque": 400,
-      "Numerator": 7,
+      "Numerator": 10,
       "Denominator": 10,
       "SoundPitchAmount": 0.6,
-      "SoundPitchOffset": 0.4
-    },
-    {
-      "Level": 6,
-      "MinSpeedKmh": 100,
-      "MaxSpeedKmh": 200,
-      "LowestTorque": 250,
-      "HighestTorque": 400,
-      "Numerator": 5,
-      "Denominator": 10,
-      "SoundPitchAmount": 0.5,
-      "SoundPitchOffset": 0.5
+      "SoundPitchOffset": 0.3
     }
   ]
 }
