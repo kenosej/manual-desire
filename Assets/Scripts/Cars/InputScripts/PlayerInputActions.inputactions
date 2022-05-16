@@ -182,8 +182,30 @@
                 },
                 {
                     "name": "",
+                    "id": "0ec33ac7-6ea9-432b-8d03-e52adcaab272",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "Hold(duration=0.4)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrottleAct",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5c60dd46-49af-4c05-82d0-54a1fbe258d1",
                     "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftAct",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4ad667c-3140-40fe-9aea-d1307553b9a8",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -204,8 +226,30 @@
                 },
                 {
                     "name": "",
+                    "id": "771eb568-41c2-4ff1-9d36-f43c282c70db",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightAct",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5d5fe298-0a57-40d9-b38c-d91e22f15b73",
                     "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BrakeAct",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "33ef394c-a7d3-4401-ac86-f1b239f50789",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -314,8 +358,30 @@
                 },
                 {
                     "name": "",
+                    "id": "160e1d15-3c11-466d-8480-a0fe0ac008f0",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearReverseAct",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bf312440-0062-4f0a-a1f7-3d11fd29471b",
                     "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearNeutralAct",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a0d49c5-ca17-474f-8a75-d2a511d44719",
+                    "path": "<Keyboard>/n",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
