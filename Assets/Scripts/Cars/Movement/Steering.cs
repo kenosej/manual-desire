@@ -5,10 +5,9 @@ namespace Cars.Movement
     [RequireComponent(typeof(ParentControl), typeof(Rigidbody))]
     public class Steering : MonoBehaviour
     {
-        private Rigidbody _rB;
         private ParentControl _pC;
         [SerializeField] private float maxAngle = 30f;
-        
+        [SerializeField] private float LowestSteerAngleAtSpeed = 110f;
         [field: SerializeField] private float SteerStep { get; } = 1.1f;
         [field: SerializeField] private float ReleaseSteerStep { get; } = 0.9f;
     
@@ -22,7 +21,6 @@ namespace Cars.Movement
        
         private void Awake()
         {
-            _rB = GetComponent<Rigidbody>();
             _pC = GetComponent<ParentControl>();
         }
     
@@ -35,9 +33,7 @@ namespace Cars.Movement
 
         private void AdjustMaxSteeringAngleToCarSpeed()
         {
-            const float lowestSteerAngleAtSpeed = 90f;
-            
-            maxAngle = 30f - 25 * ((_pC.SpeedInKmh > lowestSteerAngleAtSpeed ? lowestSteerAngleAtSpeed : _pC.SpeedInKmh) / lowestSteerAngleAtSpeed);
+            maxAngle = 30f - 25 * ((_pC.SpeedInKmh > LowestSteerAngleAtSpeed ? LowestSteerAngleAtSpeed : _pC.SpeedInKmh) / LowestSteerAngleAtSpeed);
         }
 
         private void AdjustAngle()

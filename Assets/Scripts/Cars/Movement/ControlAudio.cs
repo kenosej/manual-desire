@@ -165,7 +165,7 @@ namespace Cars.Movement
 
             if (_pC.CurrentGear == ParentControl.GearsEnum.Neutral)
             {
-                soundName = "low_off";
+                soundName = $"{_pC.Car.SoundFilename}_off";
             }
             else
             {

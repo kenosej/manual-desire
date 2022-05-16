@@ -145,7 +145,7 @@ namespace Cars.Movement
             
             if (_pC.Radian >= currGearPointOfMaximumExchange)
             {
-                _pC.Radian = nextGearScaledRadianEndpoint;
+                _pC.Radian = nextGearScaledRadianEndpoint * 0.95f; // so it doesn't accidentally get incremented over the limit
                 return;
             }
             

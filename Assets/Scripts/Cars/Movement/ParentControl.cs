@@ -1,13 +1,10 @@
-using System.IO;
 using System.Linq;
 using Cars.Models;
 using UnityEngine;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Cars.Movement
 {
-    //[RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
     public class ParentControl : MonoBehaviour
     {
         public enum Drive { Front, Rear, All };
@@ -15,7 +12,7 @@ namespace Cars.Movement
         
         public bool IsPaused { get; set; }
 
-        public Vector3 CenterOfMass = new Vector3(0f, 0.66f, 0f);
+        public Vector3 CenterOfMass;
         
         private Rigidbody _rB;
         
@@ -200,7 +197,7 @@ namespace Cars.Movement
         private void Awake()
         {
             _rB = GetComponent<Rigidbody>();
-            _rB.centerOfMass = CenterOfMass;
+            _rB.centerOfMass = new Vector3(0f, _rB.centerOfMass.y * 0.75f, 0f);
         }
         
         public void ApplyTorqueToWheels(in float torque)
