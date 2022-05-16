@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Menu
 {
-    public class PauseMenuManagement : MonoBehaviour
+    public class InterMenuManagement : MonoBehaviour
     {
         private CanvasGroup _cG;
         private GameObject _pause;
