@@ -47,7 +47,7 @@ namespace Cars.Movement
 
         private void Update()
         {
-            if (_pC.IsPaused)
+            if (_pC.IsPaused || _pC.IsCarDead)
             {
                 foreach (var audioSource in _as)
                     audioSource.enabled = false;
