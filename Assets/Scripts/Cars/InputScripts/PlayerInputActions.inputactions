@@ -137,7 +137,7 @@
                     "id": "7e42bf07-76fa-4927-8ca9-142941227111",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold(duration=0.1)",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
@@ -217,7 +217,7 @@
                     "name": "",
                     "id": "a7734308-00de-42cc-9c83-76c6b8295024",
                     "path": "<Keyboard>/shift",
-                    "interactions": "Hold(duration=0.3)",
+                    "interactions": "Hold(duration=0.2)",
                     "processors": "",
                     "groups": "",
                     "action": "ClutchAct",
