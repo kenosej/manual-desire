@@ -1,7 +1,6 @@
 {
   "Name": "Red All",
   "PrefabName": "RedAll",
-  "NumberOfGears": 6,
   "Weight": 1100,
   "Drive": "ALL",
   "SoundFilename": "low",

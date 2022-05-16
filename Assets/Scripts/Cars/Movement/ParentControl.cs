@@ -189,7 +189,6 @@ namespace Cars.Movement
         private void Awake()
         {
             _rB = GetComponent<Rigidbody>();
-            Debug.Log($"Auto-calculated center of mass: {_rB.centerOfMass.y} (y)");
             _rB.centerOfMass = CenterOfMass;
         }
         
