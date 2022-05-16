@@ -63,5 +63,9 @@ PrefabInstance:
       propertyPath: m_Drag
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 9211899667027655829, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
