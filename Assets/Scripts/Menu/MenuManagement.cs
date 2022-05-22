@@ -22,7 +22,6 @@ namespace Menu
         private GameObject _maps;
         private GameObject _instructions;
         
-        private const string _carsInfoPath = "./Assets/CarsInfo";
         private const string _mapsInfoPath = "./Assets/MapsInfo";
 
         private List<MapModel> _mapsFromJsons = new List<MapModel>();
@@ -162,7 +161,7 @@ namespace Menu
         
         public void SelectTheMap()
         {
-            var fs = new FileStream("./Assets/Resources/Preferences/SelectedMap.json", FileMode.Create, FileAccess.Write, FileShare.Read);
+            var fs = new FileStream($"{Application.streamingAssetsPath}/Preferences/SelectedMap.json", FileMode.Create, FileAccess.Write, FileShare.Read);
             using var sw = new StreamWriter(fs);
 
             var jsonString = "{\"mapIndex\":";
@@ -186,7 +185,7 @@ namespace Menu
         
         public void SelectTheCar()
         {
-            var fs = new FileStream("./Assets/Resources/Preferences/SelectedCar.json", FileMode.Create, FileAccess.Write, FileShare.Read);
+            var fs = new FileStream($"{Application.streamingAssetsPath}/Preferences/SelectedCar.json", FileMode.Create, FileAccess.Write, FileShare.Read);
             using var sw = new StreamWriter(fs);
 
             var jsonString = "{\"filenameOfJsonAndPrefab\":\"";
@@ -213,7 +212,7 @@ namespace Menu
 
         private void LoadMapsJsons()
         {
-            var di = new DirectoryInfo(_mapsInfoPath);
+            var di = new DirectoryInfo($"{Application.streamingAssetsPath}/MapsInfo");
             FileInfo[] files = di.GetFiles("*.json", SearchOption.TopDirectoryOnly);
 
             _mapsFromJsons = new List<MapModel>();
@@ -224,7 +223,7 @@ namespace Menu
         
         private int FetchMapIndexOfSelectedMap()
         {
-            var fs = new FileStream("./Assets/Resources/Preferences/SelectedMap.json", FileMode.Open, FileAccess.Read, FileShare.Read);
+            var fs = new FileStream($"{Application.streamingAssetsPath}/Preferences/SelectedMap.json", FileMode.Open, FileAccess.Read, FileShare.Read);
             using var sr = new StreamReader(fs);
     
             var parsed = JObject.Parse(sr.ReadToEnd());
@@ -242,7 +241,7 @@ namespace Menu
         
         private MapModel LoadJsonMapInfo(in string filename)
         {
-            var fs = new FileStream($"./Assets/MapsInfo/{filename}", FileMode.Open, FileAccess.Read, FileShare.Read); // can be buggy
+            var fs = new FileStream($"{Application.streamingAssetsPath}/MapsInfo/{filename}", FileMode.Open, FileAccess.Read, FileShare.Read); // can be buggy
             using var sr = new StreamReader(fs);
             
             return JsonConvert.DeserializeObject<MapModel>(sr.ReadToEnd());
@@ -279,7 +278,7 @@ namespace Menu
 
         private void LoadCarsJsons()
         {
-            var di = new DirectoryInfo(_carsInfoPath);
+            var di = new DirectoryInfo($"{Application.streamingAssetsPath}/CarsInfo");
             FileInfo[] files = di.GetFiles("*.json", SearchOption.TopDirectoryOnly);
 
             foreach (var file in files)
@@ -288,7 +287,7 @@ namespace Menu
 
         private Car LoadJsonCarInfo(in string filename)
         {
-            var fs = new FileStream($"./Assets/CarsInfo/{filename}", FileMode.Open, FileAccess.Read, FileShare.Read); // can be buggy
+            var fs = new FileStream($"{Application.streamingAssetsPath}/CarsInfo/{filename}", FileMode.Open, FileAccess.Read, FileShare.Read); // can be buggy
             using var sr = new StreamReader(fs);
             
             return JsonConvert.DeserializeObject<Car>(sr.ReadToEnd());
@@ -296,7 +295,7 @@ namespace Menu
 
         private string FetchFilenameOfSelectedCar()
         {
-            var fs = new FileStream("./Assets/Resources/Preferences/SelectedCar.json", FileMode.Open, FileAccess.Read, FileShare.Read);
+            var fs = new FileStream($"{Application.streamingAssetsPath}/Preferences/SelectedCar.json", FileMode.Open, FileAccess.Read, FileShare.Read);
             using var sr = new StreamReader(fs);
     
             var parsed = JObject.Parse(sr.ReadToEnd());

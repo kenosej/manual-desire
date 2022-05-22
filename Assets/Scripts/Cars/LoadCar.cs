@@ -24,7 +24,7 @@ namespace Cars
 
         private Car LoadJsonCarInfo(in string filename)
         {
-            var fs = new FileStream($"./Assets/CarsInfo/{filename}.json", FileMode.Open, FileAccess.Read, FileShare.Read); // can be buggy
+            var fs = new FileStream($"{Application.streamingAssetsPath}/CarsInfo/{filename}.json", FileMode.Open, FileAccess.Read, FileShare.Read); // can be buggy
             using var sr = new StreamReader(fs);
             
             return JsonConvert.DeserializeObject<Car>(sr.ReadToEnd());
@@ -44,7 +44,7 @@ namespace Cars
     
         private string FetchFilenameOfSelectedCar()
         {
-            var fs = new FileStream("./Assets/Resources/Preferences/SelectedCar.json", FileMode.Open, FileAccess.Read, FileShare.Read);
+            var fs = new FileStream($"{Application.streamingAssetsPath}/Preferences/SelectedCar.json", FileMode.Open, FileAccess.Read, FileShare.Read);
             using var sr = new StreamReader(fs);
     
             var parsed = JObject.Parse(sr.ReadToEnd());
