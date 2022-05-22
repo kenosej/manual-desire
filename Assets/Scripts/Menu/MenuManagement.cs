@@ -8,8 +8,6 @@ using Cars.InputScripts;
 using Newtonsoft.Json.Linq;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using TimeManagement;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -21,15 +19,30 @@ namespace Menu
         
         private GameObject _main;
         private GameObject _cars;
-        //private GameObject _maps;
+        private GameObject _maps;
         private GameObject _instructions;
         
-        //KenoK-code:
-        private GameObject _map1;
-        private GameObject _map2;
-        //---
+        private const string _carsInfoPath = "./Assets/CarsInfo";
+        private const string _mapsInfoPath = "./Assets/MapsInfo";
 
-        private const string _path = "./Assets/CarsInfo";
+        private List<MapModel> _mapsFromJsons = new List<MapModel>();
+        private int _mapsFromJsonsCounter;
+
+        private int MapsFromJsonsCounter
+        {
+            get => _mapsFromJsonsCounter;
+            set
+            {
+                if (value >= _mapsFromJsons.Count)
+                {
+                    _mapsFromJsonsCounter = 0;
+                    return;
+                }
+
+                _mapsFromJsonsCounter = value;
+            }
+        }
+
 
         private List<Car> _carsFromJsons = new List<Car>();
         private int _carsFromJsonsCounter;
@@ -80,11 +93,7 @@ namespace Menu
         {
             _main = transform.Find("Main").gameObject;
             _cars = transform.Find("Cars").gameObject;
-            //_maps = transform.Find("Maps").gameObject;
-            //KenoK-code:
-            _map1 = transform.Find("Map1").gameObject;
-            _map2 = transform.Find("Map2").gameObject;
-            //---
+            _maps = transform.Find("Maps").gameObject;
             _instructions = transform.Find("Instructions").gameObject;
         }
 
@@ -92,27 +101,26 @@ namespace Menu
         {
             _main.SetActive(false);
             _cars.SetActive(false);
-            //_maps.SetActive(false);
-            //KenoK-code:
-            _map1.SetActive(false);
-            _map2.SetActive(false);
-            //---
+            _maps.SetActive(false);
             _instructions.SetActive(false);
         }
 
-        //public void Play()
-        //{
-        //    SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
-        //}
-
-        public void PlayMap1()
+        public void Play()
         {
-            SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
-        }
+            LoadMapsJsons();
+            
+            var selectedMapIndex = FetchMapIndexOfSelectedMap();
 
-        public void PlayMap2()
-        {
-            SceneManager.LoadScene("SecondMap", LoadSceneMode.Single);
+            foreach (var mapModel in _mapsFromJsons)
+            {
+                if (mapModel.MapIndex == selectedMapIndex)
+                {
+                    SceneManager.LoadScene(mapModel.SceneName, LoadSceneMode.Single);
+                    return;
+                }
+            }
+
+            throw new Exception("Play scene not loaded!");
         }
 
         public void OpenCarsMenu()
@@ -127,10 +135,10 @@ namespace Menu
         public void OpenMapsMenu()
         {
             DisableAllMenus();
+
+            LoadMaps();
             
-            //KenoK-edit:
-            _map1.SetActive(true);
-            //---
+            _maps.SetActive(true);
         }
 
         public void OpenInstructionsMenu()
@@ -145,6 +153,26 @@ namespace Menu
             Debug.Log("Quitting..");
             Application.Quit();
         }
+        
+        public void ShowNextMap()
+        {
+            ++MapsFromJsonsCounter;
+            LoadMapInfo(MapsFromJsonsCounter);
+        }
+        
+        public void SelectTheMap()
+        {
+            var fs = new FileStream("./Assets/Resources/Preferences/SelectedMap.json", FileMode.Create, FileAccess.Write, FileShare.Read);
+            using var sw = new StreamWriter(fs);
+
+            var jsonString = "{\"mapIndex\":";
+            jsonString += _mapsFromJsons[MapsFromJsonsCounter].MapIndex;
+            jsonString += "}";
+            
+            sw.Write(jsonString);
+            
+            ReturnToMainMenu();
+        }
 
         public void ShowNextCar()
         {
@@ -156,20 +184,6 @@ namespace Menu
             LoadCarInfo(CarsFromJsonsCounter, filenameOfJsonAndPrefab);
         }
         
-        //KenoK-code:
-        public void ShowNextMap()
-        {
-            _map1.SetActive(false);
-            _map2.SetActive(true);
-        }
-        
-        public void ShowPreviousMap()
-        {
-            _map2.SetActive(false);
-            _map1.SetActive(true);
-        }
-        //---
-
         public void SelectTheCar()
         {
             var fs = new FileStream("./Assets/Resources/Preferences/SelectedCar.json", FileMode.Create, FileAccess.Write, FileShare.Read);
@@ -183,6 +197,72 @@ namespace Menu
             
             ReturnToMainMenu();
         }
+        
+        //
+        
+        private void LoadMaps()
+        {
+            LoadMapsJsons();
+            
+            var selectedMapIndex = FetchMapIndexOfSelectedMap();
+            
+            MapsFromJsonsCounter = FindSelectedMapIndex(selectedMapIndex);
+
+            LoadMapInfo(MapsFromJsonsCounter);
+        }
+
+        private void LoadMapsJsons()
+        {
+            var di = new DirectoryInfo(_mapsInfoPath);
+            FileInfo[] files = di.GetFiles("*.json", SearchOption.TopDirectoryOnly);
+
+            _mapsFromJsons = new List<MapModel>();
+
+            foreach (var file in files)
+                _mapsFromJsons.Add(LoadJsonMapInfo(file.Name));
+        }
+        
+        private int FetchMapIndexOfSelectedMap()
+        {
+            var fs = new FileStream("./Assets/Resources/Preferences/SelectedMap.json", FileMode.Open, FileAccess.Read, FileShare.Read);
+            using var sr = new StreamReader(fs);
+    
+            var parsed = JObject.Parse(sr.ReadToEnd());
+            return (int) parsed["mapIndex"];
+        }
+        
+        private int FindSelectedMapIndex(in int selectedMapIndex)
+        {
+            for (int i = 0; i < _mapsFromJsons.Count; i++)
+                if (_mapsFromJsons[i].MapIndex == selectedMapIndex)
+                    return i;
+
+            throw new Exception("Map not found!");
+        }
+        
+        private MapModel LoadJsonMapInfo(in string filename)
+        {
+            var fs = new FileStream($"./Assets/MapsInfo/{filename}", FileMode.Open, FileAccess.Read, FileShare.Read); // can be buggy
+            using var sr = new StreamReader(fs);
+            
+            return JsonConvert.DeserializeObject<MapModel>(sr.ReadToEnd());
+        }
+
+        private void LoadMapInfo(in int selectedMapIndex)
+        {
+            var left = _maps.transform.Find("Left");
+            
+            left.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Menu/Maps/{_mapsFromJsons[selectedMapIndex].PhotoFilename}");
+            
+            var right = _maps.transform.Find("Right");
+            
+            right.Find("Title").gameObject.GetComponent<TextMeshProUGUI>().text =
+                _mapsFromJsons[selectedMapIndex].Title;
+            
+            right.Find("Info").gameObject.GetComponent<TextMeshProUGUI>().text = _mapsFromJsons[selectedMapIndex].Description;
+        }
+        
+        //
 
         private void LoadCars()
         {
@@ -199,7 +279,7 @@ namespace Menu
 
         private void LoadCarsJsons()
         {
-            var di = new DirectoryInfo(_path);
+            var di = new DirectoryInfo(_carsInfoPath);
             FileInfo[] files = di.GetFiles("*.json", SearchOption.TopDirectoryOnly);
 
             foreach (var file in files)
