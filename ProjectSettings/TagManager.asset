@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Forward
+  - Left
+  - Right
+  - Waypoint
+  - Opponent
   layers:
   - Default
   - TransparentFX

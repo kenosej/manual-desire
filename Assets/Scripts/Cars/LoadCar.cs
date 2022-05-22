@@ -13,6 +13,7 @@ namespace Cars
     {
         public GameObject PlayerCanvas;
         public GameObject PauseCanvas;
+
         private void Awake()
         {
             var filename = FetchFilenameOfSelectedCar();

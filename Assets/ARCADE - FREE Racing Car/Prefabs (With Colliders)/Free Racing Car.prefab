@@ -352,7 +352,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 07f44fe3e9c462146a7769b976c50ec4, type: 2}
+  - {fileID: 2100000, guid: 104696f8b5f23d24586d858b68916bdc, type: 2}
   - {fileID: 2100000, guid: ab035d7682921704a9015ac353311d57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -463,15 +463,6 @@ GameObject:
   - component: {fileID: 3242884208263222247}
   - component: {fileID: 8459674991900218789}
   - component: {fileID: 7498103902310463076}
-  - component: {fileID: 3773609133652157282}
-  - component: {fileID: 5445377135608527111}
-  - component: {fileID: 2411643616129175201}
-  - component: {fileID: 2798966222764237491}
-  - component: {fileID: 5898589783091685590}
-  - component: {fileID: 681566345383176871}
-  - component: {fileID: 894408888274572685}
-  - component: {fileID: 5758937972473177092}
-  - component: {fileID: 2695628689510180743}
   m_Layer: 0
   m_Name: Free Racing Car
   m_TagString: Untagged
@@ -486,7 +477,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3311311803080157842}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -801,142 +792,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3773609133652157282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 683a2cc24ddeca84dbda0338378930ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CenterOfMass: {x: 0, y: 0.66, z: 0}
-  wheelsMesh:
-  - {fileID: 6708706858096201184}
-  - {fileID: 856612622373900327}
-  - {fileID: 8288384950464101879}
-  - {fileID: 4163942240364048118}
-  wheelsColliders:
-  - {fileID: 2716459193614891142}
-  - {fileID: 4795950753765878369}
-  - {fileID: 3145262460232535540}
-  - {fileID: 1057494946909100755}
-  <IsTurnedOn>k__BackingField: 0
-  heat: 0
-  parkingBrake: 0
-  brake: 0
-  left: 0
-  right: 0
-  throttle: 0
-  <Clutch>k__BackingField: 0
-  <ShiftingReady>k__BackingField: 0
-  <CurrentGear>k__BackingField: 0
-  <GearsReceiver>k__BackingField: 00000000000000000000
-  radian: 0
---- !u!114 &5445377135608527111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33ff85b37f7a2f74bb73b0b293fdaa65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <BrakeTorque>k__BackingField: 7000
-  <ParkingBrakeTorque>k__BackingField: 3000
---- !u!114 &2411643616129175201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1fa9e675d120b145a1def36e17d92b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MotorTorque>k__BackingField: 0
---- !u!114 &2798966222764237491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 640bf3525b5311741a9ef1d8c94c448d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5898589783091685590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f455123404fe9bc4ca5b4284509194cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxAngle: 30
-  currSteerAngle: 0
---- !u!114 &681566345383176871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a0f249ae8bc36349a53bb295c49c565, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &894408888274572685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3efc1aecb2813894da2be65aa553c47b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5758937972473177092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ff48ad6ebb45924d9196bcf8ee52175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2695628689510180743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311311803080157842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 524f3b57631756a47b990c9c2535c579, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3962000127133956386
 GameObject:
   m_ObjectHideFlags: 0

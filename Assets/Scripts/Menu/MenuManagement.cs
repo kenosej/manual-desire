@@ -8,7 +8,10 @@ using Cars.InputScripts;
 using Newtonsoft.Json.Linq;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using TimeManagement;
+using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Menu
 {
@@ -18,8 +21,13 @@ namespace Menu
         
         private GameObject _main;
         private GameObject _cars;
-        private GameObject _maps;
+        //private GameObject _maps;
         private GameObject _instructions;
+        
+        //KenoK-code:
+        private GameObject _map1;
+        private GameObject _map2;
+        //---
 
         private const string _path = "./Assets/CarsInfo";
 
@@ -40,7 +48,7 @@ namespace Menu
                 _carsFromJsonsCounter = value;
             }
         }
-        
+
         private void Awake()
         {
             _mIA = new MenuInputActions();
@@ -72,7 +80,11 @@ namespace Menu
         {
             _main = transform.Find("Main").gameObject;
             _cars = transform.Find("Cars").gameObject;
-            _maps = transform.Find("Maps").gameObject;
+            //_maps = transform.Find("Maps").gameObject;
+            //KenoK-code:
+            _map1 = transform.Find("Map1").gameObject;
+            _map2 = transform.Find("Map2").gameObject;
+            //---
             _instructions = transform.Find("Instructions").gameObject;
         }
 
@@ -80,13 +92,27 @@ namespace Menu
         {
             _main.SetActive(false);
             _cars.SetActive(false);
-            _maps.SetActive(false);
+            //_maps.SetActive(false);
+            //KenoK-code:
+            _map1.SetActive(false);
+            _map2.SetActive(false);
+            //---
             _instructions.SetActive(false);
         }
 
-        public void Play()
+        //public void Play()
+        //{
+        //    SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        //}
+
+        public void PlayMap1()
         {
             SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        }
+
+        public void PlayMap2()
+        {
+            SceneManager.LoadScene("SecondMap", LoadSceneMode.Single);
         }
 
         public void OpenCarsMenu()
@@ -102,7 +128,9 @@ namespace Menu
         {
             DisableAllMenus();
             
-            _maps.SetActive(true);
+            //KenoK-edit:
+            _map1.SetActive(true);
+            //---
         }
 
         public void OpenInstructionsMenu()
@@ -127,6 +155,20 @@ namespace Menu
 
             LoadCarInfo(CarsFromJsonsCounter, filenameOfJsonAndPrefab);
         }
+        
+        //KenoK-code:
+        public void ShowNextMap()
+        {
+            _map1.SetActive(false);
+            _map2.SetActive(true);
+        }
+        
+        public void ShowPreviousMap()
+        {
+            _map2.SetActive(false);
+            _map1.SetActive(true);
+        }
+        //---
 
         public void SelectTheCar()
         {
@@ -154,7 +196,7 @@ namespace Menu
             
             LoadCarInfo(CarsFromJsonsCounter, selectedCarFilenameOfJsonAndPrefab);
         }
-        
+
         private void LoadCarsJsons()
         {
             var di = new DirectoryInfo(_path);
@@ -163,7 +205,7 @@ namespace Menu
             foreach (var file in files)
                 _carsFromJsons.Add(LoadJsonCarInfo(file.Name));
         }
-        
+
         private Car LoadJsonCarInfo(in string filename)
         {
             var fs = new FileStream($"./Assets/CarsInfo/{filename}", FileMode.Open, FileAccess.Read, FileShare.Read); // can be buggy

@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Map.OponentAi.WaypointMover;
-using Unity.VisualScripting;
 using UnityEngine;
 using random = UnityEngine.Random;
 
@@ -10,42 +6,53 @@ namespace Map
 {
     public class MapGeneration : MonoBehaviour
     {
-        //[field: SerializeField] private GameObject Car { get; set; }
-        [field: SerializeField] private GameObject Container { get; set; }
-        [field: SerializeField] private GameObject StartMapPart { get; set; }
-        [field: SerializeField] private GameObject EndMapPart { get; set; }
-        [field: SerializeField] private GameObject[] MapParts { get; set; }
-        [field: SerializeField] private int Size { get; set; }
+        [field: SerializeField] private GameObject startMapPart { get; set; }
+        [field: SerializeField] private GameObject endMapPart { get; set; }
+        [field: SerializeField] private GameObject[] mapParts { get; set; }
+        [field: SerializeField] private int size = 25;
 
-        private void Start()
+        private void Awake()
         {
             var position = this.transform.position;
-            //Instantiate(Car, position, Quaternion.identity);
-            
 
-            for (int i = 0; i < Size; i++)
+            for (int i = 0; i < size; i++)
             {
-                var index = random.Range(0, MapParts.Length);
+                var index = random.Range(0, mapParts.Length);
 
                 if (i == 0)
                 {
-                    Instantiate(StartMapPart, position, Quaternion.identity, Container.transform);
-                    PositionMovement.MovePosition.Move(ref position, StartMapPart.tag);
-                    //Waypoints.AddGameObject(StartMapPart);
+                    Instantiate(startMapPart, position, Quaternion.identity, this.transform);
+                    PositionMovement.MovePosition.Move(ref position, startMapPart.tag);
                 }
-                else if (i == Size - 1)
+                else if (i == size - 1)
                 {
-                    Instantiate(EndMapPart, position, Quaternion.identity,Container.transform);
-                    PositionMovement.MovePosition.Move(ref position, EndMapPart.tag);
-                    //Waypoints.AddGameObject(EndMapPart);
+                    Instantiate(endMapPart, position, Quaternion.identity,this.transform);
+                    PositionMovement.MovePosition.Move(ref position, endMapPart.tag);
                 }
                 else
                 {
-                    Instantiate(MapParts[index], position, Quaternion.identity,Container.transform);
-                    PositionMovement.MovePosition.Move(ref position, MapParts[index].tag);
-                    //Waypoints.AddGameObject(MapParts[index]);
+                    Instantiate(mapParts[index], position, Quaternion.identity,this.transform);
+                    PositionMovement.MovePosition.Move(ref position, mapParts[index].tag);
                 }
             }
+        }
+
+        public List<Vector3> FindWaypoints()
+        {
+            var result = new List<Vector3>();
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                var obj = this.transform.GetChild(i);
+                for (int j = 0; j < obj.transform.childCount; j++)
+                {
+                    if (obj.transform.GetChild(j).CompareTag("Waypoint"))
+                    {
+                        result.Add(obj.transform.GetChild(j).position);
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

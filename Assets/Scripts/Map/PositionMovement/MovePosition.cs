@@ -2,7 +2,7 @@
 
 namespace Map.PositionMovement
 {
-    public class MovePosition
+    public static class MovePosition
     {
         public static void Move(ref Vector3 position, string direction)
         {
@@ -14,13 +14,18 @@ namespace Map.PositionMovement
             }
         }
 
-        private static void MoveLeft(ref Vector3 position) {
+        private static void MoveLeft(ref Vector3 position) 
+        {
             position += new Vector3(-100, 0, 100);
         }
-        private static void MoveRight(ref Vector3 position) {
+        
+        private static void MoveRight(ref Vector3 position) 
+        {
             position += new Vector3(100, 0, 100);
         }
-        private static void MoveForward(ref Vector3 position) {
+        
+        private static void MoveForward(ref Vector3 position) 
+        {
             position += new Vector3(0, 0, 100);
         }
     }
