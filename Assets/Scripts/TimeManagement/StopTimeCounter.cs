@@ -13,7 +13,6 @@ namespace TimeManagement
 
         public static bool IsTriggered;
         public static string WhoTriggered;
-        public static bool GameOver;
 
         private void Awake()
         {
@@ -27,7 +26,6 @@ namespace TimeManagement
                 TimeCounterController.EndTimer();
                 WhoTriggered = other.transform.tag;
                 IsTriggered = true;
-                GameOver = true;
                 return;
             }
             

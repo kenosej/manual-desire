@@ -12,15 +12,14 @@ namespace Map.OpponentAI
       
       private List<Vector3> WayPoints { get; set; }
       private Vector3 CurrentWaypoint { get; set; }
+      private Vector3 TargetPosition;
       private int WayPointCounter = 0;
+      private float SpeedForRoation = 2.0f;
       private bool IsFinishingLineReached = false;
 
-      private Vector3 TargetPosition;
-      private float SpeedForRoation = 2.0f;
-      
       private void Start()
       {
-         this.transform.position = new Vector3(-2.25f, 0, 0);
+         this.transform.position = new Vector3(-2.2f, 0, 0);
          WayPoints = MapGenerator.FindWaypoints();
          CurrentWaypoint = WayPoints[0];
          TargetPosition = WayPoints[1];
@@ -30,15 +29,12 @@ namespace Map.OpponentAI
       {
          if (TimeCounterController.TimerGoing == true)
             NavigateMap();
-       
       }
       
       private void NavigateMap()
       {
          if (IsFinishingLineReached)
-         {
             return;
-         }
 
          if (Vector3.Distance(this.transform.position, CurrentWaypoint) >= 0.02f)
          {
@@ -46,9 +42,7 @@ namespace Map.OpponentAI
                this.transform.position, 
                CurrentWaypoint,
                Speed * Time.deltaTime);
-            
-            //TODO: Rotate the car towards the target waypoint
-            
+
             Vector3 TargetDirection = TargetPosition - this.transform.position;
             float SingleStep = SpeedForRoation * Time.deltaTime;
 
@@ -57,7 +51,6 @@ namespace Map.OpponentAI
                TargetDirection, 
                SingleStep, 
                0.0f);
-            
             
             transform.rotation = Quaternion.LookRotation(NewDirection);
             return;

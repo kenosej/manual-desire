@@ -11,7 +11,6 @@ namespace TimeManagement
     {
         private float ElapsedTime;
         private TimeSpan TimePlaying;
-
         public Text TimeCounter;
         public static Text FinalTime;
         public static bool TimerGoing;
@@ -37,7 +36,7 @@ namespace TimeManagement
                 BeginTimer();
                 GameIsStarted = false;
             }
-
+            
             FinalTime = TimeCounter;
         }
 
@@ -63,7 +62,6 @@ namespace TimeManagement
                 TimePlaying = TimeSpan.FromSeconds(ElapsedTime);
                 string timePlayingStr = "Time: " + TimePlaying.ToString("mm':'ss':'ff");
                 TimeCounter.text = timePlayingStr;
-              
                 yield return null;
             }
         }
