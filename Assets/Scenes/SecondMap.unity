@@ -1764,6 +1764,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8303151665054064672, guid: 75a30b3c6d56531478d364c26b6c9f2a, type: 3}
+      propertyPath: Speed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303151665054064672, guid: 75a30b3c6d56531478d364c26b6c9f2a, type: 3}
       propertyPath: MapGenerator
       value: 
       objectReference: {fileID: 333402584}
