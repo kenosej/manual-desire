@@ -3,13 +3,13 @@ using System;
 using System.IO;
 using UnityEngine;
 using Cars.Models;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 using Cars.InputScripts;
 using Newtonsoft.Json.Linq;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Menu
 {
@@ -111,13 +111,11 @@ namespace Menu
             var selectedMapIndex = FetchMapIndexOfSelectedMap();
 
             foreach (var mapModel in _mapsFromJsons)
-            {
                 if (mapModel.MapIndex == selectedMapIndex)
                 {
                     SceneManager.LoadScene(mapModel.SceneName, LoadSceneMode.Single);
                     return;
                 }
-            }
 
             throw new Exception("Play scene not loaded!");
         }

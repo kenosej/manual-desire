@@ -85,17 +85,11 @@ namespace Cars.Movement
                 float avgRPMOfDriveWheels;
 
                 if (Car.CalcDrive == Drive.Front)
-                {
                     avgRPMOfDriveWheels = wheelsColliders.Take(2).Average(wc => wc.rpm);
-                }
                 else if (Car.CalcDrive == Drive.Rear)
-                {
                     avgRPMOfDriveWheels = wheelsColliders.TakeLast(2).Average(wc => wc.rpm);
-                }
                 else
-                {
                     avgRPMOfDriveWheels = wheelsColliders.Average(wc => wc.rpm);
-                }
                 
                 // * 60, cuz from m/min to m/h, then /1000 to km/h
                 return Mathf.Abs(perimeter * avgRPMOfDriveWheels * 60 / 1000);
@@ -104,7 +98,6 @@ namespace Cars.Movement
         
         [field: SerializeField] public bool Clutch { get; set; }
         [field: SerializeField] public bool ShiftingReady { get; set; }
-        
         [field: SerializeField] public GearsEnum CurrentGear { get; set; } = GearsEnum.Neutral;
         [field: SerializeField] public bool[] GearsReceiver { get; set; } = new bool[10]; // NEUTRAL, 1-8, REVERSE
         

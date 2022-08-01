@@ -36,7 +36,7 @@ namespace Cars.CameraController
 			Quaternion currentRotation = Quaternion.Euler(0, myAngle, 0);
 			transform.position = car.position;
 			transform.position -= currentRotation * Vector3.forward*distance;
-			Vector3 temp = transform.position; //temporary variable so Unity doesn't complain
+			Vector3 temp = transform.position;
 			temp.y = myHeight;
 			transform.position = temp;
 			transform.LookAt(car);
@@ -47,7 +47,7 @@ namespace Cars.CameraController
 		
 			if (localVelocity.z < -0.1f)
 			{
-				Vector3 temp = _rotationVector; //because temporary variables seem to be removed after a closing bracket "}" we can use the same variable name multiple times.
+				Vector3 temp = _rotationVector;
 				temp.y = car.eulerAngles.y + 180;
 				_rotationVector = temp;
 			}
@@ -59,7 +59,7 @@ namespace Cars.CameraController
 			}
 		
 			float acc = _rB.velocity.magnitude;
-			_camera.fieldOfView = defaultFOV + acc * zoomRatio * Time.deltaTime;  //he removed * Time.deltaTime but it works better if you leave it like this.
+			_camera.fieldOfView = defaultFOV + acc * zoomRatio * Time.deltaTime;
 		}
 	}
 }

@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 using random = UnityEngine.Random;
 
 namespace Map
@@ -40,16 +40,14 @@ namespace Map
         public List<Vector3> FindWaypoints()
         {
             var result = new List<Vector3>();
+            
             for (int i = 0; i < this.transform.childCount; i++)
             {
                 var obj = this.transform.GetChild(i);
+                
                 for (int j = 0; j < obj.transform.childCount; j++)
-                {
                     if (obj.transform.GetChild(j).CompareTag("Waypoint"))
-                    {
                         result.Add(obj.transform.GetChild(j).position);
-                    }
-                }
             }
 
             return result;

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Cars.Movement;
 
 namespace Cars.Models
 {
@@ -19,9 +17,7 @@ namespace Cars.Models
         // calculated
         public float RadianScalar => Numerator / Denominator;
         public float ScaledRadianEndpoint => Mathf.PI * (Denominator / Numerator);
-
         public float ScaledRadianPeak => ScaledRadianEndpoint / 2f;
-
         public float DeltaTorque => HighestTorque - LowestTorque;
     }
 }

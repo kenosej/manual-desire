@@ -1,11 +1,7 @@
-using System.Reflection.Emit;
 using UnityEngine;
 using Cars.Movement;
-using UnityEngine.SceneManagement;
-
-//KenoK-code:
 using TimeManagement;
-//---
+using UnityEngine.SceneManagement;
 
 namespace Menu
 {
@@ -16,10 +12,8 @@ namespace Menu
         private GameObject _lost;
         private ParentControl _pC;
         
-        //KenoK-code:
         private GameObject _win;
         private GameObject _dnf;
-        //---
         
         private void Awake()
         {
@@ -29,18 +23,14 @@ namespace Menu
             _pause = transform.Find("Pause").gameObject;
             _lost = transform.Find("Lost").gameObject;
             
-            //KenoK-code:
             _win = transform.Find("Win").gameObject;
             _dnf = transform.Find("DNF").gameObject;
-            //---
             
             _pause.SetActive(true);
             _lost.SetActive(false);
             
-            //KenoK-code:
             _win.SetActive(false);
             _dnf.SetActive(false);
-            //---
             
             _pC = transform.Find("/Car").GetChild(0).gameObject.GetComponent<ParentControl>();
         }
@@ -56,7 +46,6 @@ namespace Menu
                 return;
             }
             
-            //KenoK-code:
             if (StopTimeCounter.IsTriggered == true)
             {
                 if (StopTimeCounter.WhoTriggered == "Player")
@@ -77,7 +66,6 @@ namespace Menu
                     return;
                 }
             }
-            //---
             
             if (_pC.IsPaused)
             {

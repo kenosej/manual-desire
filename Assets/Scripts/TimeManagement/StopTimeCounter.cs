@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cars.Models;
 using UnityEngine;
-using Cars;
-using Unity.VisualScripting;
 
 namespace TimeManagement
 {
@@ -37,7 +31,6 @@ namespace TimeManagement
                 TimeCounterController.EndTimer();
                 WhoTriggered = carTag;
                 IsTriggered = true;
-                return;
             }
         }
     }

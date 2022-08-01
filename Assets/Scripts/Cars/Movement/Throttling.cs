@@ -81,10 +81,10 @@ namespace Cars.Movement
         {
             var scaledRadian = _pC.Radian * gear.RadianScalar;
 
-            if (Mathf.Sin(scaledRadian) > 0.9999f)
-            {
-                //Debug.Log($"({gear.Level}. gear) {speedInKmh} km/h | PEAK");
-            }
+            //if (Mathf.Sin(scaledRadian) > 0.9999f)
+            //{
+            //    Debug.Log($"({gear.Level}. gear) {speedInKmh} km/h | PEAK");
+            //}
             
             if (_pC.Radian < gear.ScaledRadianEndpoint)
             {

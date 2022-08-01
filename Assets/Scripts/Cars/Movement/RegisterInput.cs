@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Cars.InputScripts;
 using UnityEngine.InputSystem;

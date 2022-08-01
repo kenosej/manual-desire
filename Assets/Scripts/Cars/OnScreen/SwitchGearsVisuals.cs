@@ -54,9 +54,7 @@ namespace Cars.OnScreen
             _gears[0] = transform.Find("GearNeutral").gameObject.GetComponent<Image>();
 
             for (int i = 1; i < 9; i++)
-            {
                 _gears[i] = transform.Find($"Gear{i}").gameObject.GetComponent<Image>();
-            }
 
             _gears[9] = transform.Find("GearReverse").gameObject.GetComponent<Image>();
         }

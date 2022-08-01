@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using TimeManagement;
+using System.Collections.Generic;
 
 namespace Map.OpponentAI
 {
@@ -57,7 +56,7 @@ namespace Map.OpponentAI
          }
 
          WayPointCounter++;
-         if (WayPointCounter == WayPoints.Count) //Changed to: WayPoints.Count, from: WayPoints.Count - 1.
+         if (WayPointCounter == WayPoints.Count) // Changed to: WayPoints.Count, from: WayPoints.Count - 1.
             IsFinishingLineReached = true;
 
          CurrentWaypoint = WayPoints[WayPointCounter];
